@@ -1,0 +1,18 @@
+package tres.main;
+
+import tres.entity.Author;
+
+
+public class Main {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		String tb_name=Author.class.toString();
+		tb_name=tb_name.substring(tb_name.lastIndexOf(".")+1).toLowerCase();
+		System.out.println(tb_name);
+	}
+
+}

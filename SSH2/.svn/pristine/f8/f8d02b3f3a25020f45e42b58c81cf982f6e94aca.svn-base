@@ -1,0 +1,67 @@
+package tres.action;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import tres.entity.Reader;
+import tres.inter.IService;
+
+import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionSupport;
+
+@SuppressWarnings("unchecked")
+public class LoginAction extends ActionSupport {
+
+	@Resource
+	private IService service;
+
+	private Reader reader;
+
+	public Reader getReader() {
+		return reader;
+	}
+
+	public void setReader(Reader reader) {
+		this.reader = reader;
+	}
+
+	public String register() {
+		if (null != reader) {
+			service.addT(reader);
+			return "success";
+		}
+		return "error";
+	}
+
+	public String login() {
+		if (null != reader) {
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("username", reader.getUsername());
+
+			List<Reader> readers = service.findByCondition(Reader.class, map,
+					0, 0);
+			if (null != readers && readers.size() > 0) {
+				Reader readerFind = readers.get(0);
+				if (null != readerFind
+						&& readerFind.getPassword()
+								.equals(reader.getPassword())) {
+					Map session = ActionContext.getContext().getSession();
+					session.put("user", readerFind);
+					return "index";
+				}
+			}
+
+		}
+		return "error";
+	}
+
+	public String logout() {
+		Map session = ActionContext.getContext().getSession();
+		session.remove("user");
+		return "index";
+	}
+
+}

@@ -1,0 +1,107 @@
+@CHARSET "UTF-8";
+*{
+	padding:0;
+	margin:0;
+	list-style:none;
+	border:0
+}
+body{
+	color:#333;
+	background:#fafafa
+}
+a{
+	text-decoration:none;
+	color:#333
+}
+a:hover{
+	text-decoration:underline;
+	color:#FF5400
+}
+.border{
+	border:1px solid #e8e8e8;
+}
+.layout1000{
+	width:1000px;
+	margin:0 auto
+}
+.line-height30{
+	height:30px;
+	line-height:30px
+}
+.clear{
+	clear:both
+}
+.hd{
+	background:#FF5400;
+	color:#fff;
+	text-indent:10px;
+	font-size:14px
+}
+.empty-height10{
+	height:10px
+}
+.empty-width10{
+	width:10px
+}
+.float-left{
+	float:left
+}
+.top-box{
+	background:#f5f5f5;
+	border-bottom:1px solid #e8e8e8
+}
+.top-box ul{
+	float:right
+}
+.top-box ul li{
+	float:left;
+	padding-left:5px;
+	padding-right:5px
+}
+.banner-box{
+	height:120px;
+	background:#e8e8e8
+}
+.menu-box{
+	color:#fff;
+	background:#FF5400
+}
+.menu-box .menu-nav li{
+	float:left
+}
+.menu-box .menu-nav li a{
+	display:inline-block;
+	color:#fff;
+	padding-left:5px;
+	padding-right:5px;
+	text-decoration:none
+}
+.menu-box .menu-nav li a:hover{
+	background:#D33700
+}
+.left-content-box{
+	width:230px;
+}
+.left-content-box .hotbook-box ul li{
+	height:25px;
+	line-height:25px
+}
+.left-content-box .hotbook-box ul li span{
+	width:15px; 
+	text-align:center; 
+	display:inline-block
+}
+.right-content-box{
+	width:760px;
+	height:500px
+}
+.bottom-box{
+	border-top:1px solid #e8e8e8;
+	background:#f5f5f5;
+	display:block
+}
+.bottom-box ul li{
+	text-align:center;
+	line-height:30px;
+	height:30px
+}

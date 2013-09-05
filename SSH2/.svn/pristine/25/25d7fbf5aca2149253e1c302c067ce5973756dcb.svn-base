@@ -1,0 +1,32 @@
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+
+	<!-- 将Action的创建交给spring来管理 -->
+	<constant name="struts.objectFactory" value="spring" />
+
+	<!-- 更改struts2请求Action的后缀名，默认为action。若想去掉后缀，设为","即可 <constant name="struts.action.extension" 
+		value="do"></constant> -->
+	<package name="struts" namespace="/" extends="struts-default">
+
+
+		<action name="Login_*" method="{1}" class="loginAction">
+			<result name="success">WEB-INF/page/success.jsp</result>
+			<result name="error" type="redirect">/index.jsp</result>
+
+		</action>
+		<action name="Admin_*" method="{1}" class="adminAction">
+			<result name="success">WEB-INF/page/success.jsp</result>
+			<result name="error">WEB-INF/page/error.jsp</result>
+			<result name="manager">WEB-INF/page/admin/manager.jsp</result>
+			<result name="json">WEB-INF/page/json.jsp</result>
+		</action>
+		<action name="Novel_*" method="{1}" class="novelAction">
+			<result name="index">realIndex.jsp</result>
+			<result name="detail">novelDetail.jsp</result>
+			<result name="content">novelContent.jsp</result>
+		</action>
+	</package>
+</struts>

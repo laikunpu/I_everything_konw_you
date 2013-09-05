@@ -1,0 +1,133 @@
+package tres.action;
+
+import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import tres.entity.Book;
+import tres.entity.Chapter;
+import tres.entity.Pagination;
+import tres.inter.IService;
+
+import com.opensymphony.xwork2.ActionSupport;
+
+public class NovelAction extends ActionSupport {
+	@Resource
+	private IService service;
+
+	private List<Book> books;
+	private List<Chapter> chapters;
+	private Book book;
+	private Chapter chapter;
+	private String content;
+	private Pagination page;
+
+	// private int page;
+
+	public List<Book> getBooks() {
+		return books;
+	}
+
+	public void setBooks(List<Book> books) {
+		this.books = books;
+	}
+
+	public List<Chapter> getChapters() {
+		return chapters;
+	}
+
+	public void setChapters(List<Chapter> chapters) {
+		this.chapters = chapters;
+	}
+
+	public Book getBook() {
+		return book;
+	}
+
+	public void setBook(Book book) {
+		this.book = book;
+	}
+
+	public Chapter getChapter() {
+		return chapter;
+	}
+
+	public void setChapter(Chapter chapter) {
+		this.chapter = chapter;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public Pagination getPage() {
+		return page;
+	}
+
+	public void setPage(Pagination page) {
+		this.page = page;
+	}
+
+	// public int getPage() {
+	// return page;
+	// }
+	//
+	// public void setPage(int page) {
+	// this.page = page;
+	// }
+
+	public String goIndex() {
+		int currentPage = 0;
+		int bookcount = service.getCount(Book.class, "bookname", null);
+		if (page != null) {
+			currentPage = page.getCurrentPage();
+		}
+		books = service.getListByCondition(Book.class, "booktotalnumber",
+				false, currentPage * 10, 10);
+		// System.out.println("books.size():" + books.size());
+
+		page = new Pagination(bookcount, currentPage, 10);
+		System.out.println(page.toString());
+		System.out.println("书的总数目:" + bookcount);
+		return "index";
+	}
+
+	public String goDetail() {
+		// System.out.println("book.bookname:" + book.getBookname());
+		if (null != book && !"".equals(book.getBookname())) {
+
+			chapters = service.findChapterByName(book.getBookname());
+		}
+		return "detail";
+	}
+
+	public String goContent() {
+
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("novelname", chapter.getNovelname());
+		map.put("chapternumber", String.valueOf(chapter.getChapternumber()));
+		chapters = service.findByCondition(Chapter.class, map);
+		map = null;
+		if (chapters != null && chapters.size() > 0) {
+			chapter = chapters.get(0);
+			try {
+				content = new String(chapter.getChaptercontent(), "UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return "content";
+		}else{
+			
+		}
+		// System.out.println(content);
+		return null;
+	}
+}

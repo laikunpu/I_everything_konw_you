@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
+	<!-- 启用spring注解支持 -->
+	<context:annotation-config />
+
+	<!-- 第一种方法配置sessionFactory <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"> 
+		<property name="configLocation" value="classpath:hibernate.cfg.xml"></property> 
+		</bean> -->
+	<!-- 第二种方法配置sessionFactory -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName">
+			<value>com.mysql.jdbc.Driver</value>
+		</property>
+		<property name="url">
+			<value>jdbc:mysql://localhost:3306/ssh2</value>
+		</property>
+		<property name="username">
+			<value>root</value>
+		</property>
+		<property name="password">
+			<value>123456</value>
+		</property>
+	</bean>
+
+
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+		<!-- 映射实体pojo 跟数据库表table -->
+		<property name="packagesToScan">
+			<list>
+				<value>tres.entity</value>
+			</list>
+		</property>
+
+	</bean>
+
+
+	<!-- 第一种方法配置事务 -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<tx:advice id="txadvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="add*" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="del*" propagation="REQUIRED"
+				no-rollback-for="MyException" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="find*" propagation="REQUIRED" />
+			<tx:method name="*" propagation="REQUIRED" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+	<aop:config>
+		<aop:pointcut id="daoMethods" expression="execution(* tres.dao.*.*(..))" />
+		<aop:advisor advice-ref="txadvice" pointcut-ref="daoMethods" />
+	</aop:config>
+	<!-- 第二种方法配置事务 <bean id="transactionProxy" class= "org.springframework.transaction.interceptor.TransactionProxyFactoryBean" 
+		abstract="true"> 必须为true时CGLIB才不用强制编写DAO接口 <property name="proxyTargetClass" 
+		value="true" /> <property name="transactionManager" ref="transactionManager" 
+		/> <property name="transactionAttributes"> <props> <prop key="add*">PROPAGATION_REQUIRED, 
+		-Exception</prop> <prop key="del*">PROPAGATION_REQUIRED, +MyException</prop> 
+		<prop key="update">PROPAGATION_REQUIRED</prop> <prop key="*">PROPAGATION_REQUIRED, 
+		readOnly</prop> </props> </property> </bean> <bean id="userService" parent="transactionProxy"> 
+		<property name="target" ref="iUserService"></property> </bean> <bean id="iUserService" 
+		class="test.service.UserServiceImpl"></bean> -->
+
+	<bean id="service" class="tres.service.ServiceImpl"></bean>
+
+	<bean id="dao" class="tres.dao.DaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+
+	<!-- spring管理struts2的Action -->
+	<bean id="loginAction" class="tres.action.LoginAction" scope="prototype"></bean>
+	<bean id="adminAction" class="tres.action.AdminAction" scope="prototype"></bean>
+	<bean id="novelAction" class="tres.action.NovelAction" scope="prototype"></bean>
+	<bean id="PhoneAction" class="tres.action.phone.PhoneAction" scope="prototype"></bean>
+</beans>

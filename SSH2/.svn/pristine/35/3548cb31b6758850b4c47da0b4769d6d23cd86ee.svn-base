@@ -1,0 +1,96 @@
+package tres.entity;
+
+public class Pagination {
+	private int totalNum;// 总条数
+	private int totalPage;// 总页数
+	private int startPage;// 开始页
+	private int endPage;// 结束页
+	private int currentPage;// 当前页
+	private int showNum;// 显示页数
+
+	public int getTotalNum() {
+		return totalNum;
+	}
+
+	public void setTotalNum(int totalNum) {
+		this.totalNum = totalNum;
+	}
+
+	public int getTotalPage() {
+		return totalPage;
+	}
+
+	public void setTotalPage(int totalPage) {
+		this.totalPage = totalPage;
+	}
+
+	public int getStartPage() {
+		return startPage;
+	}
+
+	public void setStartPage(int startPage) {
+		this.startPage = startPage;
+	}
+
+	public int getEndPage() {
+		return endPage;
+	}
+
+	public void setEndPage(int endPage) {
+		this.endPage = endPage;
+	}
+
+	public int getCurrentPage() {
+		return currentPage;
+	}
+
+	public void setCurrentPage(int currentPage) {
+		this.currentPage = currentPage;
+	}
+
+	public int getShowNum() {
+		return showNum;
+	}
+
+	public void setShowNum(int showNum) {
+		this.showNum = showNum;
+	}
+
+	public Pagination(int totalNum, int currentPage, int showNum) {
+		this.totalNum = totalNum;
+		this.currentPage = currentPage;
+		this.showNum = showNum;
+		initData(totalNum, currentPage, showNum);
+	}
+
+	public Pagination() {
+	}
+
+	private void initData(int totalNum, int currentPage, int showNum) {
+		int half = showNum / 2;
+		if (totalNum > 0) {
+			totalPage = totalNum / showNum + 1;
+		}
+		if (currentPage < 0) {
+			currentPage = 0;
+		} else if (currentPage > totalNum) {
+			currentPage = totalNum;
+		}
+		startPage = currentPage - half+2;
+		if (startPage < 1) {
+			startPage = 1;
+		}
+		endPage = currentPage + half+1;
+		if (endPage > totalPage||totalPage<=showNum) {
+			endPage = totalPage;
+		}
+	}
+
+	@Override
+	public String toString() {
+		return "Pagination [totalNum=" + totalNum + ", startPage=" + startPage
+				+ ", endPage=" + endPage + ", currentPage=" + currentPage
+				+ ", showNum=" + showNum + "]";
+	}
+
+}

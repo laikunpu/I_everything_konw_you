@@ -1,0 +1,36 @@
+package tres.action;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import org.apache.struts2.ServletActionContext;
+
+import tres.inter.IService;
+
+import com.opensymphony.xwork2.ActionSupport;
+
+@SuppressWarnings("serial")
+public class LoginAction extends ActionSupport {
+
+	@Resource
+	private IService service;
+
+
+	public String addUser() {
+		System.out.println("Ìí¼Ó³É¹¦£¡");
+		return "success";
+	}
+
+	public String findUser() {
+		return null;
+	}
+
+	public String findAllUser() {
+		return "success";
+	}
+
+	public String delUser() {
+		return null;
+	}
+}

@@ -1,0 +1,12 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+</div>
+<!-- 声明 -->
+<div class="bottom-box">
+	<ul class="layout1000 line-height30">
+		<li>@copy;CopyRight 2012-2013 | Powered by XXX,All Rights Reserved.</li>
+		<li>地址：XXX</li>
+	</ul>
+</div>
+</body>
+</html>
