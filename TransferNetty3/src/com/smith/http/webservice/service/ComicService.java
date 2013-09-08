@@ -6,7 +6,7 @@ import java.util.List;
 import com.smith.http.webservice.entity.Bean_ComicAndMovie;
 import com.smith.http.webservice.entity.Bean_Res;
 import com.smith.http.webservice.entity.Bean_Result;
-import com.smith.http.webservice.entity.Bean_Type;
+import com.smith.http.webservice.entity.Bean_Heard;
 import com.smith.http.webservice.global.Msg_Type;
 import com.smith.http.webservice.global.TN_Constant;
 
@@ -24,7 +24,7 @@ public class ComicService {
 
 		Bean_Res<Bean_ComicAndMovie> res = new Bean_Res<Bean_ComicAndMovie>();
 		List<Bean_ComicAndMovie> comics = new ArrayList<Bean_ComicAndMovie>();
-		Bean_Type type = new Bean_Type(Msg_Type.CARTOON_CODE);
+		Bean_Heard type = new Bean_Heard(Msg_Type.CARTOON_CODE);
 
 		res.setBean_Type(type);
 		res.setT(comics);

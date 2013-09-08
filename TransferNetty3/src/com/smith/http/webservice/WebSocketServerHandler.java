@@ -40,7 +40,7 @@ import org.jboss.netty.util.CharsetUtil;
 import com.google.gson.Gson;
 import com.smith.http.webservice.action.ActionTop;
 import com.smith.http.webservice.entity.Bean_Result;
-import com.smith.http.webservice.entity.Bean_Type;
+import com.smith.http.webservice.entity.Bean_Heard;
 import com.smith.http.webservice.global.TN_Constant;
 import com.smith.http.webservice.util.TNUtil;
 

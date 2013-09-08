@@ -9,12 +9,13 @@
         android:targetSdkVersion="10" />
 
     <application
+        android:name="com.smith.activity.Knowyou"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.smith.activity.MainActivity"
+            android:name="com.smith.activity.SplashActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,6 +23,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".BackgroundActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent" />
+        <activity
+            android:name=".ChannelActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".FragmentTabsPager"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".FragmentStackSupport"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

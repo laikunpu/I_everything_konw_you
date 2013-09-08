@@ -1,4 +1,4 @@
-package com.smith.http.webservice.entity;
+package com.smith.entity;
 
 import java.util.List;
 

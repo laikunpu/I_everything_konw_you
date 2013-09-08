@@ -1,6 +1,6 @@
 package com.smith.http.webservice.entity;
 
-public class Bean_Type {
+public class Bean_Heard {
 	private int type_code;
 
 
@@ -12,11 +12,11 @@ public class Bean_Type {
 		this.type_code = type_code;
 	}
 
-	public Bean_Type(int type_code) {
+	public Bean_Heard(int type_code) {
 		this.type_code = type_code;
 	}
 
-	public Bean_Type() {
+	public Bean_Heard() {
 	}
 
 }
