@@ -6,8 +6,8 @@ import com.smith.http.webservice.service.ComicService;
 public class ComicAction {
 	private ComicService service = new ComicService();
 
-	public Bean_Result getComic_cartoon(String json) {
+	public Bean_Result getComic_Recommend(String json) {
 
-		return service.getComic_Recommend();
+		return service.getComic_Recommend(json);
 	}
 }

@@ -1,5 +1,6 @@
 package com.smith.activity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.smith.db.DBHelper;
@@ -29,6 +30,15 @@ public class SplashActivity extends BaseActivity {
 
 		dao = new DaoImpl(this);
 		Knowyou.getApplication().uis = dao.get_ui();
+		if (null == Knowyou.getApplication().uis || Knowyou.getApplication().uis.size() == 0) {
+			Knowyou.getApplication().uis = new ArrayList<Bean_UI>();
+			Bean_UI ui1 = new Bean_UI("漫画", "", "", "");
+			Bean_UI ui2 = new Bean_UI("动画", "", "", "");
+			Bean_UI ui3 = new Bean_UI("电影", "", "", "");
+			Knowyou.getApplication().uis.add(ui1);
+			Knowyou.getApplication().uis.add(ui2);
+			Knowyou.getApplication().uis.add(ui3);
+		}
 		DisplayMetrics dm = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(dm);
 		// System.out.println("dm.widthPixels=" + dm.widthPixels);
@@ -64,18 +74,11 @@ public class SplashActivity extends BaseActivity {
 				Bean_UI_Res bean_UI_Res = Knowyou.getApplication().gson.fromJson(
 						KYHttpClient.get(ServiceApi.GET_MODULE), Bean_UI_Res.class);
 				uis = bean_UI_Res.getUis();
-				if (null == uis && uis.size() == 0) {
-					Bean_UI ui1 = new Bean_UI("漫画", "", "", "");
-					Bean_UI ui2 = new Bean_UI("动画", "", "", "");
-					Bean_UI ui3 = new Bean_UI("电影", "", "", "");
-					uis.add(ui1);
-					uis.add(ui2);
-					uis.add(ui3);
+				if (null != uis) {
+					dao.delete_table(DBHelper.TABLE_BEAN_UI);
+					dao.add_uis(uis);
 				}
-				Knowyou.getApplication().uis = dao.get_ui();
-				dao.delete_table(DBHelper.TABLE_BEAN_UI);
-				dao.add_uis(uis);
-				Knowyou.getApplication().uis = uis;
+
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
