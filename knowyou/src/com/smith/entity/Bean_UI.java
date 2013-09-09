@@ -5,8 +5,7 @@ public class Bean_UI {
 	private String background_url;  //如有背景图,换上背景图.
 	private String background_color;  //UI模块背景颜色
 	private String module_url;  //UI模块数据
-	
-	
+
 	public String getName() {
 		return name;
 	}

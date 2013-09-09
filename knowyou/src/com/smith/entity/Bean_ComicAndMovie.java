@@ -65,8 +65,8 @@ public class Bean_ComicAndMovie {
 		this.size = size;
 	}
 
-	public Bean_ComicAndMovie(String name, int type, String summary, String cover_url, String detail_url,
-			String download_url, String size) {
+	public Bean_ComicAndMovie(String name, int type, String summary, String cover_url, String detail_url, String download_url,
+			String size) {
 		this.name = name;
 		this.type = type;
 		this.summary = summary;

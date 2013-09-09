@@ -24,9 +24,9 @@ public class ComicService {
 
 		Bean_Res<Bean_ComicAndMovie> res = new Bean_Res<Bean_ComicAndMovie>();
 		List<Bean_ComicAndMovie> comics = new ArrayList<Bean_ComicAndMovie>();
-		Bean_Heard type = new Bean_Heard(Msg_Type.CARTOON_CODE);
+		Bean_Heard heard = new Bean_Heard(Msg_Type.CARTOON_CODE);
 
-		res.setBean_Type(type);
+		res.setBean_Heard(heard);
 		res.setT(comics);
 		result.setT(res);
 		return comics;

@@ -9,8 +9,8 @@ public class ThreadDataLoader extends Thread {
 	private Handler mHandler;
 	private DataCallback mCallback;
 
-	public ThreadDataLoader(Handler mHandle, DataCallback callback) {
-		this.mHandler = mHandler;
+	public ThreadDataLoader(Handler mHandle, DataCallback mCallback) {
+		this.mHandler = mHandle;
 		this.mCallback = mCallback;
 	}
 
