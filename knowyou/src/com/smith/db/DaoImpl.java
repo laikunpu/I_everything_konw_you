@@ -56,12 +56,12 @@ public class DaoImpl implements IDao {
 	public boolean add_ui(Bean_UI ui) {
 		// TODO Auto-generated method stub
 		open();
-		if (exist(ui.getName(), DBHelper.BEAN_UI, DBHelper.MODULE_NAME)) {
+		if (exist(ui.getName(), DBHelper.TABLE_BEAN_UI, DBHelper.MODULE_NAME)) {
 			return false;
 		}
 
 		try {
-			StringBuffer sql = new StringBuffer("INSERT INTO " + DBHelper.BEAN_UI + " (" + DBHelper.MODULE_NAME + ","
+			StringBuffer sql = new StringBuffer("INSERT INTO " + DBHelper.TABLE_BEAN_UI + " (" + DBHelper.MODULE_NAME + ","
 					+ DBHelper.MODULE_BACKGROUND_URL + "," + DBHelper.MODULE_BACKGROUND_COLOR + ","
 					+ DBHelper.MODULE_URL + ")");
 
@@ -100,7 +100,7 @@ public class DaoImpl implements IDao {
 		List<Bean_UI> uis = null;
 		try {
 			open();
-			String sql = "Select * From " + DBHelper.BEAN_UI;
+			String sql = "Select * From " + DBHelper.TABLE_BEAN_UI;
 
 			cursor = mdb.rawQuery(sql, null);
 			cursor.moveToFirst();
@@ -122,6 +122,15 @@ public class DaoImpl implements IDao {
 			close();
 		}
 		return uis;
+	}
+
+	@Override
+	public boolean add_uis(List<Bean_UI> uis) {
+		// TODO Auto-generated method stub
+		for (int i = 0; i < uis.size(); i++) {
+			add_ui(uis.get(i));
+		}
+		return true;
 	}
 
 	// @Override

@@ -1,6 +1,12 @@
 package com.smith.activity;
 
+import java.util.List;
 
+import com.smith.db.DBHelper;
+import com.smith.db.DaoImpl;
+import com.smith.db.IDao;
+import com.smith.entity.Bean_UI;
+import com.smith.entity.Bean_UI_Res;
 import com.smith.inter.DataCallback;
 import com.smith.util.HandleResp;
 import com.smith.util.KYHttpClient;
@@ -13,6 +19,7 @@ import android.os.Handler;
 import android.util.DisplayMetrics;
 
 public class SplashActivity extends BaseActivity {
+	private IDao dao;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +27,8 @@ public class SplashActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.splash);
 
+		dao = new DaoImpl(this);
+		Knowyou.getApplication().uis = dao.get_ui();
 		DisplayMetrics dm = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(dm);
 		// System.out.println("dm.widthPixels=" + dm.widthPixels);
@@ -50,9 +59,23 @@ public class SplashActivity extends BaseActivity {
 		@Override
 		public void onStart() {
 			// TODO Auto-generated method stub
+			List<Bean_UI> uis = null;
 			try {
-				HandleResp.handleMsg(KYHttpClient.get(ServiceApi.GET_MODULE), Knowyou.getApplication().uis);
-				System.out.println("Knowyou.getApplication().uis  " + Knowyou.getApplication().uis.size());
+				Bean_UI_Res bean_UI_Res = Knowyou.getApplication().gson.fromJson(
+						KYHttpClient.get(ServiceApi.GET_MODULE), Bean_UI_Res.class);
+				uis = bean_UI_Res.getUis();
+				if (null == uis && uis.size() == 0) {
+					Bean_UI ui1 = new Bean_UI("漫画", "", "", "");
+					Bean_UI ui2 = new Bean_UI("动画", "", "", "");
+					Bean_UI ui3 = new Bean_UI("电影", "", "", "");
+					uis.add(ui1);
+					uis.add(ui2);
+					uis.add(ui3);
+				}
+				Knowyou.getApplication().uis = dao.get_ui();
+				dao.delete_table(DBHelper.TABLE_BEAN_UI);
+				dao.add_uis(uis);
+				Knowyou.getApplication().uis = uis;
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

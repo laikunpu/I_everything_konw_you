@@ -21,7 +21,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	private static final int DB_VERSION = 1;
 
 	// 模块数据表
-	public static final String BEAN_UI = "bean_ui";
+	public static final String TABLE_BEAN_UI = "bean_ui";
 	public static final String _ID = "_id";
 	public static final String MODULE_NAME = "name";
 	public static final String MODULE_BACKGROUND_URL = "background_url";
@@ -31,7 +31,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	/**
 	 * 创建模块表
 	 */
-	private static String SQL_CREATE_MODULE_TABLE = "CREATE TABLE IF NOT EXISTS " + BEAN_UI + " (" + _ID
+	private static String SQL_CREATE_MODULE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_BEAN_UI + " (" + _ID
 			+ " INTEGER PRIMARY KEY AUTOINCREMENT," + MODULE_NAME + " VARCHAR(200)," + MODULE_BACKGROUND_URL
 			+ " VARCHAR(200)," + MODULE_BACKGROUND_COLOR + " VARCHAR(200)," + MODULE_URL + " VARCHAR(200))";
 

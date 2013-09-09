@@ -59,7 +59,7 @@ public class MainActivity extends BaseActivity {
 	private void initData() {
 		setResult(-1);
 		mViews = new ArrayList<View>();
-		uis = new ArrayList<Bean_UI>();
+		uis = Knowyou.getApplication().uis;
 		setGridView();
 		setViewPager();
 	}
@@ -67,15 +67,6 @@ public class MainActivity extends BaseActivity {
 	private void initOnClickListener() {
 	}
 
-	private void setUIData() {
-
-		Bean_UI ui1 = new Bean_UI("漫画", "", "", "");
-		Bean_UI ui2 = new Bean_UI("动画", "", "", "");
-		Bean_UI ui3 = new Bean_UI("电影", "", "", "");
-		uis.add(ui1);
-		uis.add(ui2);
-		uis.add(ui3);
-	}
 
 	private void setGridView() {
 		GridView mGridView = new GridView(this);
@@ -87,7 +78,6 @@ public class MainActivity extends BaseActivity {
 		mGridView.setScrollBarStyle(-1);
 		mGridView.setVerticalSpacing(20);
 		mGridView.setHorizontalSpacing(20);
-		setUIData();
 		ModuleAdapter moduleAdapter = new ModuleAdapter(this, uis);
 		moduleAdapter.setOnClickListener(clickListener);
 		mGridView.setAdapter(moduleAdapter);

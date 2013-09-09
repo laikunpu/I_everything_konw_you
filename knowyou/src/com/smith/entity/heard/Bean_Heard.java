@@ -1,4 +1,4 @@
-package com.smith.http.webservice.entity;
+package com.smith.entity.heard;
 
 public class Bean_Heard {
 	private int type_code;
