@@ -1,6 +1,12 @@
 package com.smith.test;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.smith.http.webservice.dao.DaoImpl;
+import com.smith.http.webservice.entity.Normal_Html;
 import com.smith.http.webservice.global.TN_Constant;
+import com.smith.http.webservice.inter.IDao;
 
 public class TestMain {
 
@@ -9,12 +15,10 @@ public class TestMain {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		String a="tn/sdsd///e";
-		String[] s = a.split("/");
-		for (int i = 0; i < s.length; i++) {
-			System.out.println("s["+i+"]="+s[i]);
-		}
 		
+		ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml"); 
+		IDao dao=context.getBean("dao", DaoImpl.class); 
+		dao.addT(new Normal_Html("1", 2, "3"));
 	}
 
 }

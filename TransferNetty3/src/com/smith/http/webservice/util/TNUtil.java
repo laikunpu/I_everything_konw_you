@@ -38,4 +38,14 @@ public class TNUtil {
 		}
 		return null;
 	}
+	/**
+	 * 根据Class获取类的名字
+	 * 
+	 * @param c
+	 * @return
+	 */
+	public static <T> String getTableName(Class<T> c) {
+		String tb_name = c.toString();
+		return tb_name = tb_name.substring(tb_name.lastIndexOf(".") + 1);
+	}
 }
