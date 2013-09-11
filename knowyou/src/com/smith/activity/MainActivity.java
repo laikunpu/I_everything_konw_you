@@ -59,7 +59,7 @@ public class MainActivity extends BaseActivity {
 	private void initData() {
 		setResult(-1);
 		mViews = new ArrayList<View>();
-		uis = Knowyou.getApplication().uis;
+		uis = KnowyouApplication.getApplication().uis;
 		setGridView();
 		setViewPager();
 	}

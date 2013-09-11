@@ -2,7 +2,7 @@ package com.smith.util;
 
 import java.util.List;
 
-import com.smith.activity.Knowyou;
+import com.smith.activity.KnowyouApplication;
 
 public class HandleResp {
 

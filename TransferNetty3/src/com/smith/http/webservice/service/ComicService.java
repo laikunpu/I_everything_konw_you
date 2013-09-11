@@ -13,6 +13,7 @@ import com.smith.http.webservice.entity.Bean_common;
 import com.smith.http.webservice.entity.Bean_common_Res;
 import com.smith.http.webservice.entity.Bean_UI_Res;
 import com.smith.http.webservice.entity.Bean_Result;
+import com.smith.http.webservice.entity.Bean_second_module;
 import com.smith.http.webservice.entity.heard.Bean_Heard;
 import com.smith.http.webservice.global.Msg_Type;
 import com.smith.http.webservice.global.TN_Constant;
@@ -22,7 +23,7 @@ import com.smith.http.webservice.util.TNUtil;
 public class ComicService {
 	public Bean_Result<Bean_common_Res> getComic_Recommend(String s) {
 		Bean_Result<Bean_common_Res> result = new Bean_Result<Bean_common_Res>(TN_Constant.TYPE_JSON, null);
-		List<Bean_common> comics = initResData(result);
+		List<Bean_second_module> bean_second_modules = initResData(result);
 
 		try {
 			Document doc = null;
@@ -45,19 +46,19 @@ public class ComicService {
 				name = manhuas.get(i).attr("title");
 
 				// 二级链接
-				second_url = TNUrl.ONLINE_COMIC_RECOMMEND+manhuas.get(i).attr("href");
+				second_url = TNUrl.ONLINE_COMIC_RECOMMEND + manhuas.get(i).attr("href");
 
 				Document doc_second = TNUtil.loadUrl(second_url);
-				summary=doc_second.select("div.intro").first().text();
-				if(summary!=null)
-					summary=summary.replaceAll("由爱漫画收集自互联网－爱漫画，让你爱上漫画！", "");
-				cover_url=TNUrl.ONLINE_COMIC_RECOMMEND+doc_second.select("div.bookCover").first().select("img").first().attr("src");
-				detail_url=second_url;
-				
-				
-				Bean_common comic = new Bean_common(name, type, summary, cover_url,
-						detail_url, null, null);
-				comics.add(comic);
+				summary = doc_second.select("div.intro").first().text();
+				if (summary != null)
+					summary = summary.replaceAll("由爱漫画收集自互联网－爱漫画，让你爱上漫画！", "");
+				cover_url = TNUrl.ONLINE_COMIC_RECOMMEND
+						+ doc_second.select("div.bookCover").first().select("img").first().attr("src");
+				detail_url = second_url;
+
+				Bean_common comic = new Bean_common(name, type, summary, cover_url, detail_url, null, null);
+				Bean_second_module module = new Bean_second_module("推荐漫画", 1, comic);
+				bean_second_modules.add(module);
 
 			}
 
@@ -69,15 +70,15 @@ public class ComicService {
 		return result;
 	}
 
-	private List<Bean_common> initResData(Bean_Result<Bean_common_Res> result) {
+	private List<Bean_second_module> initResData(Bean_Result<Bean_common_Res> result) {
 
 		Bean_common_Res res = new Bean_common_Res();
-		List<Bean_common> comics = new ArrayList<Bean_common>();
+		List<Bean_second_module> bean_second_modules = new ArrayList<Bean_second_module>();
 		Bean_Heard heard = new Bean_Heard(Msg_Type.CARTOON_CODE);
 
 		res.setBean_Heard(heard);
-		res.setCommons(comics);
+		res.setBean_second_modules(bean_second_modules);
 		result.setT(res);
-		return comics;
+		return bean_second_modules;
 	}
 }

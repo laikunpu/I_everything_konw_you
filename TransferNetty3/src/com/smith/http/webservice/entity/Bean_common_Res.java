@@ -8,7 +8,7 @@ public class Bean_common_Res {
 
 	private Bean_Heard bean_Heard;
 
-	private List<Bean_common> commons;
+	private List<Bean_second_module> bean_second_modules;
 
 	public Bean_Heard getBean_Heard() {
 		return bean_Heard;
@@ -18,17 +18,17 @@ public class Bean_common_Res {
 		this.bean_Heard = bean_Heard;
 	}
 
-	public List<Bean_common> getCommons() {
-		return commons;
+	public List<Bean_second_module> getBean_second_modules() {
+		return bean_second_modules;
 	}
 
-	public void setCommons(List<Bean_common> commons) {
-		this.commons = commons;
+	public void setBean_second_modules(List<Bean_second_module> bean_second_modules) {
+		this.bean_second_modules = bean_second_modules;
 	}
 
-	public Bean_common_Res(Bean_Heard bean_Heard, List<Bean_common> commons) {
+	public Bean_common_Res(Bean_Heard bean_Heard, List<Bean_second_module> bean_second_modules) {
 		this.bean_Heard = bean_Heard;
-		this.commons = commons;
+		this.bean_second_modules = bean_second_modules;
 	}
 
 	public Bean_common_Res() {

@@ -17,6 +17,9 @@ package com.smith.activity;
 
 
 import java.util.ArrayList;
+import java.util.List;
+
+import com.smith.entity.Bean_second_module;
 
 import android.content.Context;
 import android.content.pm.ActivityInfo;
@@ -40,6 +43,8 @@ public class FragmentTabsPager extends FragmentActivity {
     TabHost mTabHost;
     ViewPager  mViewPager;
     TabsAdapter mTabsAdapter;
+    
+    KnowyouApplication application;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +61,10 @@ public class FragmentTabsPager extends FragmentActivity {
         mTabsAdapter = new TabsAdapter(this, mTabHost, mViewPager);
 
         
+        
+        application=KnowyouApplication.getApplication();
+        
+        List<Bean_second_module> second_modules=application.second_modules;
         Bundle bundle1=new Bundle();
         bundle1.putInt("classify", 1);
         Bundle bundle2=new Bundle();

@@ -29,15 +29,15 @@ public class SplashActivity extends BaseActivity {
 		setContentView(R.layout.splash);
 
 		dao = new DaoImpl(this);
-		Knowyou.getApplication().uis = dao.get_ui();
-		if (null == Knowyou.getApplication().uis || Knowyou.getApplication().uis.size() == 0) {
-			Knowyou.getApplication().uis = new ArrayList<Bean_UI>();
+		KnowyouApplication.getApplication().uis = dao.get_ui();
+		if (null == KnowyouApplication.getApplication().uis || KnowyouApplication.getApplication().uis.size() == 0) {
+			KnowyouApplication.getApplication().uis = new ArrayList<Bean_UI>();
 			Bean_UI ui1 = new Bean_UI("漫画", "", "", "");
 			Bean_UI ui2 = new Bean_UI("动画", "", "", "");
 			Bean_UI ui3 = new Bean_UI("电影", "", "", "");
-			Knowyou.getApplication().uis.add(ui1);
-			Knowyou.getApplication().uis.add(ui2);
-			Knowyou.getApplication().uis.add(ui3);
+			KnowyouApplication.getApplication().uis.add(ui1);
+			KnowyouApplication.getApplication().uis.add(ui2);
+			KnowyouApplication.getApplication().uis.add(ui3);
 		}
 		DisplayMetrics dm = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -71,7 +71,7 @@ public class SplashActivity extends BaseActivity {
 			// TODO Auto-generated method stub
 			List<Bean_UI> uis = null;
 			try {
-				Bean_UI_Res bean_UI_Res = Knowyou.getApplication().gson.fromJson(
+				Bean_UI_Res bean_UI_Res = KnowyouApplication.getApplication().gson.fromJson(
 						KYHttpClient.get(ServiceApi.MODULE), Bean_UI_Res.class);
 				uis = bean_UI_Res.getUis();
 				if (null != uis) {

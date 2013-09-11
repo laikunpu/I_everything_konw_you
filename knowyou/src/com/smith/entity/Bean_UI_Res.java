@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.smith.entity.heard.Bean_Heard;
 
+
 public class Bean_UI_Res {
 
 	private Bean_Heard bean_Heard;
