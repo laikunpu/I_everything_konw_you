@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.smith.adapter.ComicAdapter;
-import com.smith.entity.Bean_ComicAndMovie;
+import com.smith.entity.Bean_common;
 
 import android.os.Bundle;
 import android.webkit.WebView;
@@ -15,7 +15,7 @@ public class ChannelActivity extends BaseActivity {
 	private WebView wb_advert;
 	private GridView gd_list;
 	
-	private List<Bean_ComicAndMovie> datas;
+	private List<Bean_common> datas;
 	private ComicAdapter comicAdapter;
 
 	@Override
@@ -37,7 +37,7 @@ public class ChannelActivity extends BaseActivity {
 
 	private void initData() {
 		// TODO Auto-generated method stub
-		datas=new ArrayList<Bean_ComicAndMovie>();
+		datas=new ArrayList<Bean_common>();
 		setData();
 		comicAdapter=new ComicAdapter(this, datas);
 		gd_list.setAdapter(comicAdapter);
@@ -49,15 +49,15 @@ public class ChannelActivity extends BaseActivity {
 	}
 	
 	private void setData(){
-		Bean_ComicAndMovie data1=new Bean_ComicAndMovie("海贼王", 0, "", "", "", "", "");
-		Bean_ComicAndMovie data2=new Bean_ComicAndMovie("海贼王", 0, "", "", "", "", "");
-		Bean_ComicAndMovie data3=new Bean_ComicAndMovie("海贼王", 0, "", "", "", "", "");
-		Bean_ComicAndMovie data4=new Bean_ComicAndMovie("海贼王", 0, "", "", "", "", "");
-		Bean_ComicAndMovie data5=new Bean_ComicAndMovie("海贼王", 0, "", "", "", "", "");
-		Bean_ComicAndMovie data6=new Bean_ComicAndMovie("海贼王", 0, "", "", "", "", "");
-		Bean_ComicAndMovie data7=new Bean_ComicAndMovie("海贼王", 0, "", "", "", "", "");
-		Bean_ComicAndMovie data8=new Bean_ComicAndMovie("海贼王", 0, "", "", "", "", "");
-		Bean_ComicAndMovie data9=new Bean_ComicAndMovie("海贼王", 0, "", "", "", "", "");
+		Bean_common data1=new Bean_common("海贼王", 0, "", "", "", "", "");
+		Bean_common data2=new Bean_common("海贼王", 0, "", "", "", "", "");
+		Bean_common data3=new Bean_common("海贼王", 0, "", "", "", "", "");
+		Bean_common data4=new Bean_common("海贼王", 0, "", "", "", "", "");
+		Bean_common data5=new Bean_common("海贼王", 0, "", "", "", "", "");
+		Bean_common data6=new Bean_common("海贼王", 0, "", "", "", "", "");
+		Bean_common data7=new Bean_common("海贼王", 0, "", "", "", "", "");
+		Bean_common data8=new Bean_common("海贼王", 0, "", "", "", "", "");
+		Bean_common data9=new Bean_common("海贼王", 0, "", "", "", "", "");
 		datas.add(data1);
 		datas.add(data2);
 		datas.add(data3);

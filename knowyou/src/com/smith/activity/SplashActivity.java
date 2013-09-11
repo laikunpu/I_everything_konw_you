@@ -72,7 +72,7 @@ public class SplashActivity extends BaseActivity {
 			List<Bean_UI> uis = null;
 			try {
 				Bean_UI_Res bean_UI_Res = Knowyou.getApplication().gson.fromJson(
-						KYHttpClient.get(ServiceApi.GET_MODULE), Bean_UI_Res.class);
+						KYHttpClient.get(ServiceApi.MODULE), Bean_UI_Res.class);
 				uis = bean_UI_Res.getUis();
 				if (null != uis) {
 					dao.delete_table(DBHelper.TABLE_BEAN_UI);

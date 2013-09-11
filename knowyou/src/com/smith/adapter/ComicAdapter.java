@@ -2,26 +2,24 @@ package com.smith.adapter;
 
 import java.util.List;
 
-import com.smith.activity.R;
-import com.smith.entity.Bean_ComicAndMovie;
-import com.smith.entity.Bean_UI;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.smith.activity.R;
+import com.smith.entity.Bean_common;
 
 public class ComicAdapter extends BaseAdapter {
 	private Context context;
-	private List<Bean_ComicAndMovie> datas;
+	private List<Bean_common> datas;
 	private OnClickListener onClickListener;
 
-	public ComicAdapter(Context context, List<Bean_ComicAndMovie> datas) {
+	public ComicAdapter(Context context, List<Bean_common> datas) {
 		this.context = context;
 		this.datas = datas;
 	}
@@ -53,7 +51,7 @@ public class ComicAdapter extends BaseAdapter {
 		// TODO Auto-generated method stub
 
 		final ViewHolder viewHolder = new ViewHolder();
-		final Bean_ComicAndMovie data = datas.get(position);
+		final Bean_common data = datas.get(position);
 		convertView = LayoutInflater.from(context).inflate(
 				R.layout.channel_item, null);
 

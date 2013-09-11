@@ -57,19 +57,19 @@ public class FragmentTabsPager extends FragmentActivity {
 
         
         Bundle bundle1=new Bundle();
-        bundle1.putString("classify", "111");
+        bundle1.putInt("classify", 1);
         Bundle bundle2=new Bundle();
-        bundle2.putString("classify", "222");
+        bundle2.putInt("classify", 2);
         Bundle bundle3=new Bundle();
-        bundle3.putString("classify", "333");
+        bundle3.putInt("classify", 3);
         
         mTabsAdapter.addTab(mTabHost.newTabSpec("simple1").setIndicator("Simple1"),
-                CountingFragment.class, bundle1);
+                CommonFragment.class, bundle1);
 
         mTabsAdapter.addTab(mTabHost.newTabSpec("simple2").setIndicator("Simple2"),
-                CountingFragment.class, bundle2);
+                CommonFragment.class, bundle2);
         mTabsAdapter.addTab(mTabHost.newTabSpec("simple3").setIndicator("Simple3"),
-                CountingFragment.class, bundle3);
+                CommonFragment.class, bundle3);
         if (savedInstanceState != null) {
             mTabHost.setCurrentTabByTag(savedInstanceState.getString("tab"));
         }
