@@ -108,11 +108,13 @@ public class WebSocketServerHandler extends SimpleChannelUpstreamHandler {
 					System.out.println("request=" + req.getUri());
 					Bean_Result result = ActionTop.distributeAction(s);
 
-					
+					if (null != result) {
+						ChannelBuffer content = ChannelBuffers.copiedBuffer(TNUtil.gson.toJson(result.getT()),
+								CharsetUtil.UTF_8);
+						sendHttpResponsePre(ctx, req, content, result.getContent_type());
+						return;
+					}
 
-					ChannelBuffer content = ChannelBuffers.copiedBuffer(TNUtil.gson.toJson(result.getT()), CharsetUtil.UTF_8);
-					sendHttpResponsePre(ctx, req, content, result.getContent_type());
-					return;
 				}
 			}
 		}
@@ -143,7 +145,6 @@ public class WebSocketServerHandler extends SimpleChannelUpstreamHandler {
 
 	private void sendHttpResponsePre(ChannelHandlerContext ctx, HttpRequest req, ChannelBuffer content,
 			String content_type) {
-
 
 		HttpResponse res = new DefaultHttpResponse(HTTP_1_1, OK);
 

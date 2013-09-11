@@ -1,6 +1,6 @@
 package com.smith.http.webservice.entity;
 
-public class Bean_ComicAndMovie {
+public class Bean_common {
 	private String name; // 动漫名字
 	private int type; // 动漫类型 0：漫画 1：动画
 	private String summary; // 简介
@@ -65,7 +65,7 @@ public class Bean_ComicAndMovie {
 		this.size = size;
 	}
 
-	public Bean_ComicAndMovie(String name, int type, String summary, String cover_url, String detail_url, String download_url,
+	public Bean_common(String name, int type, String summary, String cover_url, String detail_url, String download_url,
 			String size) {
 		this.name = name;
 		this.type = type;
@@ -76,6 +76,6 @@ public class Bean_ComicAndMovie {
 		this.size = size;
 	}
 
-	public Bean_ComicAndMovie() {
+	public Bean_common() {
 	}
 }
