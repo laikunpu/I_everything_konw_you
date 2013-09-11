@@ -99,14 +99,17 @@ public class MySurfaceView extends SurfaceView implements Callback, Runnable {
 	public void run() {
 		while (flag) {
 			synchronized (surfaceHolder) {
-				mCanvas = surfaceHolder.lockCanvas();
-				onDraws();
-				surfaceHolder.unlockCanvasAndPost(mCanvas);
-				try {
-					Thread.sleep(100);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+				if (flag) {
+					mCanvas = surfaceHolder.lockCanvas();
+					onDraws();
+					surfaceHolder.unlockCanvasAndPost(mCanvas);
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 				}
+
 			}
 		}
 
@@ -114,36 +117,33 @@ public class MySurfaceView extends SurfaceView implements Callback, Runnable {
 
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
-		
-//		System.out.println("MySurfaceView->surfaceCreated");
-		
-		
+
+		// System.out.println("MySurfaceView->surfaceCreated");
+
 		mSurfaceWindth = getWidth();
 		mSurfaceHeight = getHeight();
 		int mWindth = (int) (mSurfaceWindth * 3 / 2);
 		/***
 		 * 将图片缩放到屏幕的3/2倍.
 		 */
-		bitmap_bg = BitmapUtil.ReadBitmapById(mContext, R.drawable.bg_1,
-				(int) mWindth, (int) mSurfaceHeight);
+		bitmap_bg = BitmapUtil.ReadBitmapById(mContext, R.drawable.bg_1, (int) mWindth, (int) mSurfaceHeight);
 
 		thread = new Thread(this);
-		flag=true;
+		flag = true;
 		thread.start();
 
 	}
 
 	@Override
-	public void surfaceChanged(SurfaceHolder holder, int format, int width,
-			int height) {
-//		System.out.println("MySurfaceView->surfaceChanged");
+	public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+		// System.out.println("MySurfaceView->surfaceChanged");
 	}
 
 	@Override
 	public void surfaceDestroyed(SurfaceHolder holder) {
 		flag = false;
-		thread=null;
-//		System.out.println("MySurfaceView->surfaceDestroyed");
+		thread = null;
+		// System.out.println("MySurfaceView->surfaceDestroyed");
 	}
 
 }

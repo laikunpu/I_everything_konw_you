@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-        <ImageView
+        <uk.co.senab.bitmapcache.samples.NetworkedCacheableImageView
             android:id="@+id/img_cover"
             android:layout_width="160dp"
             android:layout_height="100dp"

@@ -26,9 +26,9 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 import com.smith.activity.R;
-import com.smith.view.NetworkedCacheableImageView;
 
 import uk.co.senab.bitmapcache.CacheableBitmapDrawable;
+import uk.co.senab.bitmapcache.samples.NetworkedCacheableImageView;
 
 public class PugListAdapter extends BaseAdapter {
 

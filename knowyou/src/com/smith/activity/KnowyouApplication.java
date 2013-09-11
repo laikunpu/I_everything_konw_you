@@ -8,6 +8,7 @@ import uk.co.senab.bitmapcache.BitmapLruCache;
 
 import com.google.gson.Gson;
 import com.smith.entity.Bean_UI;
+import com.smith.entity.Bean_common_Res;
 import com.smith.entity.Bean_second_module;
 
 import android.app.Application;
@@ -23,7 +24,7 @@ public class KnowyouApplication extends Application {
 
 	public List<Bean_UI> uis = new ArrayList<Bean_UI>();
 	
-	public List<Bean_second_module> second_modules = new ArrayList<Bean_second_module>();
+	Bean_common_Res common_Res = null;
 
 	public static KnowyouApplication getApplication() {
 		return instance;

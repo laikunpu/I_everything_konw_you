@@ -24,7 +24,8 @@ import android.widget.ImageView.ScaleType;
 
 import java.util.ArrayList;
 
-import com.smith.view.NetworkedCacheableImageView;
+import uk.co.senab.bitmapcache.samples.NetworkedCacheableImageView;
+
 
 public class PugPagerAdapter extends PagerAdapter {
 

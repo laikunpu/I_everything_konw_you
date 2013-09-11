@@ -14,7 +14,7 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.smith.view;
+package uk.co.senab.bitmapcache.samples;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;

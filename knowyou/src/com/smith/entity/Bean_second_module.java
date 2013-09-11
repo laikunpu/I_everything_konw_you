@@ -1,9 +1,11 @@
 package com.smith.entity;
 
+import java.util.List;
+
 public class Bean_second_module {
 	private String second_module_name;
 	private int second_module_num;
-	private Bean_common common;
+	private List<Bean_common> commons;
 
 	public String getSecond_module_name() {
 		return second_module_name;
@@ -21,19 +23,20 @@ public class Bean_second_module {
 		this.second_module_num = second_module_num;
 	}
 
-	public Bean_common getCommon() {
-		return common;
+	public List<Bean_common> getCommons() {
+		return commons;
 	}
 
-	public void setCommon(Bean_common common) {
-		this.common = common;
+	public void setCommons(List<Bean_common> commons) {
+		this.commons = commons;
 	}
 
-	public Bean_second_module(String second_module_name, int second_module_num, Bean_common common) {
+	public Bean_second_module(String second_module_name, int second_module_num, List<Bean_common> commons) {
 		this.second_module_name = second_module_name;
 		this.second_module_num = second_module_num;
-		this.common = common;
+		this.commons = commons;
 	}
+
 	public Bean_second_module() {
 	}
 }

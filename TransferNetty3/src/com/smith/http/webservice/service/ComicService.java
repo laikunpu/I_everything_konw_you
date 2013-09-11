@@ -23,8 +23,8 @@ import com.smith.http.webservice.util.TNUtil;
 public class ComicService {
 	public Bean_Result<Bean_common_Res> getComic_Recommend(String s) {
 		Bean_Result<Bean_common_Res> result = new Bean_Result<Bean_common_Res>(TN_Constant.TYPE_JSON, null);
-		List<Bean_second_module> bean_second_modules = initResData(result);
-
+		Bean_common_Res res = initResData(result);
+		Bean_second_module second_module = new Bean_second_module("推荐漫画", 1, new ArrayList<Bean_common>());
 		try {
 			Document doc = null;
 			doc = TNUtil.loadUrl(TNUrl.ONLINE_COMIC_RECOMMEND);
@@ -57,10 +57,11 @@ public class ComicService {
 				detail_url = second_url;
 
 				Bean_common comic = new Bean_common(name, type, summary, cover_url, detail_url, null, null);
-				Bean_second_module module = new Bean_second_module("推荐漫画", 1, comic);
-				bean_second_modules.add(module);
+
+				second_module.getCommons().add(comic);
 
 			}
+			res.getBean_second_modules().add(second_module);
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -70,7 +71,7 @@ public class ComicService {
 		return result;
 	}
 
-	private List<Bean_second_module> initResData(Bean_Result<Bean_common_Res> result) {
+	private Bean_common_Res initResData(Bean_Result<Bean_common_Res> result) {
 
 		Bean_common_Res res = new Bean_common_Res();
 		List<Bean_second_module> bean_second_modules = new ArrayList<Bean_second_module>();
@@ -79,6 +80,6 @@ public class ComicService {
 		res.setBean_Heard(heard);
 		res.setBean_second_modules(bean_second_modules);
 		result.setT(res);
-		return bean_second_modules;
+		return res;
 	}
 }

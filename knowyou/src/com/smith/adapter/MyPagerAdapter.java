@@ -60,4 +60,7 @@ public class MyPagerAdapter extends PagerAdapter {
 	public void startUpdate(View arg0) {
 
 	}
+	
+	
+	
 }

@@ -36,7 +36,7 @@ public class ModuleAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public Object getItem(int position) {
+	public Bean_UI getItem(int position) {
 		// TODO Auto-generated method stub
 		return uis.get(position);
 	}
@@ -63,6 +63,7 @@ public class ModuleAdapter extends BaseAdapter {
 
 		viewHolder.txt_module_name.setText(ui.getName());
 		viewHolder.lly_module.getBackground().setAlpha(80);
+		viewHolder.lly_module.setTag(position);
 		viewHolder.lly_module.setOnClickListener(onClickListener);
 
 		return convertView;

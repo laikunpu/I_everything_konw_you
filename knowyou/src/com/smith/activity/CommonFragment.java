@@ -48,7 +48,7 @@ public class CommonFragment extends Fragment {
 		super.onCreate(savedInstanceState);
 
 		classify = getArguments().getInt("classify",0);
-		System.out.println("CountingFragment->onCreate  name=" + classify);
+//		System.out.println("CountingFragment->onCreate  name=" + classify);
 		
 		
 
@@ -62,7 +62,7 @@ public class CommonFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-		System.out.println("CountingFragment->onCreateView  classify=" + classify);
+//		System.out.println("CountingFragment->onCreateView  classify=" + classify);
 
 		View v = inflater.inflate(R.layout.channel, container, false);
 		
@@ -79,8 +79,7 @@ public class CommonFragment extends Fragment {
 
 	private void initData() {
 		// TODO Auto-generated method stub
-		datas=new ArrayList<Bean_common>();
-		setData();
+		datas=KnowyouApplication.getApplication().common_Res.getBean_second_modules().get(classify).getCommons();
 		comicAdapter=new ComicAdapter(getActivity(), datas);
 		gd_list.setAdapter(comicAdapter);
 	}
@@ -90,24 +89,4 @@ public class CommonFragment extends Fragment {
 
 	}
 	
-	private void setData(){
-		Bean_common data1=new Bean_common("海贼王", 0, "", "", "", "", "");
-		Bean_common data2=new Bean_common("海贼王", 0, "", "", "", "", "");
-		Bean_common data3=new Bean_common("海贼王", 0, "", "", "", "", "");
-		Bean_common data4=new Bean_common("海贼王", 0, "", "", "", "", "");
-		Bean_common data5=new Bean_common("海贼王", 0, "", "", "", "", "");
-		Bean_common data6=new Bean_common("海贼王", 0, "", "", "", "", "");
-		Bean_common data7=new Bean_common("海贼王", 0, "", "", "", "", "");
-		Bean_common data8=new Bean_common("海贼王", 0, "", "", "", "", "");
-		Bean_common data9=new Bean_common("海贼王", 0, "", "", "", "", "");
-		datas.add(data1);
-		datas.add(data2);
-		datas.add(data3);
-		datas.add(data4);
-		datas.add(data5);
-		datas.add(data6);
-		datas.add(data7);
-		datas.add(data8);
-		datas.add(data9);
-	}
 }

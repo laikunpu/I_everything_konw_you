@@ -2,6 +2,8 @@ package com.smith.adapter;
 
 import java.util.List;
 
+import uk.co.senab.bitmapcache.samples.NetworkedCacheableImageView;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,16 +57,16 @@ public class ComicAdapter extends BaseAdapter {
 		convertView = LayoutInflater.from(context).inflate(
 				R.layout.channel_item, null);
 
-		viewHolder.img_cover = (ImageView) convertView
+		viewHolder.img_cover = (NetworkedCacheableImageView) convertView
 				.findViewById(R.id.img_cover);
 		viewHolder.txt_data_name = (TextView) convertView
 				.findViewById(R.id.txt_data_name);
-
+		viewHolder.img_cover.loadImage(data.getCover_url(), false, null);
 		return convertView;
 	}
 
 	public class ViewHolder {
-		ImageView img_cover;
+		NetworkedCacheableImageView img_cover;
 		TextView txt_data_name;
 	}
 }
