@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=gb2312" /> 
+  <title>死神 死神漫画 死神在线漫画 爱漫画</title> 
+  <meta name="Keywords" content="死神 死神漫画 死神在线漫画" /> 
+  <link href="/v2.3/css/global.css" rel="stylesheet" type="text/css" /> 
+  <link href="/v2.3/css/book.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="/v2.3/scripts/jquery.js"></script> 
+  <script type="text/javascript" src="/v2.3/scripts/book.js"></script> 
+  <script type="text/javascript" src="http://www.imanhua.com/v2/money/book.js"></script>
+ </head>
+ <body> 
+  <div class="main"> 
+   <div class="top"> 
+    <div class="logo">
+     <a href="/" title="爱漫画为您提供漫画、在线漫画、最新漫画免费观看">爱漫画网专为您提供漫画、在线漫画 、火影忍者漫画、火影漫画 ，并提供死神、海贼王漫画、网球王子、灌蓝高手、七龙珠等漫画在线免费观看</a>
+    </div> 
+    <div class="fr" style="width: 640px;"> 
+     <div class="hotListText" id="hotComic"></div> 
+     <div class="search" id="search"> 
+      <span id="searchTip">标题或作者：</span>
+      <input name="kw" type="text" value="火影忍者" id="kw" /> 
+      <input type="button" class="btnBig" id="btnSend" name="Submit" value="搜索本站漫画" onclick="searchSend()" /> 
+      <div id="suggest"></div> 
+     </div> 
+    </div> 
+   </div> 
+  </div> 
+  <div class="main_nav"> 
+   <ul class="navList"> 
+    <li class="first"><a href="/">首页</a></li> 
+    <li><a href="/comic/shaonian/" title="少年热血">少年热血</a></li> 
+    <li><a href="/comic/wuxia/" title="武侠格斗">武侠格斗</a></li> 
+    <li><a href="/comic/kehuan/" title="科幻魔幻">科幻魔幻</a></li> 
+    <li><a href="/comic/tiyu/" title="竞技体育">竞技体育</a></li> 
+    <li><a href="/comic/xiju/" title="爆笑喜剧">爆笑喜剧</a></li> 
+    <li><a href="/comic/tuili/" title="侦探推理">侦探推理</a></li> 
+    <li><a href="/comic/kongbu/" title="恐怖灵异">恐怖灵异</a></li> 
+    <li><a href="/comic/dalu/" title="大陆漫画">大陆漫画</a></li> 
+    <li><a href="/comic/japan/" title="日本漫画">日本漫画</a></li> 
+    <li class="mini"><a href="/comic/hk/" title="港台漫画">港台</a></li> 
+    <li class="mini"><a href="/comic/oumei/" title="欧美漫画">欧美</a></li> 
+    <li class="last"><a href="http://www.dm456.com" target="_blank" title="精彩动画片">精彩动画片</a></li> 
+   </ul> 
+  </div> 
+  <div class="subNav"> 
+   <div class="subNavList"> 
+    <div class="charNav"> 
+     <strong> <img src="/template/default/images/btn-chrlist.gif" /></strong>
+     <a href="/comic/A/">A</a>
+     <a href="/comic/B/">B</a>
+     <a href="/comic/C/">C</a>
+     <a href="/comic/D/">D</a>
+     <a href="/comic/E/">E</a>
+     <a href="/comic/F/">F</a>
+     <a href="/comic/G/">G</a>
+     <a href="/comic/H/">H</a>
+     <a href="/comic/I/">I</a>
+     <a href="/comic/J/">J</a>
+     <a href="/comic/K/">K</a>
+     <a href="/comic/L/">L</a>
+     <a href="/comic/M/">M</a>
+     <a href="/comic/N/">N</a>
+     <a href="/comic/O/">O</a>
+     <a href="/comic/P/">P</a>
+     <a href="/comic/Q/">Q</a>
+     <a href="/comic/R/">R</a>
+     <a href="/comic/S/">S</a>
+     <a href="/comic/T/">T</a>
+     <a href="/comic/U/">U</a>
+     <a href="/comic/V/">V</a>
+     <a href="/comic/W/">W</a>
+     <a href="/comic/X/">X</a>
+     <a href="/comic/Y/">Y</a>
+     <a href="/comic/Z/">Z</a> 
+    </div> 
+    <div class="otherNav">
+     <span><a href="/support/tuijian.aspx" onclick="return openWindow(this.href,540,600);">我要推荐漫画</a><a href="/support/jubao.aspx" onclick="return openWindow(this.href,500,520);">举报低俗漫画</a><a href="javascript:void(0);" onclick="window.external.AddFavorite('http://www.imanhua.com/?fav','爱漫画,在线漫画,为您提供最新、最好看的漫画');" class="addFav">收藏爱漫画</a></span>
+     <a href="/wanjie.html">完结漫画</a> 
+     <a href="/lianzai.html">连载漫画</a> 
+     <a href="/all.html">全部漫画</a> 
+     <a href="/top.html" class="red">漫画风云榜</a> 
+     <a href="/recent.html" class="red">最新更新</a>
+    </div> 
+   </div> 
+  </div> 
+  <div class="main cf" style="padding: 4px 0;"> 
+   <script type="text/javascript" src="http://www.imanhua.com/v2/money/top.js"></script> 
+  </div> 
+  <div class="main bookBG1 cf"> 
+   <div class="w752 fr"> 
+    <div class="bar"> 
+     <div class="position">
+      您当前的位置 ：
+      <a href="/">首页</a> 
+      <em>&gt;&gt;</em> 
+      <a href="/comic/S/">字母S漫画列表</a> 
+      <em>&gt;&gt;</em> 
+      <a href="/comic/120/">死神漫画</a>
+     </div> 
+    </div> 
+    <div class="bookInfo cf"> 
+     <h1>死神</h1> 
+     <p class="cf bookAttr"><span class="fr">完结状态：[ <em>连载中</em> ]</span>原作者：久保带人 | 字母索引：<a href="/comic/S">S</a> | 加入时间：2007-04-30 | 更新时间：2013-09-10 </p> 
+     <div class="fr bookIntro"> 
+      <div class="fr" style="width: 250px; height: 250px; background-color: #f6f6f6; margin-left:10px;"> 
+       <script type="text/javascript">show(1);</script> 
+      </div> 
+      <h2>死神漫画</h2> 
+      <div class="intro"> 
+       <p><a style="color: red; font-size: 18px"><strong>死神动画完结：</strong></a> <a href="http://www.dm456.com/donghua/10/" style="color: blue; font-size: 20px" target="_blank" id="dm456"><strong>死神全集</strong></a></p>
+       <p>死神漫&#xfffd;是日本漫&#xfffd;家久保&#xfffd;人的代表作品，久保&#xfffd;人原名久保宣章。死神漫&#xfffd;香港翻&#xfffd;&#xfffd;“漂&#xfffd;”，而&#xfffd;&#xfffd;&#xfffd;路翻&#xfffd;&#xfffd;死神漫&#xfffd;，出版界&#xfffd;&#xfffd;“境.界”。最&#xfffd;始的&#xfffd;候黑崎一&#xfffd;只是&#xfffd;看似&#xfffd;薄&#xfffd;&#xfffd;身&#xfffd;血的暴力少年，&#xfffd;有能看&#xfffd;幽&#xfffd;的&#xfffd;&#xfffd;日子平凡。家&#xfffd;一&#xfffd;&#xfffd;院兼除&#xfffd;的老爸和&#xfffd;&#xfffd;性格&#xfffd;&#xfffd;正常的妹妹，外加每天七&#xfffd;必&#xfffd;按&#xfffd;回家否&#xfffd;便用身&#xfffd;&#xfffd;言教&#xfffd;的暴力家&#xfffd;。吵&#xfffd;的父子懂事的妹妹以及&#xfffd;其他普通漫&#xfffd;主角&#xfffd;大&#xfffd;的普通生活。等到露琪&#xfffd;被他一&#xfffd;踢到&#xfffd;角&#xfffd;&#xfffd;&#xfffd;&#xfffd;疑地望著他&#xfffd;“你能看&#xfffd;我？”&#xfffd;序幕才&#xfffd;&#xfffd;被他正式地踢&#xfffd;了&#xfffd;。</p>
+       <p>&#xfffd;此黑崎一&#xfffd;身&#xfffd;所有&#xfffd;&#xfffd;不&#xfffd;的都翻天覆地。</p>
+       <p>世上有&#xfffd;&#xfffd;魂魄，一&#xfffd;叫做整，是普通的&#xfffd;。另一&#xfffd;是不管生人死者都攻&#xfffd;&#xfffd;吞噬掉他&#xfffd;&#xfffd;魂的&#xfffd;&#xfffd;，叫做&#xfffd;。</p>
+       <p>自&#xfffd;是死神的露琪&#xfffd;告&#xfffd;他自己的工作是&#xfffd;整魂葬&#xfffd;引&#xfffd;至一&#xfffd;叫&#xfffd;魂界的地方，而要&#xfffd;&#xfffd;&#xfffd;&#xfffd;消&#xfffd;。&#xfffd;&#xfffd;&#xfffd;已近在身&#xfffd;，莫名重&#xfffd;的父&#xfffd;昏倒在眼前的妹妹，黑崎一&#xfffd;狂&#xfffd;恐慌的心跳，自行解&#xfffd;死神的鬼道的&#xfffd;&#xfffd;能力，露琪&#xfffd;&#xfffd;疑的眼神。&#xfffd;於他和她&#xfffd;&#xfffd;一切都是如此&#xfffd;法思&#xfffd;，他&#xfffd;&#xfffd;&#xfffd;想到&#xfffd;世界上竟&#xfffd;有死神&#xfffd;&#xfffd;人的存在而她也&#xfffd;未&#xfffd;&#xfffd;甚至&#xfffd;&#xfffd;&#xfffd;竟然有著如此&#xfffd;害的人&#xfffd;。</p>
+       <p>在&#xfffd;&#xfffd;&#xfffd;&#xfffd;的情&#xfffd;下一&#xfffd;得到露琪&#xfffd;的能力成&#xfffd;死神。身上黑色的&#xfffd;於死神的衣服，因他的&#xfffd;力而改&#xfffd;形&#xfffd;&#xfffd;&#xfffd;得巨大的&#xfffd;魄刀，巨大的面目&#xfffd;&#xfffd;的&#xfffd;，至此而始&#xfffd;&#xfffd;&#xfffd;&#xfffd;在一起的&#xfffd;人的命&#xfffd;。一切都同&#xfffd;&#xfffd;&#xfffd;&#xfffd;&#xfffd;………</p>
+       <p>死神漫&#xfffd;已被翻&#xfffd;&#xfffd;中文、英文等多&#xfffd;&#xfffd;言版本，成&#xfffd;&#xfffd;靡全球的著名漫&#xfffd;系列之一。</p> 
+      </div> 
+      <!-- Baidu Button BEGIN --> 
+      <div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare"> 
+       <span class="bds_more">分享到：</span> 
+       <a class="bds_tsina"></a> 
+       <a class="bds_qzone"></a> 
+       <a class="bds_tqq"></a> 
+       <a class="bds_renren"></a> 
+       <a class="bds_t163"></a> 
+       <a class="bds_mshare"></a> 
+       <a class="bds_sqq"></a> 
+       <a class="bds_ty"></a> 
+       <a class="bds_douban"></a> 
+       <a class="bds_kaixin001"></a> 
+       <a class="bds_tqf"></a> 
+       <a class="shareCount"></a> 
+      </div> 
+      <!-- Baidu Button END -->
+      <div class="blank8"></div> 
+     </div> 
+     <div class="fl bookCover"> 
+      <img src="/Cover/2011-10/sishen.jpg" alt="死神漫画" /> 
+     </div> 
+    </div> 
+    <div class="blank2" style="border-top: 1px solid #999; background-color: #fff;"></div>
+    <div class="cf" style="background-color: #fff;">
+     <script type="text/javascript">show(3);</script>
+    </div> 
+    <div class="blank2" style="background-color: #fff;"></div> 
+    <div class="bar"> 
+     <div class="fr order"> 
+      <strong>[ 最近更新于：2013-09-10 ]</strong> 排序：
+      <a href="javascript:;" class="on" id="desc">降序</a> 
+      <em>|</em> 
+      <a href="javascript:;" id="asc">升序</a> 
+     </div> 
+     <h3><strong>死神漫画全集列表</strong>&nbsp;</h3> 
+    </div> 
+    <div class="chapterList" id="chapterList"> 
+     <div class="bookAdvice">
+      死神548话已更新 死神549话 预计9月18日（星期三)更新，敬请关注。
+     </div>
+     <ul>
+      <li><a href="/comic/120/sishen548.shtml" title="548话 The Thin Ice"><span>548话<i>The Thin Ice</i><em></em></span></a></li>
+      <li><a href="/comic/120/sishen547.shtml" title="547话 Peace From Shadows"><span>547话<i>Peace From Shadows</i><em></em></span></a></li>
+      <li><a href="/comic/120/sishen-huigupian.shtml" title="回顾篇 the dagger1"><span>回顾篇<i>the dagger1</i></span></a></li>
+      <li><a href="/comic/120/sishen546.shtml" title="546话 最后的九天"><span>546话<i>最后的九天</i></span></a></li>
+      <li><a href="/comic/120/sishen545.shtml" title="545话 Blue Stripes"><span>545话<i>Blue Stripes</i></span></a></li>
+      <li><a href="/comic/120/sishen544.shtml" title="544话 Walking With Wactchers"><span>544话<i>Walking With Wactchers</i></span></a></li>
+      <li><a href="/comic/120/sishen543.shtml" title="543话 标志"><span>543话<i>标志</i></span></a></li>
+      <li><a href="/comic/120/sishen542.shtml" title="542话 刀锋是我"><span>542话<i>刀锋是我</i></span></a></li>
+      <li><a href="/comic/120/sishen541.shtml" title="541话 刀锋与我2"><span>541话<i>刀锋与我2</i></span></a></li>
+      <li><a href="/comic/120/sishen540.shtml" title="540话 剑五"><span>540话<i>剑五</i></span></a></li>
+      <li><a href="/comic/120/sishen539.shtml" title="539话 渐进"><span>539话<i>渐进</i></span></a></li>
+      <li><a href="/comic/120/sishen538.shtml" title="538话 站在边缘上"><span>538话<i>站在边缘上</i></span></a></li>
+      <li><a href="/comic/120/sishen537.shtml" title="537话 万物无雨OP.10 Prinz"><span>537话<i>万物无雨OP.10 Prinz</i></span></a></li>
+      <li><a href="/comic/120/sishen536.shtml" title="536话 万物无雨OP.9 六月的真相"><span>536话<i>万物无雨OP.9 六月的真相</i></span></a></li>
+      <li><a href="/comic/120/sishen535.shtml" title="535话 万物无雨OP.8 守卫者"><span>535话<i>万物无雨OP.8 守卫者</i></span></a></li>
+      <li><a href="/comic/120/sishen534.shtml" title="534话 万物无雨OP.7 惩罚深渊"><span>534话<i>万物无雨OP.7 惩罚深渊</i></span></a></li>
+      <li><a href="/comic/120/sishen533.shtml" title="533话 万物无雨OP.6 万有引力"><span>533话<i>万物无雨OP.6 万有引力</i></span></a></li>
+      <li><a href="/comic/120/sishen532.shtml" title="532话 Everything But BL EACH"><span>532话<i>Everything But BL EACH</i></span></a></li>
+      <li><a href="/comic/120/sishen531.shtml" title="531话 Everything But the Rain OP.4"><span>531话<i>Everything But the Rain OP.4</i></span></a></li>
+      <li><a href="/comic/120/sishen530.shtml" title="530话 Everything But the Rain OP.3 &#xfffd;Dark of the Moon&#xfffd;"><span>530话<i>Everything But the Rain OP.3 &#xfffd;Dark of the Moon&#xfffd;</i></span></a></li>
+      <li><a href="/comic/120/sishen529.shtml" title="529话 Everything But the Rain OP.2 &#xfffd;The Rudiments&#xfffd;"><span>529话<i>Everything But the Rain OP.2 &#xfffd;The Rudiments&#xfffd;</i></span></a></li>
+      <li><a href="/comic/120/sishen528.shtml" title="528话 Everything But the Rain"><span>528话<i>Everything But the Rain</i></span></a></li>
+      <li><a href="/comic/120/sishen527.shtml" title="527话 Eliminate From Heaven"><span>527话<i>Eliminate From Heaven</i></span></a></li>
+      <li><a href="/comic/120/sishen526.shtml" title="526话 The Battle"><span>526话<i>The Battle</i></span></a></li>
+      <li><a href="/comic/120/sishen525.shtml" title="525话 EDGES"><span>525话<i>EDGES</i></span></a></li>
+      <li><a href="/comic/120/sishen524.shtml" title="524话 THE DROP"><span>524话<i>THE DROP</i></span></a></li>
+      <li><a href="/comic/120/sishen523.shtml" title="523话 Words Of Origin"><span>523话<i>Words Of Origin</i></span></a></li>
+      <li><a href="/comic/120/sishen522.shtml" title="522话 &#xfffd;上它"><span>522话<i>&#xfffd;上它</i></span></a></li>
+      <li><a href="/comic/120/sishen521.shtml" title="521话 A Piggy Party"><span>521话<i>A Piggy Party</i></span></a></li>
+      <li><a href="/comic/120/sishen520.shtml" title="520话 &#xfffd;人者不死"><span>520话<i>&#xfffd;人者不死</i></span></a></li>
+      <li><a href="/comic/120/sishen519.shtml" title="519话 灼&#xfffd;. 灼&#xfffd;. 灼&#xfffd;"><span>519话<i>灼&#xfffd;. 灼&#xfffd;. 灼&#xfffd;</i></span></a></li>
+      <li><a href="/comic/120/sishen518.shtml" title="518话 &#xfffd;射流星"><span>518话<i>&#xfffd;射流星</i></span></a></li>
+      <li><a href="/comic/120/sishen517.shtml" title="517话 天&#xfffd;&#xfffd;梯"><span>517话<i>天&#xfffd;&#xfffd;梯</i></span></a></li>
+      <li><a href="/comic/120/sishen516.shtml" title="516话 五人&#xfffd;零番&#xfffd;"><span>516话<i>五人&#xfffd;零番&#xfffd;</i></span></a></li>
+      <li><a href="/comic/120/sishen515.shtml" title="515话 &#xfffd;&#xfffd;"><span>515话<i>&#xfffd;&#xfffd;</i></span></a></li>
+      <li><a href="/comic/120/sishen514.shtml" title="514话 黑暗中&#xfffd;生"><span>514话<i>黑暗中&#xfffd;生</i></span></a></li>
+      <li><a href="/comic/120/sishen513.shtml" title="513话 黑月天&#xfffd;"><span>513话<i>黑月天&#xfffd;</i></span></a></li>
+      <li><a href="/comic/120/sishen512.shtml" title="512话 &#xfffd;物唯雨"><span>512话<i>&#xfffd;物唯雨</i></span></a></li>
+      <li><a href="/comic/120/sishen511.shtml" title="511话 &#xfffd;足挺立而亡"><span>511话<i>&#xfffd;足挺立而亡</i></span></a></li>
+      <li><a href="/comic/120/sishen510.shtml" title="510话 &#xfffd;&#xfffd;"><span>510话<i>&#xfffd;&#xfffd;</i></span></a></li>
+      <li><a href="/comic/120/sishen509.shtml" title="509话 天地灰&#xfffd;"><span>509话<i>天地灰&#xfffd;</i></span></a></li>
+      <li><a href="/comic/120/sishen508.shtml" title="508话 仿若烈火"><span>508话<i>仿若烈火</i></span></a></li>
+      <li><a href="/comic/120/sishen507.shtml" title="507话 怒火 3"><span>507话<i>怒火 3</i></span></a></li>
+      <li><a href="/comic/120/sishen506.shtml" title="506话 怒火 2"><span>506话<i>怒火 2</i></span></a></li>
+      <li><a href="/comic/120/sishen505.shtml" title="505话 怒火"><span>505话<i>怒火</i></span></a></li>
+      <li><a href="/comic/120/sishen504.shtml" title="504话 朝向雷&#xfffd;彼方"><span>504话<i>朝向雷&#xfffd;彼方</i></span></a></li>
+      <li><a href="/comic/120/sishen503.shtml" title="503话 &#xfffd;&#xfffd;般暴怒"><span>503话<i>&#xfffd;&#xfffd;般暴怒</i></span></a></li>
+      <li><a href="/comic/120/sishen502.shtml" title="502话 &#xfffd;花散"><span>502话<i>&#xfffd;花散</i></span></a></li>
+      <li><a href="/comic/120/sishen501.shtml" title="501话 &#xfffd;悉.恐&#xfffd;.此&#xfffd;"><span>501话<i>&#xfffd;悉.恐&#xfffd;.此&#xfffd;</i></span></a></li>
+      <li><a href="/comic/120/sishen500.shtml" title="500话 漆黑中的&#xfffd;救者"><span>500话<i>漆黑中的&#xfffd;救者</i></span></a></li>
+      <li><a href="/comic/120/sishen499.shtml" title="499话 黑暗中的&#xfffd;救者"><span>499话<i>黑暗中的&#xfffd;救者</i></span></a></li>
+      <li><a href="/comic/120/sishen498.shtml" title="498话 黑色&#xfffd;救者"><span>498话<i>黑色&#xfffd;救者</i></span></a></li>
+      <li><a href="/comic/120/sishen497.shtml" title="497话 &#xfffd;死&#xfffd;影 2"><span>497话<i>&#xfffd;死&#xfffd;影 2</i></span></a></li>
+      <li><a href="/comic/120/sishen496.shtml" title="496话 &#xfffd;死&#xfffd;影"><span>496话<i>&#xfffd;死&#xfffd;影</i></span></a></li>
+      <li><a href="/comic/120/sishen495.shtml" title="495话 &#xfffd;&#xfffd;六&#xfffd;琴"><span>495话<i>&#xfffd;&#xfffd;六&#xfffd;琴</i></span></a></li>
+      <li><a href="/comic/120/sishen494.shtml" title="494话 封&#xfffd;章&#xfffd;一"><span>494话<i>封&#xfffd;章&#xfffd;一</i></span></a></li>
+      <li><a href="/comic/120/sishen493.shtml" title="493话 幸福之光"><span>493话<i>幸福之光</i></span></a></li>
+      <li><a href="/comic/120/sishen492.shtml" title="492话 平衡的正&#xfffd;"><span>492话<i>平衡的正&#xfffd;</i></span></a></li>
+      <li><a href="/comic/120/sishen491.shtml" title="491话 死亡天使"><span>491话<i>死亡天使</i></span></a></li>
+      <li><a href="/comic/120/sishen490.shtml" title="490话 星十字&#xfffd;&#xfffd;&#xfffd;&#xfffd;2"><span>490话<i>星十字&#xfffd;&#xfffd;&#xfffd;&#xfffd;2</i></span></a></li>
+      <li><a href="/comic/120/sishen489.shtml" title="489话 星十字&#xfffd;&#xfffd;&#xfffd;&#xfffd;"><span>489话<i>星十字&#xfffd;&#xfffd;&#xfffd;&#xfffd;</i></span></a></li>
+      <li><a href="/comic/120/sishen488.shtml" title="488话 &#xfffd;&#xfffd;後的契&#xfffd;"><span>488话<i>&#xfffd;&#xfffd;後的契&#xfffd;</i></span></a></li>
+      <li><a href="/comic/120/sishen487.shtml" title="487话 生存&#xfffd;&#xfffd;而不&#xfffd;"><span>487话<i>生存&#xfffd;&#xfffd;而不&#xfffd;</i></span></a></li>
+      <li><a href="/comic/120/sishen486.shtml" title="486话 血色火葬"><span>486话<i>血色火葬</i></span></a></li>
+      <li><a href="/comic/120/sishen485.shtml" title="485话 &#xfffd;建基石"><span>485话<i>&#xfffd;建基石</i></span></a></li>
+      <li><a href="/comic/120/sishen484.shtml" title="484话 &#xfffd;腮胡男子"><span>484话<i>&#xfffd;腮胡男子</i></span></a></li>
+      <li><a href="/comic/120/sishen483.shtml" title="483话 宣&#xfffd;&#xfffd;告"><span>483话<i>宣&#xfffd;&#xfffd;告</i></span></a></li>
+      <li><a href="/comic/120/sishen482.shtml" title="482话 邪&#xfffd;的致意"><span>482话<i>邪&#xfffd;的致意</i></span></a></li>
+      <li><a href="/comic/120/sishen481.shtml" title="481话 撕裂"><span>481话<i>撕裂</i></span></a></li>
+      <li><a href="/comic/120/sishen480.shtml" title="480话 千年血&#xfffd;"><span>480话<i>千年血&#xfffd;</i></span></a></li>
+      <li><a href="/comic/120/sishen479.shtml" title="479话 向我们的完现术者告别"><span>479话<i>向我们的完现术者告别</i></span></a></li>
+      <li><a href="/comic/120/sishen478.shtml" title="478话 迷失者 3"><span>478话<i>迷失者 3</i></span></a></li>
+      <li><a href="/comic/120/sishen477.shtml" title="477话 迷失者 2"><span>477话<i>迷失者 2</i></span></a></li>
+      <li><a href="/comic/120/sishen476.shtml" title="476话 迷失者"><span>476话<i>迷失者</i></span></a></li>
+      <li><a href="/comic/120/sishen475.shtml" title="475话 契约的阴影"><span>475话<i>契约的阴影</i></span></a></li>
+      <li><a href="/comic/120/sishen474.shtml" title="474话 信任・谎言"><span>474话<i>信任・谎言</i></span></a></li>
+      <li><a href="/comic/120/sishen473.shtml" title="473话 黑暗中的敌人"><span>473话<i>黑暗中的敌人</i></span></a></li>
+      <li><a href="/comic/120/sishen472.shtml" title="472话 刀锋的镇魂曲"><span>472话<i>刀锋的镇魂曲</i></span></a></li>
+      <li><a href="/comic/120/sishen471.shtml" title="471话 为掠夺者祈祷2"><span>471话<i>为掠夺者祈祷2</i></span></a></li>
+      <li><a href="/comic/120/sishen470.shtml" title="470话 为掠夺者祈祷1"><span>470话<i>为掠夺者祈祷1</i></span></a></li>
+      <li><a href="/comic/120/sishen469.shtml" title="469话 隆隆作响的最后的戏弄"><span>469话<i>隆隆作响的最后的戏弄</i></span></a></li>
+      <li><a href="/comic/120/sishen468.shtml" title="468话 刀锋的袭击"><span>468话<i>刀锋的袭击</i></span></a></li>
+      <li><a href="/comic/120/sishen467.shtml" title="467话 幸运者"><span>467话<i>幸运者</i></span></a></li>
+      <li><a href="/comic/120/sishen466.shtml" title="466话 尖叫的入侵者"><span>466话<i>尖叫的入侵者</i></span></a></li>
+      <li><a href="/comic/120/sishen465.shtml" title="465话 敌意耗尽"><span>465话<i>敌意耗尽</i></span></a></li>
+      <li><a href="/comic/120/sishen464.shtml" title="464话 安静的房间，嘈杂的内心"><span>464话<i>安静的房间，嘈杂的内心</i></span></a></li>
+      <li><a href="/comic/120/sishen463.shtml" title="463话 极端分配器"><span>463话<i>极端分配器</i></span></a></li>
+      <li><a href="/comic/120/sishen462.shtml" title="462话 我为何悲伤"><span>462话<i>我为何悲伤</i></span></a></li>
+      <li><a href="/comic/120/sishen461.shtml" title="461话 轮到我们了"><span>461话<i>轮到我们了</i></span></a></li>
+      <li><a href="/comic/120/sishen460.shtml" title="460话 死神草莓归来 2"><span>460话<i>死神草莓归来 2</i></span></a></li>
+      <li><a href="/comic/120/sishen459.shtml" title="459话 死神和草莓 2"><span>459话<i>死神和草莓 2</i></span></a></li>
+      <li><a href="/comic/120/sishen458.shtml" title="458话 一切&#xfffd;&#xfffd;的终结"><span>458话<i>一切&#xfffd;&#xfffd;的终结</i></span></a></li>
+      <li><a href="/comic/120/sishen457.shtml" title="457话 &#xfffd;&#xfffd;的终结 3"><span>457话<i>&#xfffd;&#xfffd;的终结 3</i></span></a></li>
+      <li><a href="/comic/120/sishen456.shtml" title="456话 &#xfffd;&#xfffd;的终结 2"><span>456话<i>&#xfffd;&#xfffd;的终结 2</i></span></a></li>
+      <li><a href="/comic/120/sishen455.shtml" title="455话 &#xfffd;&#xfffd;的终结 1"><span>455话<i>&#xfffd;&#xfffd;的终结 1</i></span></a></li>
+      <li><a href="/comic/120/sishen454.shtml" title="454话 刺入破坏者"><span>454话<i>刺入破坏者</i></span></a></li>
+      <li><a href="/comic/120/sishen453.shtml" title="453话 削弱你残喘的友谊"><span>453话<i>削弱你残喘的友谊</i></span></a></li>
+      <li><a href="/comic/120/sishen452.shtml" title="452话 侵蚀/内爆"><span>452话<i>侵蚀/内爆</i></span></a></li>
+      <li><a href="/comic/120/sishen451.shtml" title="451话 欢迎加入我们的角色 4"><span>451话<i>欢迎加入我们的角色 4</i></span></a></li>
+      <li><a href="/comic/120/sishen450.shtml" title="450话 蒙蔽的孤独"><span>450话<i>蒙蔽的孤独</i></span></a></li>
+      <li><a href="/comic/120/sishen449.shtml" title="449话 不是毒药"><span>449话<i>不是毒药</i></span></a></li>
+      <li><a href="/comic/120/sishen448.shtml" title="448话 加载谎言"><span>448话<i>加载谎言</i></span></a></li>
+      <li><a href="/comic/120/sishen447.shtml" title="447话 加载"><span>447话<i>加载</i></span></a></li>
+      <li><a href="/comic/120/sishen446.shtml" title="446话 黑暗中击败 2"><span>446话<i>黑暗中击败 2</i></span></a></li>
+      <li><a href="/comic/120/sishen445.shtml" title="445话 黑暗中击败"><span>445话<i>黑暗中击败</i></span></a></li>
+      <li><a href="/comic/120/sishen444.shtml" title="444话 上升"><span>444话<i>上升</i></span></a></li>
+      <li><a href="/comic/120/sishen443.shtml" title="443话 脏靴的危险"><span>443话<i>脏靴的危险</i></span></a></li>
+      <li><a href="/comic/120/sishen442.shtml" title="442话 战场是浅滩，其他是深渊"><span>442话<i>战场是浅滩，其他是深渊</i></span></a></li>
+      <li><a href="/comic/120/sishen441.shtml" title="441话 路灯下的人影"><span>441话<i>路灯下的人影</i></span></a></li>
+      <li><a href="/comic/120/sishen440.shtml" title="440话 削弱友谊"><span>440话<i>削弱友谊</i></span></a></li>
+      <li><a href="/comic/120/sishen439.shtml" title="439话 &#xfffd;利的&#xfffd;&#xfffd;"><span>439话<i>&#xfffd;利的&#xfffd;&#xfffd;</i></span></a></li>
+      <li><a href="/comic/120/sishen438.shtml" title="438话 屈服"><span>438话<i>屈服</i></span></a></li>
+      <li><a href="/comic/120/sishen437.shtml" title="437话 &#xfffd;的解放"><span>437话<i>&#xfffd;的解放</i></span></a></li>
+      <li><a href="/comic/120/sishen436.shtml" title="436话 时间定律"><span>436话<i>时间定律</i></span></a></li>
+      <li><a href="/comic/120/sishen435.shtml" title="435话 娃娃屋里的慌乱"><span>435话<i>娃娃屋里的慌乱</i></span></a></li>
+      <li><a href="/comic/120/sishen434.shtml" title="434话 盒子里的莓果"><span>434话<i>盒子里的莓果</i></span></a></li>
+      <li><a href="/comic/120/sishen433.shtml" title="433话 六种完现术"><span>433话<i>六种完现术</i></span></a></li>
+      <li><a href="/comic/120/sishen432.shtml" title="432话 灵魂泛神论"><span>432话<i>灵魂泛神论</i></span></a></li>
+      <li><a href="/comic/120/sishen431.shtml" title="431话 欢迎加入我们的角色 3"><span>431话<i>欢迎加入我们的角色 3</i></span></a></li>
+      <li><a href="/comic/120/sishen430.shtml" title="430话 欢迎加入我们的角色 2"><span>430话<i>欢迎加入我们的角色 2</i></span></a></li>
+      <li><a href="/comic/120/sishen429.shtml" title="429话 欢迎加入我们的角色"><span>429话<i>欢迎加入我们的角色</i></span></a></li>
+      <li><a href="/comic/120/sishen428.shtml" title="428话 已知"><span>428话<i>已知</i></span></a></li>
+      <li><a href="/comic/120/sishen427.shtml" title="427话 不协调的美味"><span>427话<i>不协调的美味</i></span></a></li>
+      <li><a href="/comic/120/sishen426.shtml" title="426话 发起者 2"><span>426话<i>发起者 2</i></span></a></li>
+      <li><a href="/comic/120/sishen425.shtml" title="425话 没有旋律的一天"><span>425话<i>没有旋律的一天</i></span></a></li>
+      <li><a href="/comic/120/sishen424.shtml" title="424话 失去的代理"><span>424话<i>失去的代理</i></span></a></li>
+      <li><a href="/comic/120/sishen423.shtml" title="423话 离别之剑"><span>423话<i>离别之剑</i></span></a></li>
+      <li><a href="/comic/120/sishen422.shtml" title="422话 沉默的胜利"><span>422话<i>沉默的胜利</i></span></a></li>
+      <li><a href="/comic/120/sishen421.shtml" title="421话 弑神 23"><span>421话<i>弑神 23</i></span></a></li>
+      <li><a href="/comic/120/sishen420.shtml" title="420话 弑神 22"><span>420话<i>弑神 22</i></span></a></li>
+      <li><a href="/comic/120/sishen419.shtml" title="419话 弑神 21 卓越的神之岩石"><span>419话<i>弑神 21 卓越的神之岩石</i></span></a></li>
+      <li><a href="/comic/120/sishen418.shtml" title="418话 弑神 20"><span>418话<i>弑神 20</i></span></a></li>
+      <li><a href="/comic/120/sishen417.shtml" title="417话 弑神 19"><span>417话<i>弑神 19</i></span></a></li>
+      <li><a href="/comic/120/sishen416.shtml" title="416话 弑神 18 终结"><span>416话<i>弑神 18 终结</i></span></a></li>
+      <li><a href="/comic/120/sishen415.shtml" title="415话 弑神 17"><span>415话<i>弑神 17</i></span></a></li>
+      <li><a href="/comic/120/sishen414.shtml" title="414话 弑神 16"><span>414话<i>弑神 16</i></span></a></li>
+      <li><a href="/comic/120/sishen413.shtml" title="413话 弑神 15"><span>413话<i>弑神 15</i></span></a></li>
+      <li><a href="/comic/120/sishen412.shtml" title="412话 弑神 14"><span>412话<i>弑神 14</i></span></a></li>
+      <li><a href="/comic/120/sishen411.shtml" title="411话 弑神 13"><span>411话<i>弑神 13</i></span></a></li>
+      <li><a href="/comic/120/sishen410.shtml" title="410话 弑神 12"><span>410话<i>弑神 12</i></span></a></li>
+      <li><a href="/comic/120/sishen409.shtml" title="409话 弑神 11"><span>409话<i>弑神 11</i></span></a></li>
+      <li><a href="/comic/120/sishen408.shtml" title="408话 弑神 10"><span>408话<i>弑神 10</i></span></a></li>
+      <li><a href="/comic/120/sishen407.shtml" title="407话 弑神 9"><span>407话<i>弑神 9</i></span></a></li>
+      <li><a href="/comic/120/sishen406.shtml" title="406话 弑神 8 蝶蛹年华的终结"><span>406话<i>弑神 8 蝶蛹年华的终结</i></span></a></li>
+      <li><a href="/comic/120/sishen405.shtml" title="405话 弑神 7"><span>405话<i>弑神 7</i></span></a></li>
+      <li><a href="/comic/120/sishen404.shtml" title="404话 弑神 6"><span>404话<i>弑神 6</i></span></a></li>
+      <li><a href="/comic/120/sishen403.shtml" title="403话 弑神 5"><span>403话<i>弑神 5</i></span></a></li>
+      <li><a href="/comic/120/sishen402.shtml" title="402话 弑神 4"><span>402话<i>弑神 4</i></span></a></li>
+      <li><a href="/comic/120/sishen401.shtml" title="401话 弑神 3"><span>401话<i>弑神 3</i></span></a></li>
+      <li><a href="/comic/120/sishen400.shtml" title="400话 弑神 2"><span>400话<i>弑神 2</i></span></a></li>
+      <li><a href="/comic/120/sishen399.shtml" title="399话 弑神"><span>399话<i>弑神</i></span></a></li>
+      <li><a href="/comic/120/sishen398.shtml" title="398话 复明"><span>398话<i>复明</i></span></a></li>
+      <li><a href="/comic/120/sishen397.shtml" title="397话 沉默的边缘"><span>397话<i>沉默的边缘</i></span></a></li>
+      <li><a href="/comic/120/sishen396.shtml" title="396话 刺痛"><span>396话<i>刺痛</i></span></a></li>
+      <li><a href="/comic/120/sishen395.shtml" title="395话 燃烬地狱 3"><span>395话<i>燃烬地狱 3</i></span></a></li>
+      <li><a href="/comic/120/sishen394.shtml" title="394话 燃烬地狱 2"><span>394话<i>燃烬地狱 2</i></span></a></li>
+      <li><a href="/comic/120/sishen393.shtml" title="393话 燃烬地狱"><span>393话<i>燃烬地狱</i></span></a></li>
+      <li><a href="/comic/120/sishen392.shtml" title="392话 破碎的冰川"><span>392话<i>破碎的冰川</i></span></a></li>
+      <li><a href="/comic/120/sishen391.shtml" title="391话 燃烧的冰川"><span>391话<i>燃烧的冰川</i></span></a></li>
+      <li><a href="/comic/120/sishen390.shtml" title="390话 超越死亡的理解"><span>390话<i>超越死亡的理解</i></span></a></li>
+      <li><a href="/comic/120/sishen389.shtml" title="389话 再生之鹰 2"><span>389话<i>再生之鹰 2</i></span></a></li>
+      <li><a href="/comic/120/sishen388.shtml" title="388话 无翼之鹰 2"><span>388话<i>无翼之鹰 2</i></span></a></li>
+      <li><a href="/comic/120/sishen387.shtml" title="387话 点燃"><span>387话<i>点燃</i></span></a></li>
+      <li><a href="/comic/120/sishen386.shtml" title="386话 禽兽"><span>386话<i>禽兽</i></span></a></li>
+      <li><a href="/comic/120/sishen385.shtml" title="385话 替代它"><span>385话<i>替代它</i></span></a></li>
+      <li><a href="/comic/120/sishen384.shtml" title="384话 不能畏惧你的剑"><span>384话<i>不能畏惧你的剑</i></span></a></li>
+      <li><a href="/comic/120/sishen383.shtml" title="383话 信任还为时尚早"><span>383话<i>信任还为时尚早</i></span></a></li>
+      <li><a href="/comic/120/sishen382.shtml" title="382话 联合阵线"><span>382话<i>联合阵线</i></span></a></li>
+      <li><a href="/comic/120/sishen381.shtml" title="381话 言不由衷"><span>381话<i>言不由衷</i></span></a></li>
+      <li><a href="/comic/120/sishen380.shtml" title="380话 恶魔，恶魔，恶魔，恶魔"><span>380话<i>恶魔，恶魔，恶魔，恶魔</i></span></a></li>
+      <li><a href="/comic/120/sishen379.shtml" title="379话 缺乏和谐"><span>379话<i>缺乏和谐</i></span></a></li>
+      <li><a href="/comic/120/sishen378.shtml" title="378话 胜利者的眼神"><span>378话<i>胜利者的眼神</i></span></a></li>
+      <li><a href="/comic/120/sishen377.shtml" title="377话 向黑暗呼喊"><span>377话<i>向黑暗呼喊</i></span></a></li>
+      <li><a href="/comic/120/sishen376.shtml" title="376话 处刑，灭绝 2"><span>376话<i>处刑，灭绝 2</i></span></a></li>
+      <li><a href="/comic/120/sishen375.shtml" title="375话 处刑，灭绝"><span>375话<i>处刑，灭绝</i></span></a></li>
+      <li><a href="/comic/120/sishen374.shtml" title="374话 灰狼・红血・黑衣・白骨"><span>374话<i>灰狼・红血・黑衣・白骨</i></span></a></li>
+      <li><a href="/comic/120/sishen373.shtml" title="373话 狼不独嚎"><span>373话<i>狼不独嚎</i></span></a></li>
+      <li><a href="/comic/120/sishen372.shtml" title="372话 挥舞金属棒之人"><span>372话<i>挥舞金属棒之人</i></span></a></li>
+      <li><a href="/comic/120/sishen371.shtml" title="371话 虚的王国"><span>371话<i>虚的王国</i></span></a></li>
+      <li><a href="/comic/120/sishen370.shtml" title="370话 以神的观点论述生命"><span>370话<i>以神的观点论述生命</i></span></a></li>
+      <li><a href="/comic/120/sishen369.shtml" title="369话 自娱自乐"><span>369话<i>自娱自乐</i></span></a></li>
+      <li><a href="/comic/120/sishen368.shtml" title="368话 无所畏惧的孩子"><span>368话<i>无所畏惧的孩子</i></span></a></li>
+      <li><a href="/comic/120/sishen367.shtml" title="367话 你的敌人，也是我的敌人"><span>367话<i>你的敌人，也是我的敌人</i></span></a></li>
+      <li><a href="/comic/120/sishen366.shtml" title="366话 复仇者的高潮"><span>366话<i>复仇者的高潮</i></span></a></li>
+      <li><a href="/comic/120/sishen365.shtml" title="365话 我们站在哪一边"><span>365话<i>我们站在哪一边</i></span></a></li>
+      <li><a href="/comic/120/sishen364.shtml" title="364话 咧嘴而笑的复仇者"><span>364话<i>咧嘴而笑的复仇者</i></span></a></li>
+      <li><a href="/comic/120/sishen363.shtml" title="363话 来自地狱的超级肥肥"><span>363话<i>来自地狱的超级肥肥</i></span></a></li>
+      <li><a href="/comic/120/sishen362.shtml" title="362话 嚎叫群狼"><span>362话<i>嚎叫群狼</i></span></a></li>
+      <li><a href="/comic/120/sishen361.shtml" title="361话 我讨厌孤独，但孤独喜欢我"><span>361话<i>我讨厌孤独，但孤独喜欢我</i></span></a></li>
+      <li><a href="/comic/120/sishen360.shtml" title="360话 女王的雷击"><span>360话<i>女王的雷击</i></span></a></li>
+      <li><a href="/comic/120/sishen359.shtml" title="359话 冰结之箭"><span>359话<i>冰结之箭</i></span></a></li>
+      <li><a href="/comic/120/sishen358.shtml" title="358话 云彩的国王"><span>358话<i>云彩的国王</i></span></a></li>
+      <li><a href="/comic/120/sishen357.shtml" title="357话 恐惧的巨人"><span>357话<i>恐惧的巨人</i></span></a></li>
+      <li><a href="/comic/120/sishen356.shtml" title="356话 颅骨暴君"><span>356话<i>颅骨暴君</i></span></a></li>
+      <li><a href="/comic/120/sishen355.shtml" title="355话 天蓝色血溅"><span>355话<i>天蓝色血溅</i></span></a></li>
+      <li><a href="/comic/120/sishen354.shtml" title="354话 心"><span>354话<i>心</i></span></a></li>
+      <li><a href="/comic/120/sishen353.shtml" title="353话 灰"><span>353话<i>灰</i></span></a></li>
+      <li><a href="/comic/120/sishen352.shtml" title="352话 色欲 6"><span>352话<i>色欲 6</i></span></a></li>
+      <li><a href="/comic/120/sishen351.shtml" title="351话 色欲 5"><span>351话<i>色欲 5</i></span></a></li>
+      <li><a href="/comic/120/sishen350.shtml" title="350话 色欲 4"><span>350话<i>色欲 4</i></span></a></li>
+      <li><a href="/comic/120/sishen349.shtml" title="349话 色欲 3"><span>349话<i>色欲 3</i></span></a></li>
+      <li><a href="/comic/120/sishen348.shtml" title="348话 色欲 2"><span>348话<i>色欲 2</i></span></a></li>
+      <li><a href="/comic/120/sishen347.shtml" title="347话 色欲"><span>347话<i>色欲</i></span></a></li>
+      <li><a href="/comic/120/sishen346.shtml" title="346话 愤怒"><span>346话<i>愤怒</i></span></a></li>
+      <li><a href="/comic/120/sishen345.shtml" title="345话 懒惰"><span>345话<i>懒惰</i></span></a></li>
+      <li><a href="/comic/120/sishen344.shtml" title="344话 傲慢"><span>344话<i>傲慢</i></span></a></li>
+      <li><a href="/comic/120/sishen343.shtml" title="343话 贪婪"><span>343话<i>贪婪</i></span></a></li>
+      <li><a href="/comic/120/sishen342.shtml" title="342话 饕餮"><span>342话<i>饕餮</i></span></a></li>
+      <li><a href="/comic/120/sishen341.shtml" title="341话 嫉妒"><span>341话<i>嫉妒</i></span></a></li>
+      <li><a href="/comic/120/sishen340.shtml" title="340话 对抗者"><span>340话<i>对抗者</i></span></a></li>
+      <li><a href="/comic/120/sishen339.shtml" title="339话 终结者们的数字"><span>339话<i>终结者们的数字</i></span></a></li>
+      <li><a href="/comic/120/sishen338.shtml" title="338话 堕入我的地狱"><span>338话<i>堕入我的地狱</i></span></a></li>
+      <li><a href="/comic/120/sishen337.shtml" title="337话 封于你的地狱"><span>337话<i>封于你的地狱</i></span></a></li>
+      <li><a href="/comic/120/sishen336.shtml" title="336话 刽子手"><span>336话<i>刽子手</i></span></a></li>
+      <li><a href="/comic/120/sishen335.shtml" title="335话 银色之弦"><span>335话<i>银色之弦</i></span></a></li>
+      <li><a href="/comic/120/sishen334.shtml" title="334话 催眠"><span>334话<i>催眠</i></span></a></li>
+      <li><a href="/comic/120/sishen333.shtml" title="333话 尘埃与蝾螈"><span>333话<i>尘埃与蝾螈</i></span></a></li>
+      <li><a href="/comic/120/sishen332.shtml" title="332话 牙与刺"><span>332话<i>牙与刺</i></span></a></li>
+      <li><a href="/comic/120/sishen331.shtml" title="331话 别相信那秘密"><span>331话<i>别相信那秘密</i></span></a></li>
+      <li><a href="/comic/120/sishen330.shtml" title="330话 交叉之剑"><span>330话<i>交叉之剑</i></span></a></li>
+      <li><a href="/comic/120/sishen329.shtml" title="329话 愤怒的狂暴"><span>329话<i>愤怒的狂暴</i></span></a></li>
+      <li><a href="/comic/120/sishen328.shtml" title="328话 用拳头来辩论"><span>328话<i>用拳头来辩论</i></span></a></li>
+      <li><a href="/comic/120/sishen327.shtml" title="327话 打倒那些怪物"><span>327话<i>打倒那些怪物</i></span></a></li>
+      <li><a href="/comic/120/sishen326.shtml" title="326话 打倒怪物"><span>326话<i>打倒怪物</i></span></a></li>
+      <li><a href="/comic/120/sishen325.shtml" title="325话 对战斗的恐惧"><span>325话<i>对战斗的恐惧</i></span></a></li>
+      <li><a href="/comic/120/sishen324.shtml" title="324话 利爪"><span>324话<i>利爪</i></span></a></li>
+      <li><a href="/comic/120/sishen323.shtml" title="323话 沙沙作响摇摆的肖像"><span>323话<i>沙沙作响摇摆的肖像</i></span></a></li>
+      <li><a href="/comic/120/sishen322.shtml" title="322话 玫瑰下的盟誓"><span>322话<i>玫瑰下的盟誓</i></span></a></li>
+      <li><a href="/comic/120/sishen321.shtml" title="321话 黑玫瑰与荆棘"><span>321话<i>黑玫瑰与荆棘</i></span></a></li>
+      <li><a href="/comic/120/sishen320.shtml" title="320话 美丽是孤独的"><span>320话<i>美丽是孤独的</i></span></a></li>
+      <li><a href="/comic/120/sishen319.shtml" title="319话 蚂蚁与龙"><span>319话<i>蚂蚁与龙</i></span></a></li>
+      <li><a href="/comic/120/sishen318.shtml" title="318话 五塔・四柱"><span>318话<i>五塔・四柱</i></span></a></li>
+      <li><a href="/comic/120/sishen317.shtml" title="317话 六颗心向着同一个方向"><span>317话<i>六颗心向着同一个方向</i></span></a></li>
+      <li><a href="/comic/120/sishen316.shtml" title="316话 大战伊始"><span>316话<i>大战伊始</i></span></a></li>
+      <li><a href="/comic/120/sishen315.shtml" title="315话 死神进军"><span>315话<i>死神进军</i></span></a></li>
+      <li><a href="/comic/120/sishen314.shtml" title="314话 绑架事件幕后"><span>314话<i>绑架事件幕后</i></span></a></li>
+      <li><a href="/comic/120/sishen313.shtml" title="313话 接近你的世界"><span>313话<i>接近你的世界</i></span></a></li>
+      <li><a href="/comic/120/sishen312.shtml" title="312话 白热战"><span>312话<i>白热战</i></span></a></li>
+      <li><a href="/comic/120/sishen311.shtml" title="311话 不死之身4"><span>311话<i>不死之身4</i></span></a></li>
+      <li><a href="/comic/120/sishen310.shtml" title="310话 四只手臂杀死你"><span>310话<i>四只手臂杀死你</i></span></a></li>
+      <li><a href="/comic/120/sishen309.shtml" title="309话 圣哭螳螂"><span>309话<i>圣哭螳螂</i></span></a></li>
+      <li><a href="/comic/120/sishen308.shtml" title="308话 眼罩下的恶魔"><span>308话<i>眼罩下的恶魔</i></span></a></li>
+      <li><a href="/comic/120/sishen307.shtml" title="307话 撕咬与拼杀"><span>307话<i>撕咬与拼杀</i></span></a></li>
+      <li><a href="/comic/120/sishen306.shtml" title="306话 不完美最美"><span>306话<i>不完美最美</i></span></a></li>
+      <li><a href="/comic/120/sishen305.shtml" title="305话 凤凰涅磐"><span>305话<i>凤凰涅磐</i></span></a></li>
+      <li><a href="/comic/120/sishen304.shtml" title="304话 野蛮人的战斗"><span>304话<i>野蛮人的战斗</i></span></a></li>
+      <li><a href="/comic/120/sishen303.shtml" title="303话 束手无策"><span>303话<i>束手无策</i></span></a></li>
+      <li><a href="/comic/120/sishen302.shtml" title="302话 刀刃上的荣耀"><span>302话<i>刀刃上的荣耀</i></span></a></li>
+      <li><a href="/comic/120/sishen301.shtml" title="301话 闭嘴，或者去死"><span>301话<i>闭嘴，或者去死</i></span></a></li>
+      <li><a href="/comic/120/sishen300.shtml" title="300话 咒以爱之名"><span>300话<i>咒以爱之名</i></span></a></li>
+      <li><a href="/comic/120/sishen299.shtml" title="299话 舌战"><span>299话<i>舌战</i></span></a></li>
+      <li><a href="/comic/120/sishen298.shtml" title="298话 入侵者 3"><span>298话<i>入侵者 3</i></span></a></li>
+      <li><a href="/comic/120/sishen297.shtml" title="297话 杀戮之神"><span>297话<i>杀戮之神</i></span></a></li>
+      <li><a href="/comic/120/sishen296.shtml" title="296话 改变又改变"><span>296话<i>改变又改变</i></span></a></li>
+      <li><a href="/comic/120/sishen295.shtml" title="295话 最后一个任务"><span>295话<i>最后一个任务</i></span></a></li>
+      <li><a href="/comic/120/sishen294.shtml" title="294话 如果你称我为野兽，我便如暴风般杀了你"><span>294话<i>如果你称我为野兽，我便如暴风般杀了你</i></span></a></li>
+      <li><a href="/comic/120/sishen293.shtml" title="293话 主张团结"><span>293话<i>主张团结</i></span></a></li>
+      <li><a href="/comic/120/sishen292.shtml" title="292话 破裂的自身复制品"><span>292话<i>破裂的自身复制品</i></span></a></li>
+      <li><a href="/comic/120/sishen291.shtml" title="291话 谢谢你保护我"><span>291话<i>谢谢你保护我</i></span></a></li>
+      <li><a href="/comic/120/sishen290.shtml" title="290话 残破的面具"><span>290话<i>残破的面具</i></span></a></li>
+      <li><a href="/comic/120/sishen289.shtml" title="289话 伤痕面具"><span>289话<i>伤痕面具</i></span></a></li>
+      <li><a href="/comic/120/sishen288.shtml" title="288话 冷笑话"><span>288话<i>冷笑话</i></span></a></li>
+      <li><a href="/comic/120/sishen287.shtml" title="287话 在你死之前都不会忘记"><span>287话<i>在你死之前都不会忘记</i></span></a></li>
+      <li><a href="/comic/120/sishen286.shtml" title="286话 困兽斗"><span>286话<i>困兽斗</i></span></a></li>
+      <li><a href="/comic/120/sishen285.shtml" title="285话 肉食者，独自一人――王的孤独"><span>285话<i>肉食者，独自一人――王的孤独</i></span></a></li>
+      <li><a href="/comic/120/sishen284.shtml" title="284话 豹王和他的阴影故事"><span>284话<i>豹王和他的阴影故事</i></span></a></li>
+      <li><a href="/comic/120/sishen283.shtml" title="283话 你不要再受伤"><span>283话<i>你不要再受伤</i></span></a></li>
+      <li><a href="/comic/120/sishen282.shtml" title="282话 原始的恐惧"><span>282话<i>原始的恐惧</i></span></a></li>
+      <li><a href="/comic/120/sishen281.shtml" title="281话 暴发的嚣音"><span>281话<i>暴发的嚣音</i></span></a></li>
+      <li><a href="/comic/120/sishen280.shtml" title="280话 扼杀者2"><span>280话<i>扼杀者2</i></span></a></li>
+      <li><a href="/comic/120/sishen279.shtml" title="279话 扼杀者"><span>279话<i>扼杀者</i></span></a></li>
+      <li><a href="/comic/120/sishen278.shtml" title="278话 为战而治疗"><span>278话<i>为战而治疗</i></span></a></li>
+      <li><a href="/comic/120/sishen277.shtml" title="277话 一致的侵蚀"><span>277话<i>一致的侵蚀</i></span></a></li>
+      <li><a href="/comic/120/sishen276.shtml" title="276话 吸血的野兽"><span>276话<i>吸血的野兽</i></span></a></li>
+      <li><a href="/comic/120/sishen275.shtml" title="275话 统一战线 2 [红与白]"><span>275话<i>统一战线 2 [红与白]</i></span></a></li>
+      <li><a href="/comic/120/sishen274.shtml" title="274话 天煞"><span>274话<i>天煞</i></span></a></li>
+      <li><a href="/comic/120/sishen273.shtml" title="273话 黑吃黑"><span>273话<i>黑吃黑</i></span></a></li>
+      <li><a href="/comic/120/sishen272.shtml" title="272话 别毁了我的“乐趣”"><span>272话<i>别毁了我的“乐趣”</i></span></a></li>
+      <li><a href="/comic/120/sishen271.shtml" title="271话 如果你死灰复燃"><span>271话<i>如果你死灰复燃</i></span></a></li>
+      <li><a href="/comic/120/sishen270.shtml" title="270话 战争警告"><span>270话<i>战争警告</i></span></a></li>
+      <li><a href="/comic/120/sishen269.shtml" title="269话 终点的临近"><span>269话<i>终点的临近</i></span></a></li>
+      <li><a href="/comic/120/sishen268.shtml" title="268话 你，千万不要死去"><span>268话<i>你，千万不要死去</i></span></a></li>
+      <li><a href="/comic/120/sishen267.shtml" title="267话 虚之大军"><span>267话<i>虚之大军</i></span></a></li>
+      <li><a href="/comic/120/sishen266.shtml" title="266话 躲在阳光背后"><span>266话<i>躲在阳光背后</i></span></a></li>
+      <li><a href="/comic/120/sishen265.shtml" title="265话 冲击"><span>265话<i>冲击</i></span></a></li>
+      <li><a href="/comic/120/sishen264.shtml" title="264话 别再说那个名字"><span>264话<i>别再说那个名字</i></span></a></li>
+      <li><a href="/comic/120/sishen263.shtml" title="263话 出乎意料"><span>263话<i>出乎意料</i></span></a></li>
+      <li><a href="/comic/120/sishen262.shtml" title="262话 无法交融"><span>262话<i>无法交融</i></span></a></li>
+      <li><a href="/comic/120/sishen261.shtml" title="261话 魔鬼的左臂"><span>261话<i>魔鬼的左臂</i></span></a></li>
+      <li><a href="/comic/120/sishen260.shtml" title="260话 巨人的右臂2"><span>260话<i>巨人的右臂2</i></span></a></li>
+      <li><a href="/comic/120/sishen259.shtml" title="259话 闪烁摇曳的火焰"><span>259话<i>闪烁摇曳的火焰</i></span></a></li>
+      <li><a href="/comic/120/sishen258.shtml" title="258话 划破灵魂之物"><span>258话<i>划破灵魂之物</i></span></a></li>
+      <li><a href="/comic/120/sishen257.shtml" title="257话 尖锐的歌剧"><span>257话<i>尖锐的歌剧</i></span></a></li>
+      <li><a href="/comic/120/sishen256.shtml" title="256话 无限的滑行"><span>256话<i>无限的滑行</i></span></a></li>
+      <li><a href="/comic/120/sishen255.shtml" title="255话 别在灌木丛中呼吸"><span>255话<i>别在灌木丛中呼吸</i></span></a></li>
+      <li><a href="/comic/120/sishen254.shtml" title="254话 把巧克力留在这（把天真留下）"><span>254话<i>把巧克力留在这（把天真留下）</i></span></a></li>
+      <li><a href="/comic/120/sishen253.shtml" title="253话 别叫我小鬼"><span>253话<i>别叫我小鬼</i></span></a></li>
+      <li><a href="/comic/120/sishen252.shtml" title="252话 反驳男爵的讲堂"><span>252话<i>反驳男爵的讲堂</i></span></a></li>
+      <li><a href="/comic/120/sishen251.shtml" title="251话 男爵的讲堂第一节"><span>251话<i>男爵的讲堂第一节</i></span></a></li>
+      <li><a href="/comic/120/sishen250.shtml" title="250话 五条通向“三位数”之路"><span>250话<i>五条通向“三位数”之路</i></span></a></li>
+      <li><a href="/comic/120/sishen249.shtml" title="249话 回归纯真"><span>249话<i>回归纯真</i></span></a></li>
+      <li><a href="/comic/120/sishen248.shtml" title="248话 活着，再次回到这里"><span>248话<i>活着，再次回到这里</i></span></a></li>
+      <li><a href="/comic/120/sishen247.shtml" title="247话 沙漠联盟"><span>247话<i>沙漠联盟</i></span></a></li>
+      <li><a href="/comic/120/sishen246.shtml" title="246话 大漠兄弟"><span>246话<i>大漠兄弟</i></span></a></li>
+      <li><a href="/comic/120/sishen245.shtml" title="245话 吾等之路 万夫莫敌"><span>245话<i>吾等之路 万夫莫敌</i></span></a></li>
+      <li><a href="/comic/120/sishen244.shtml" title="244话 生于恐惧"><span>244话<i>生于恐惧</i></span></a></li>
+      <li><a href="/comic/120/sishen243.shtml" title="243话 指节与箭"><span>243话<i>指节与箭</i></span></a></li>
+      <li><a href="/comic/120/sishen242.shtml" title="242话 燃烧的两人"><span>242话<i>燃烧的两人</i></span></a></li>
+      <li><a href="/comic/120/sishen241.shtml" title="241话 银色火焰"><span>241话<i>银色火焰</i></span></a></li>
+      <li><a href="/comic/120/sishen240.shtml" title="240话 再生"><span>240话<i>再生</i></span></a></li>
+      <li><a href="/comic/120/sishen239.shtml" title="239话 再生之鹰"><span>239话<i>再生之鹰</i></span></a></li>
+      <li><a href="/comic/120/sishen238.shtml" title="238话 无翼之鹰"><span>238话<i>无翼之鹰</i></span></a></li>
+      <li><a href="/comic/120/sishen237.shtml" title="237话 再见无忧时光"><span>237话<i>再见无忧时光</i></span></a></li>
+      <li><a href="/comic/120/sishen236.shtml" title="236话 太阳早已落下"><span>236话<i>太阳早已落下</i></span></a></li>
+      <li><a href="/comic/120/sishen235.shtml" title="235话 冰封之爪"><span>235话<i>冰封之爪</i></span></a></li>
+      <li><a href="/comic/120/sishen234.shtml" title="234话 毫无商量"><span>234话<i>毫无商量</i></span></a></li>
+      <li><a href="/comic/120/sishen233.shtml" title="233话 侵犯者"><span>233话<i>侵犯者</i></span></a></li>
+      <li><a href="/comic/120/sishen232.shtml" title="232话 面具之动力 2"><span>232话<i>面具之动力 2</i></span></a></li>
+      <li><a href="/comic/120/sishen231.shtml" title="231话 面具之动力"><span>231话<i>面具之动力</i></span></a></li>
+      <li><a href="/comic/120/sishen230.shtml" title="230话 白色入侵"><span>230话<i>白色入侵</i></span></a></li>
+      <li><a href="/comic/120/sishen229.shtml" title="229话 嘶吼的风暴"><span>229话<i>嘶吼的风暴</i></span></a></li>
+      <li><a href="/comic/120/sishen228.shtml" title="228话 别回头"><span>228话<i>别回头</i></span></a></li>
+      <li><a href="/comic/120/sishen227.shtml" title="227话 无刀的战士"><span>227话<i>无刀的战士</i></span></a></li>
+      <li><a href="/comic/120/sishen226.shtml" title="226话 心之权力"><span>226话<i>心之权力</i></span></a></li>
+      <li><a href="/comic/120/sishen225.shtml" title="225话 悄悄穿过我的结界"><span>225话<i>悄悄穿过我的结界</i></span></a></li>
+      <li><a href="/comic/120/sishen224.shtml" title="224话 强作欢笑"><span>224话<i>强作欢笑</i></span></a></li>
+      <li><a href="/comic/120/sishen223.shtml" title="223话 血染的造物"><span>223话<i>血染的造物</i></span></a></li>
+      <li><a href="/comic/120/sishen222.shtml" title="222话 不可撼动的王座"><span>222话<i>不可撼动的王座</i></span></a></li>
+      <li><a href="/comic/120/sishen221.shtml" title="221话 吞噬世界的尽头"><span>221话<i>吞噬世界的尽头</i></span></a></li>
+      <li><a href="/comic/120/sishen220.shtml" title="220话 王与坐骑"><span>220话<i>王与坐骑</i></span></a></li>
+      <li><a href="/comic/120/sishen219.shtml" title="219话 黑与白3"><span>219话<i>黑与白3</i></span></a></li>
+      <li><a href="/comic/120/sishen218.shtml" title="218话 世界的阴暗面3"><span>218话<i>世界的阴暗面3</i></span></a></li>
+      <li><a href="/comic/120/sishen217.shtml" title="217话 我心中的空洞"><span>217话<i>我心中的空洞</i></span></a></li>
+      <li><a href="/comic/120/sishen216.shtml" title="216话 黑暗的压制"><span>216话<i>黑暗的压制</i></span></a></li>
+      <li><a href="/comic/120/sishen215.shtml" title="215话 将你的神拖出来"><span>215话<i>将你的神拖出来</i></span></a></li>
+      <li><a href="/comic/120/sishen214.shtml" title="214话 神之蓝调"><span>214话<i>神之蓝调</i></span></a></li>
+      <li><a href="/comic/120/sishen213.shtml" title="213话 玩弄"><span>213话<i>玩弄</i></span></a></li>
+      <li><a href="/comic/120/sishen212.shtml" title="212话 你不要再听到我的名字"><span>212话<i>你不要再听到我的名字</i></span></a></li>
+      <li><a href="/comic/120/sishen211.shtml" title="211话 理智的一击"><span>211话<i>理智的一击</i></span></a></li>
+      <li><a href="/comic/120/sishen210.shtml" title="210话 开启真实力量"><span>210话<i>开启真实力量</i></span></a></li>
+      <li><a href="/comic/120/sishen209.shtml" title="209话 限定解除"><span>209话<i>限定解除</i></span></a></li>
+      <li><a href="/comic/120/sishen208.shtml" title="208话 剪刀"><span>208话<i>剪刀</i></span></a></li>
+      <li><a href="/comic/120/sishen207.shtml" title="207话 模式：杀戮"><span>207话<i>模式：杀戮</i></span></a></li>
+      <li><a href="/comic/120/sishen206.shtml" title="206话 不走运！5[幸运]"><span>206话<i>不走运！5[幸运]</i></span></a></li>
+      <li><a href="/comic/120/sishen205.shtml" title="205话 不走运！4[凶残的怪物]"><span>205话<i>不走运！4[凶残的怪物]</i></span></a></li>
+      <li><a href="/comic/120/sishen204.shtml" title="204话 不走运！3[血淋淋的怪物]"><span>204话<i>不走运！3[血淋淋的怪物]</i></span></a></li>
+      <li><a href="/comic/120/sishen203.shtml" title="203话 不走运！2[怪物]"><span>203话<i>不走运！2[怪物]</i></span></a></li>
+      <li><a href="/comic/120/sishen202.shtml" title="202话 不走运！"><span>202话<i>不走运！</i></span></a></li>
+      <li><a href="/comic/120/sishen201.shtml" title="201话 风雪之困"><span>201话<i>风雪之困</i></span></a></li>
+      <li><a href="/comic/120/sishen200.shtml" title="200话 锤击之夜"><span>200话<i>锤击之夜</i></span></a></li>
+      <li><a href="/comic/120/sishen199.shtml" title="199话 丑陋"><span>199话<i>丑陋</i></span></a></li>
+      <li><a href="/comic/120/sishen198.shtml" title="198话 冰冷得不协调"><span>198话<i>冰冷得不协调</i></span></a></li>
+      <li><a href="/comic/120/sishen197.shtml" title="197话 逼近的危险"><span>197话<i>逼近的危险</i></span></a></li>
+      <li><a href="/comic/120/sishen196.shtml" title="196话 击垮石圈"><span>196话<i>击垮石圈</i></span></a></li>
+      <li><a href="/comic/120/sishen195.shtml" title="195话 死神&amp;草莓[重奏]"><span>195话<i>死神&amp;草莓[重奏]</i></span></a></li>
+      <li><a href="/comic/120/sishen194.shtml" title="194话 征服者5[垃圾]"><span>194话<i>征服者5[垃圾]</i></span></a></li>
+      <li><a href="/comic/120/sishen193.shtml" title="193话 征服者4[乌木黑与象牙白]"><span>193话<i>征服者4[乌木黑与象牙白]</i></span></a></li>
+      <li><a href="/comic/120/sishen192.shtml" title="192话 征服者3[被猎杀的女祭司]"><span>192话<i>征服者3[被猎杀的女祭司]</i></span></a></li>
+      <li><a href="/comic/120/sishen191.shtml" title="191话 征服者2[尖啸的交响乐]"><span>191话<i>征服者2[尖啸的交响乐]</i></span></a></li>
+      <li><a href="/comic/120/sishen190.shtml" title="190话 征服者"><span>190话<i>征服者</i></span></a></li>
+      <li><a href="/comic/120/sishen189.shtml" title="189话 决定"><span>189话<i>决定</i></span></a></li>
+      <li><a href="/comic/120/sishen188.shtml" title="188话 毁灭世界"><span>188话<i>毁灭世界</i></span></a></li>
+      <li><a href="/comic/120/sishen187.shtml" title="187话 雪茄布鲁斯2"><span>187话<i>雪茄布鲁斯2</i></span></a></li>
+      <li><a href="/comic/120/sishen186.shtml" title="186话 告诉孩子们真相"><span>186话<i>告诉孩子们真相</i></span></a></li>
+      <li><a href="/comic/120/sishen185.shtml" title="185话 做我的同伴吗"><span>185话<i>做我的同伴吗</i></span></a></li>
+      <li><a href="/comic/120/sishen184.shtml" title="184话 嘘"><span>184话<i>嘘</i></span></a></li>
+      <li><a href="/comic/120/sishen183.shtml" title="183话 未知的双眸"><span>183话<i>未知的双眸</i></span></a></li>
+      <li><a href="/comic/120/sishen182.shtml" title="182话 风暴中归来[新协奏曲的触发]"><span>182话<i>风暴中归来[新协奏曲的触发]</i></span></a></li>
+      <li><a href="/comic/120/sishen181.shtml" title="181话 雨过天晴"><span>181话<i>雨过天晴</i></span></a></li>
+      <li><a href="/comic/120/sishen180.shtml" title="180话 一些琐事"><span>180话<i>一些琐事</i></span></a></li>
+      <li><a href="/comic/120/sishen179.shtml" title="179话 黄昏下的坦白"><span>179话<i>黄昏下的坦白</i></span></a></li>
+      <li><a href="/comic/120/sishen178.shtml" title="178话 随眠的终结10[无人立于天际]"><span>178话<i>随眠的终结10[无人立于天际]</i></span></a></li>
+      <li><a href="/comic/120/sishen177.shtml" title="177话 催眠的终结9[完全包围]"><span>177话<i>催眠的终结9[完全包围]</i></span></a></li>
+      <li><a href="/comic/120/sishen176.shtml" title="176话 催眠的终结8[贯穿]"><span>176话<i>催眠的终结8[贯穿]</i></span></a></li>
+      <li><a href="/comic/120/sishen175.shtml" title="175话 催眠的终结7[提线下的真相]"><span>175话<i>催眠的终结7[提线下的真相]</i></span></a></li>
+      <li><a href="/comic/120/sishen174.shtml" title="174话 催眠的终结6[统一战线]"><span>174话<i>催眠的终结6[统一战线]</i></span></a></li>
+      <li><a href="/comic/120/sishen173.shtml" title="173话 催眠的终结5[挺身保护你]"><span>173话<i>催眠的终结5[挺身保护你]</i></span></a></li>
+      <li><a href="/comic/120/sishen172.shtml" title="172话 催眠的终结4[天堂的囚徒]"><span>172话<i>催眠的终结4[天堂的囚徒]</i></span></a></li>
+      <li><a href="/comic/120/sishen171.shtml" title="171话 催眠的终结3[蓝雾]"><span>171话<i>催眠的终结3[蓝雾]</i></span></a></li>
+      <li><a href="/comic/120/sishen170.shtml" title="170话 催眠的终结2[被激怒者]"><span>170话<i>催眠的终结2[被激怒者]</i></span></a></li>
+      <li><a href="/comic/120/sishen169.shtml" title="169话 催眠的终结"><span>169话<i>催眠的终结</i></span></a></li>
+      <li><a href="/comic/120/sishen168.shtml" title="168话 在我身后，在你身后"><span>168话<i>在我身后，在你身后</i></span></a></li>
+      <li><a href="/comic/120/sishen167.shtml" title="167话 墓室般的房间"><span>167话<i>墓室般的房间</i></span></a></li>
+      <li><a href="/comic/120/sishen166.shtml" title="166话 黑与白2"><span>166话<i>黑与白2</i></span></a></li>
+      <li><a href="/comic/120/sishen165.shtml" title="165话 世界的阴暗面2"><span>165话<i>世界的阴暗面2</i></span></a></li>
+      <li><a href="/comic/120/sishen164.shtml" title="164话 是谁改变了世界"><span>164话<i>是谁改变了世界</i></span></a></li>
+      <li><a href="/comic/120/sishen163.shtml" title="163话 极速幻影2[因骄傲而否认，因力量而驳斥]"><span>163话<i>极速幻影2[因骄傲而否认，因力量而驳斥]</i></span></a></li>
+      <li><a href="/comic/120/sishen162.shtml" title="162话 黑月升起"><span>162话<i>黑月升起</i></span></a></li>
+      <li><a href="/comic/120/sishen161.shtml" title="161话 撕裂的天空"><span>161话<i>撕裂的天空</i></span></a></li>
+      <li><a href="/comic/120/sishen160.shtml" title="160话 双殛之丘的战斗"><span>160话<i>双殛之丘的战斗</i></span></a></li>
+      <li><a href="/comic/120/sishen159.shtml" title="159话 告别的漫漫长路"><span>159话<i>告别的漫漫长路</i></span></a></li>
+      <li><a href="/comic/120/sishen158.shtml" title="158话 空中的雌豹"><span>158话<i>空中的雌豹</i></span></a></li>
+      <li><a href="/comic/120/sishen157.shtml" title="157话 猫与黄蜂"><span>157话<i>猫与黄蜂</i></span></a></li>
+      <li><a href="/comic/120/sishen156.shtml" title="156话 欢迎来炼狱"><span>156话<i>欢迎来炼狱</i></span></a></li>
+      <li><a href="/comic/120/sishen155.shtml" title="155话 助人为乐/后生可畏"><span>155话<i>助人为乐/后生可畏</i></span></a></li>
+      <li><a href="/comic/120/sishen154.shtml" title="154话 瞬神"><span>154话<i>瞬神</i></span></a></li>
+      <li><a href="/comic/120/sishen153.shtml" title="153话 空洞的对话"><span>153话<i>空洞的对话</i></span></a></li>
+      <li><a href="/comic/120/sishen152.shtml" title="152话 极速幻影"><span>152话<i>极速幻影</i></span></a></li>
+      <li><a href="/comic/120/sishen151.shtml" title="151话 死神一护再现"><span>151话<i>死神一护再现</i></span></a></li>
+      <li><a href="/comic/120/sishen150.shtml" title="150话 终场倒计时：0"><span>150话<i>终场倒计时：0</i></span></a></li>
+      <li><a href="/comic/120/sishen149.shtml" title="149话 终场倒计时：1[仅仅是慈悲]"><span>149话<i>终场倒计时：1[仅仅是慈悲]</i></span></a></li>
+      <li><a href="/comic/120/sishen148.shtml" title="148话 终场倒计时：2[列侬女士~弗兰肯斯坦]"><span>148话<i>终场倒计时：2[列侬女士~弗兰肯斯坦]</i></span></a></li>
+      <li><a href="/comic/120/sishen147.shtml" title="147话 终场倒计时：3[刺眼的光线，无声的鼓动]"><span>147话<i>终场倒计时：3[刺眼的光线，无声的鼓动]</i></span></a></li>
+      <li><a href="/comic/120/sishen146.shtml" title="146话 恶魔喜欢黑暗"><span>146话<i>恶魔喜欢黑暗</i></span></a></li>
+      <li><a href="/comic/120/sishen145.shtml" title="145话 动摇"><span>145话<i>动摇</i></span></a></li>
+      <li><a href="/comic/120/sishen144.shtml" title="144话 比玫瑰更鲜红，比百合更洁白"><span>144话<i>比玫瑰更鲜红，比百合更洁白</i></span></a></li>
+      <li><a href="/comic/120/sishen143.shtml" title="143话 燃烧的灵魂"><span>143话<i>燃烧的灵魂</i></span></a></li>
+      <li><a href="/comic/120/sishen142.shtml" title="142话 告诫那欲捕明月者"><span>142话<i>告诫那欲捕明月者</i></span></a></li>
+      <li><a href="/comic/120/sishen141.shtml" title="141话 向狒狒王屈膝"><span>141话<i>向狒狒王屈膝</i></span></a></li>
+      <li><a href="/comic/120/sishen140.shtml" title="140话 咬噬明月"><span>140话<i>咬噬明月</i></span></a></li>
+      <li><a href="/comic/120/sishen139.shtml" title="139话 倦怠的、血腥的、疯狂的"><span>139话<i>倦怠的、血腥的、疯狂的</i></span></a></li>
+      <li><a href="/comic/120/sishen138.shtml" title="138话 各自的想法"><span>138话<i>各自的想法</i></span></a></li>
+      <li><a href="/comic/120/sishen137.shtml" title="137话 围紧"><span>137话<i>围紧</i></span></a></li>
+      <li><a href="/comic/120/sishen136.shtml" title="136话 雨中的回忆2 op.4 “悔恨之夜”"><span>136话<i>雨中的回忆2 op.4 “悔恨之夜”</i></span></a></li>
+      <li><a href="/comic/120/sishen135.shtml" title="135话 雨中的回忆2 op.3 “为黑夜所染”"><span>135话<i>雨中的回忆2 op.3 “为黑夜所染”</i></span></a></li>
+      <li><a href="/comic/120/sishen134.shtml" title="134话 雨中的回忆2 op.2 “渴求庇护”"><span>134话<i>雨中的回忆2 op.2 “渴求庇护”</i></span></a></li>
+      <li><a href="/comic/120/sishen133.shtml" title="133话 雨中的回忆2:“夜曲”"><span>133话<i>雨中的回忆2:“夜曲”</i></span></a></li>
+      <li><a href="/comic/120/sishen132.shtml" title="132话 渐渐逼近的时限"><span>132话<i>渐渐逼近的时限</i></span></a></li>
+      <li><a href="/comic/120/sishen131.shtml" title="131话 真正的遗愿"><span>131话<i>真正的遗愿</i></span></a></li>
+      <li><a href="/comic/120/sishen130.shtml" title="130话 嫌疑2[为了眼泪]"><span>130话<i>嫌疑2[为了眼泪]</i></span></a></li>
+      <li><a href="/comic/120/sishen129.shtml" title="129话 嫌疑[因为暗杀]"><span>129话<i>嫌疑[因为暗杀]</i></span></a></li>
+      <li><a href="/comic/120/sishen128.shtml" title="128话 伟大的战斗联盟"><span>128话<i>伟大的战斗联盟</i></span></a></li>
+      <li><a href="/comic/120/sishen127.shtml" title="127话 明日死亡的开始"><span>127话<i>明日死亡的开始</i></span></a></li>
+      <li><a href="/comic/120/sishen126.shtml" title="126话 最后一场无意义的战斗"><span>126话<i>最后一场无意义的战斗</i></span></a></li>
+      <li><a href="/comic/120/sishen125.shtml" title="125话 疯狂&amp;天才"><span>125话<i>疯狂&amp;天才</i></span></a></li>
+      <li><a href="/comic/120/sishen124.shtml" title="124话 小人物的哭泣"><span>124话<i>小人物的哭泣</i></span></a></li>
+      <li><a href="/comic/120/sishen123.shtml" title="123话 赌上我的尊严"><span>123话<i>赌上我的尊严</i></span></a></li>
+      <li><a href="/comic/120/sishen122.shtml" title="122话 不要放开你所抓住的"><span>122话<i>不要放开你所抓住的</i></span></a></li>
+      <li><a href="/comic/120/sishen121.shtml" title="121话 我们相信疯狂"><span>121话<i>我们相信疯狂</i></span></a></li>
+      <li><a href="/comic/120/sishen120.shtml" title="120话 与手榴弹握手"><span>120话<i>与手榴弹握手</i></span></a></li>
+      <li><a href="/comic/120/sishen119.shtml" title="119话 月亮的秘密"><span>119话<i>月亮的秘密</i></span></a></li>
+      <li><a href="/comic/120/sishen118.shtml" title="118话 非凡的标记"><span>118话<i>非凡的标记</i></span></a></li>
+      <li><a href="/comic/120/sishen117.shtml" title="117话 幸存者2[否定阴影]"><span>117话<i>幸存者2[否定阴影]</i></span></a></li>
+      <li><a href="/comic/120/sishen116.shtml" title="116话 晃动的白塔"><span>116话<i>晃动的白塔</i></span></a></li>
+      <li><a href="/comic/120/sishen115.shtml" title="115话 幸存者"><span>115话<i>幸存者</i></span></a></li>
+      <li><a href="/comic/120/sishen114.shtml" title="114话 关于逐渐瓦解的世界的一切"><span>114话<i>关于逐渐瓦解的世界的一切</i></span></a></li>
+      <li><a href="/comic/120/sishen113.shtml" title="113话 不死之身3[狂宴的终点]"><span>113话<i>不死之身3[狂宴的终点]</i></span></a></li>
+      <li><a href="/comic/120/sishen112.shtml" title="112话 不死之身2[复活&amp;狂热]"><span>112话<i>不死之身2[复活&amp;狂热]</i></span></a></li>
+      <li><a href="/comic/120/sishen111.shtml" title="111话 黑与白"><span>111话<i>黑与白</i></span></a></li>
+      <li><a href="/comic/120/sishen110.shtml" title="110话 世界的阴暗面"><span>110话<i>世界的阴暗面</i></span></a></li>
+      <li><a href="/comic/120/sishen109.shtml" title="109话 就像避免踩到花的老虎一样"><span>109话<i>就像避免踩到花的老虎一样</i></span></a></li>
+      <li><a href="/comic/120/sishen108.shtml" title="108话 惊愕之刻"><span>108话<i>惊愕之刻</i></span></a></li>
+      <li><a href="/comic/120/sishen107.shtml" title="107话 灼热的信赖"><span>107话<i>灼热的信赖</i></span></a></li>
+      <li><a href="/comic/120/sishen106.shtml" title="106话 对抗的理由"><span>106话<i>对抗的理由</i></span></a></li>
+      <li><a href="/comic/120/sishen105.shtml" title="105话 春水，春水，与老虎相遇"><span>105话<i>春水，春水，与老虎相遇</i></span></a></li>
+      <li><a href="/comic/120/sishen104.shtml" title="104话 不死之身"><span>104话<i>不死之身</i></span></a></li>
+      <li><a href="/comic/120/sishen103.shtml" title="103话 领域"><span>103话<i>领域</i></span></a></li>
+      <li><a href="/comic/120/sishen102.shtml" title="102话 无人能敌"><span>102话<i>无人能敌</i></span></a></li>
+      <li><a href="/comic/120/sishen101.shtml" title="101话 红茎下的裂痕"><span>101话<i>红茎下的裂痕</i></span></a></li>
+      <li><a href="/comic/120/sishen100.shtml" title="100话 就像岩壁上的花一样"><span>100话<i>就像岩壁上的花一样</i></span></a></li>
+      <li><a href="/comic/120/sishen99.shtml" title="99话 死一般黑色的战争之云"><span>99话<i>死一般黑色的战争之云</i></span></a></li>
+      <li><a href="/comic/120/sishen98.shtml" title="98话 星星与野狗"><span>98话<i>星星与野狗</i></span></a></li>
+      <li><a href="/comic/120/sishen97.shtml" title="97话 说说你的恐惧"><span>97话<i>说说你的恐惧</i></span></a></li>
+      <li><a href="/comic/120/sishen96.shtml" title="96话 血染的战斗"><span>96话<i>血染的战斗</i></span></a></li>
+      <li><a href="/comic/120/sishen95.shtml" title="95话 摧毁"><span>95话<i>摧毁</i></span></a></li>
+      <li><a href="/comic/120/sishen94.shtml" title="94话 忏罪之狱"><span>94话<i>忏罪之狱</i></span></a></li>
+      <li><a href="/comic/120/sishen93.shtml" title="93话 向着星星起航"><span>93话<i>向着星星起航</i></span></a></li>
+      <li><a href="/comic/120/sishen92.shtml" title="92话 很精彩！但要永别了！[重奏]"><span>92话<i>很精彩！但要永别了！[重奏]</i></span></a></li>
+      <li><a href="/comic/120/sishen91.shtml" title="91话 空中武器之王"><span>91话<i>空中武器之王</i></span></a></li>
+      <li><a href="/comic/120/sishen90.shtml" title="90话 在烟火下见"><span>90话<i>在烟火下见</i></span></a></li>
+      <li><a href="/comic/120/sishen89.shtml" title="89话 很精彩！但要永别了！"><span>89话<i>很精彩！但要永别了！</i></span></a></li>
+      <li><a href="/comic/120/sishen88.shtml" title="88话 我们是如此的倒霉"><span>88话<i>我们是如此的倒霉</i></span></a></li>
+      <li><a href="/comic/120/sishen87.shtml" title="87话 与矛共舞"><span>87话<i>与矛共舞</i></span></a></li>
+      <li><a href="/comic/120/sishen86.shtml" title="86话 合作，怎样？"><span>86话<i>合作，怎样？</i></span></a></li>
+      <li><a href="/comic/120/sishen85.shtml" title="85话 入侵者2[突入天顶]"><span>85话<i>入侵者2[突入天顶]</i></span></a></li>
+      <li><a href="/comic/120/sishen84.shtml" title="84话 流星计划2[天空中的刺青]"><span>84话<i>流星计划2[天空中的刺青]</i></span></a></li>
+      <li><a href="/comic/120/sishen83.shtml" title="83话 我们上"><span>83话<i>我们上</i></span></a></li>
+      <li><a href="/comic/120/sishen82.shtml" title="82话 冲突的篇章"><span>82话<i>冲突的篇章</i></span></a></li>
+      <li><a href="/comic/120/sishen81.shtml" title="81话 十二乐坊"><span>81话<i>十二乐坊</i></span></a></li>
+      <li><a href="/comic/120/sishen80.shtml" title="80话 流星计划"><span>80话<i>流星计划</i></span></a></li>
+      <li><a href="/comic/120/sishen79.shtml" title="79话 十四天的阴谋"><span>79话<i>十四天的阴谋</i></span></a></li>
+      <li><a href="/comic/120/sishen78.shtml" title="78话 在地下室与之相会"><span>78话<i>在地下室与之相会</i></span></a></li>
+      <li><a href="/comic/120/sishen77.shtml" title="77话 本大爷叫岩鹫"><span>77话<i>本大爷叫岩鹫</i></span></a></li>
+      <li><a href="/comic/120/sishen76.shtml" title="76话 野猪骑士登场"><span>76话<i>野猪骑士登场</i></span></a></li>
+      <li><a href="/comic/120/sishen75.shtml" title="75话 血雨"><span>75话<i>血雨</i></span></a></li>
+      <li><a href="/comic/120/sishen74.shtml" title="74话 断臂，断臂"><span>74话<i>断臂，断臂</i></span></a></li>
+      <li><a href="/comic/120/sishen73.shtml" title="73话 斧头之雨"><span>73话<i>斧头之雨</i></span></a></li>
+      <li><a href="/comic/120/sishen72.shtml" title="72话 大块头"><span>72话<i>大块头</i></span></a></li>
+      <li><a href="/comic/120/sishen71.shtml" title="71话 入侵者"><span>71话<i>入侵者</i></span></a></li>
+      <li><a href="/comic/120/sishen70.shtml" title="70话 通过恐怖的通道"><span>70话<i>通过恐怖的通道</i></span></a></li>
+      <li><a href="/comic/120/sishen69.shtml" title="69话 二十五点集合"><span>69话<i>二十五点集合</i></span></a></li>
+      <li><a href="/comic/120/sishen68.shtml" title="68话 最后的暑假"><span>68话<i>最后的暑假</i></span></a></li>
+      <li><a href="/comic/120/sishen67.shtml" title="67话 测验的最后"><span>67话<i>测验的最后</i></span></a></li>
+      <li><a href="/comic/120/sishen66.shtml" title="66话 刀锋与我"><span>66话<i>刀锋与我</i></span></a></li>
+      <li><a href="/comic/120/sishen65.shtml" title="65话 碰撞"><span>65话<i>碰撞</i></span></a></li>
+      <li><a href="/comic/120/sishen64.shtml" title="64话 从黑暗中归来"><span>64话<i>从黑暗中归来</i></span></a></li>
+      <li><a href="/comic/120/sishen63.shtml" title="63话 测验2-3：内心的瓦解"><span>63话<i>测验2-3：内心的瓦解</i></span></a></li>
+      <li><a href="/comic/120/sishen62.shtml" title="62话 测验2-2：深坑里的惨剧"><span>62话<i>测验2-2：深坑里的惨剧</i></span></a></li>
+      <li><a href="/comic/120/sishen61.shtml" title="61话 测验2：绝望的深坑"><span>61话<i>测验2：绝望的深坑</i></span></a></li>
+      <li><a href="/comic/120/sishen60.shtml" title="60话 测验1-2：击落！"><span>60话<i>测验1-2：击落！</i></span></a></li>
+      <li><a href="/comic/120/sishen59.shtml" title="59话 测验1：一个打击！+囚禁在家"><span>59话<i>测验1：一个打击！+囚禁在家</i></span></a></li>
+      <li><a href="/comic/120/sishen58.shtml" title="58话 空白"><span>58话<i>空白</i></span></a></li>
+      <li><a href="/comic/120/sishen57.shtml" title="57话 未完结的七月之雨"><span>57话<i>未完结的七月之雨</i></span></a></li>
+      <li><a href="/comic/120/sishen56.shtml" title="56话 破碎的结局"><span>56话<i>破碎的结局</i></span></a></li>
+      <li><a href="/comic/120/sishen55.shtml" title="55话 关闭"><span>55话<i>关闭</i></span></a></li>
+      <li><a href="/comic/120/sishen54.shtml" title="54话 不必问姓名的孩子"><span>54话<i>不必问姓名的孩子</i></span></a></li>
+      <li><a href="/comic/120/sishen53.shtml" title="53话 你好，我会打败你"><span>53话<i>你好，我会打败你</i></span></a></li>
+      <li><a href="/comic/120/sishen52.shtml" title="52话 无用的感情"><span>52话<i>无用的感情</i></span></a></li>
+      <li><a href="/comic/120/sishen51.shtml" title="51话 三位死神"><span>51话<i>三位死神</i></span></a></li>
+      <li><a href="/comic/120/sishen50.shtml" title="50话 灭却师射手的憎恨PART2[血腥中的茫然]"><span>50话<i>灭却师射手的憎恨PART2[血腥中的茫然]</i></span></a></li>
+      <li><a href="/comic/120/sishen49.shtml" title="49话 释放"><span>49话<i>释放</i></span></a></li>
+      <li><a href="/comic/120/sishen48.shtml" title="48话 巨大的虚"><span>48话<i>巨大的虚</i></span></a></li>
+      <li><a href="/comic/120/sishen47.shtml" title="47话 背靠背~撕裂的天空"><span>47话<i>背靠背~撕裂的天空</i></span></a></li>
+      <li><a href="/comic/120/sishen46.shtml" title="46话 卡涅阿德斯~背靠背"><span>46话<i>卡涅阿德斯~背靠背</i></span></a></li>
+      <li><a href="/comic/120/sishen45.shtml" title="45话 意图所指"><span>45话<i>意图所指</i></span></a></li>
+      <li><a href="/comic/120/sishen44.shtml" title="44话 觉醒[面对威胁]"><span>44话<i>觉醒[面对威胁]</i></span></a></li>
+      <li><a href="/comic/120/sishen43.shtml" title="43话 公主与龙PART3“盾舜六花”"><span>43话<i>公主与龙PART3“盾舜六花”</i></span></a></li>
+      <li><a href="/comic/120/sishen42.shtml" title="42话 公主与龙PART2“威严”"><span>42话<i>公主与龙PART2“威严”</i></span></a></li>
+      <li><a href="/comic/120/sishen41.shtml" title="41话 公主与龙"><span>41话<i>公主与龙</i></span></a></li>
+      <li><a href="/comic/120/sishen40.shtml" title="40话 成长？"><span>40话<i>成长？</i></span></a></li>
+      <li><a href="/comic/120/sishen39.shtml" title="39话 巨人的右臂"><span>39话<i>巨人的右臂</i></span></a></li>
+      <li><a href="/comic/120/sishen38.shtml" title="38话 决意"><span>38话<i>决意</i></span></a></li>
+      <li><a href="/comic/120/sishen37.shtml" title="37话 渡过鲁比孔河"><span>37话<i>渡过鲁比孔河</i></span></a></li>
+      <li><a href="/comic/120/sishen36.shtml" title="36话 永不停止的复仇"><span>36话<i>永不停止的复仇</i></span></a></li>
+      <li><a href="/comic/120/sishen35.shtml" title="35话 你能做我的对手吗？"><span>35话<i>你能做我的对手吗？</i></span></a></li>
+      <li><a href="/comic/120/sishen34.shtml" title="34话 灭却师射手的憎恨"><span>34话<i>灭却师射手的憎恨</i></span></a></li>
+      <li><a href="/comic/120/sishen33.shtml" title="33话 不确定的未来7"><span>33话<i>不确定的未来7</i></span></a></li>
+      <li><a href="/comic/120/sishen32.shtml" title="32话 英雄一直与我同在吗？"><span>32话<i>英雄一直与我同在吗？</i></span></a></li>
+      <li><a href="/comic/120/sishen31.shtml" title="31话 英雄能拯救你"><span>31话<i>英雄能拯救你</i></span></a></li>
+      <li><a href="/comic/120/sishen30.shtml" title="30话 第二次接触（它是我们理解范围之外的东西）"><span>30话<i>第二次接触（它是我们理解范围之外的东西）</i></span></a></li>
+      <li><a href="/comic/120/sishen29.shtml" title="29话 阻止那个蠢货"><span>29话<i>阻止那个蠢货</i></span></a></li>
+      <li><a href="/comic/120/sishen28.shtml" title="28话 共鸣的征兆"><span>28话<i>共鸣的征兆</i></span></a></li>
+      <li><a href="/comic/120/sishen27.shtml" title="27话 灵魂并不总与我们同在"><span>27话<i>灵魂并不总与我们同在</i></span></a></li>
+      <li><a href="/comic/120/sishen26.shtml" title="26话 虚幻的天堂"><span>26话<i>虚幻的天堂</i></span></a></li>
+      <li><a href="/comic/120/sishen25.shtml" title="25话 6/17“战斗中的男孩2”[雪茄布鲁斯]"><span>25话<i>6/17“战斗中的男孩2”[雪茄布鲁斯]</i></span></a></li>
+      <li><a href="/comic/120/sishen24.shtml" title="24话 6/17“单方面的同情”"><span>24话<i>6/17“单方面的同情”</i></span></a></li>
+      <li><a href="/comic/120/sishen23.shtml" title="23话 6/17“坚定的意志，钝掉的刀子”"><span>23话<i>6/17“坚定的意志，钝掉的刀子”</i></span></a></li>
+      <li><a href="/comic/120/sishen22.shtml" title="22话 6/17“墓地中的战斗”"><span>22话<i>6/17“墓地中的战斗”</i></span></a></li>
+      <li><a href="/comic/120/sishen21.shtml" title="21话 6/17“战斗的男孩”"><span>21话<i>6/17“战斗的男孩”</i></span></a></li>
+      <li><a href="/comic/120/sishen20.shtml" title="20话 6/17“再会”"><span>20话<i>6/17“再会”</i></span></a></li>
+      <li><a href="/comic/120/sishen19.shtml" title="19话 6/17“雨中的回忆”"><span>19话<i>6/17“雨中的回忆”</i></span></a></li>
+      <li><a href="/comic/120/sishen18.shtml" title="18话 6/17“不能微笑，请别见怪”"><span>18话<i>6/17“不能微笑，请别见怪”</i></span></a></li>
+      <li><a href="/comic/120/sishen17.shtml" title="17话 6/17"><span>17话<i>6/17</i></span></a></li>
+      <li><a href="/comic/120/sishen16.shtml" title="16话 无用的却是想要的"><span>16话<i>无用的却是想要的</i></span></a></li>
+      <li><a href="/comic/120/sishen15.shtml" title="15话 大跳跃，震撼人心"><span>15话<i>大跳跃，震撼人心</i></span></a></li>
+      <li><a href="/comic/120/sishen14.shtml" title="14话 学校大乱！"><span>14话<i>学校大乱！</i></span></a></li>
+      <li><a href="/comic/120/sishen13.shtml" title="13话 劣质品"><span>13话<i>劣质品</i></span></a></li>
+      <li><a href="/comic/120/sishen12.shtml" title="12话 终结的大门"><span>12话<i>终结的大门</i></span></a></li>
+      <li><a href="/comic/120/sishen11.shtml" title="11话 复活[是水蛭炸弹还是妈妈]"><span>11话<i>复活[是水蛭炸弹还是妈妈]</i></span></a></li>
+      <li><a href="/comic/120/sishen10.shtml" title="10话 怪物和一个转校生pt.2[死神草莓]"><span>10话<i>怪物和一个转校生pt.2[死神草莓]</i></span></a></li>
+      <li><a href="/comic/120/sishen9.shtml" title="9话 怪物和一个转校生[击倒]"><span>9话<i>怪物和一个转校生[击倒]</i></span></a></li>
+      <li><a href="/comic/120/sishen8.shtml" title="8话 追赶茶渡"><span>8话<i>追赶茶渡</i></span></a></li>
+      <li><a href="/comic/120/sishen7.shtml" title="7话 粉色面颊的小鹦鹉"><span>7话<i>粉色面颊的小鹦鹉</i></span></a></li>
+      <li><a href="/comic/120/sishen6.shtml" title="6话 微裂"><span>6话<i>微裂</i></span></a></li>
+      <li><a href="/comic/120/sishen5.shtml" title="5话 困于黑暗"><span>5话<i>困于黑暗</i></span></a></li>
+      <li><a href="/comic/120/sishen4.shtml" title="4话 为什么要吃它？"><span>4话<i>为什么要吃它？</i></span></a></li>
+      <li><a href="/comic/120/sishen3.shtml" title="3话 爆头"><span>3话<i>爆头</i></span></a></li>
+      <li><a href="/comic/120/sishen2.shtml" title="2话 始发者"><span>2话<i>始发者</i></span></a></li>
+      <li><a href="/comic/120/sishen－sideB.shtml" title="side-B the rotator"><span>side-B<i>the rotator</i></span></a></li>
+      <li><a href="/comic/120/sishen－sideA.shtml" title="side-A the sand"><span>side-A<i>the sand</i></span></a></li>
+      <li><a href="/comic/120/sishen1.shtml" title="1话 死神&amp;草莓"><span>1话<i>死神&amp;草莓</i></span></a></li>
+     </ul>
+    </div> 
+    <div class="blank8" style="border-top: 1px solid #999; background-color: #fff;"></div> 
+    <div class="bar"> 
+     <h3><strong>死神漫画评论</strong><a id="comment"></a></h3> 
+    </div> 
+    <div class="duoshuo"> 
+     <div class="ds-thread"></div> 
+    </div> 
+   </div> 
+   <div class="w220"> 
+    <div class="bar cf"> 
+     <span><a href="/recent.html" class="red">&gt;&gt;更多</a></span> 
+     <h3>最新更新漫画</h3> 
+    </div> 
+    <div class="newUpdate"> 
+     <ul> 
+      <li><em class="red">2013-9-12</em><a href="/comic/4249/" target="_blank" title="达尔文游戏">达尔文游戏</a>[<a class="red" href="/comic/4249/list_87888.html" target="_blank" title="第10话">第10话</a>]</li>
+      <li><em class="red">2013-9-12</em><a href="/comic/1523/" target="_blank" title="空之轨迹">空之轨迹</a>[<a class="green" href="/comic/1523/list_87887.html" target="_blank" title="完结">完结</a>]</li>
+      <li><em class="red">2013-9-12</em><a href="/comic/3728/" target="_blank" title="世界最佳组合">世界最佳组合</a>[<a class="red" href="/comic/3728/list_87886.html" target="_blank" title="#11">#11</a>]</li>
+      <li><em class="red">2013-9-12</em><a href="/comic/4474/" target="_blank" title="翻面人">翻面人</a>[<a class="red" href="/comic/4474/list_87885.html" target="_blank" title="第05话">第05话</a>]</li>
+      <li><em class="red">2013-9-12</em><a href="/comic/3261/" target="_blank" title="猩红蜘蛛">猩红蜘蛛</a>[<a class="red" href="/comic/3261/list_87884.html" target="_blank" title="第14卷">第14卷</a>]</li>
+      <li><em class="red">2013-9-12</em><a href="/comic/251/" target="_blank" title="独领风骚">独领风骚</a>[<a class="red" href="/comic/251/list_87883.html" target="_blank" title="105话">105话</a>]</li>
+      <li><em class="red">2013-9-12</em><a href="/comic/2925/" target="_blank" title="朱月的羽音">朱月的羽音</a>[<a class="red" href="/comic/2925/list_87882.html" target="_blank" title="第13话">第13话</a>]</li>
+      <li><em class="red">2013-9-12</em><a href="/comic/4670/" target="_blank" title="革命机VALVRAVE 流星的少女">革命机VALVRAVE 流星的少女</a>[<a class="red" href="/comic/4670/list_87881.html" target="_blank" title="第03话">第03话</a>]</li>
+      <li><em class="red">2013-9-12</em><a href="/comic/2408/" target="_blank" title="绯弹的亚里亚AA">绯弹的亚里亚AA</a>[<a class="red" href="/comic/2408/list_87880.html" target="_blank" title="第37话">第37话</a>]</li>
+      <li><em class="red">2013-9-12</em><a href="/comic/4587/" target="_blank" title="今天的爱情时间表">今天的爱情时间表</a>[<a class="red" href="/comic/4587/list_87879.html" target="_blank" title="第02话">第02话</a>]</li> 
+     </ul> 
+    </div> 
+    <script type="text/javascript">show(4);</script> 
+    <div style="background-color: #f0f0f0; border-top:1px solid #999; margin: 1px;"> 
+     <script type="text/javascript">show(5);</script> 
+    </div> 
+    <div class="bar cf"> 
+     <span class="fr"><a href="/recent.html" class="red">&gt;&gt;更多</a></span> 
+     <h3>最新添加的漫画</h3> 
+    </div> 
+    <div class="newUpdate"> 
+     <ul> 
+      <li><em class="orange">2013-9-11</em><a href="/comic/4878/" target="_blank" title="打工吧魔王大人校园篇">打工吧魔王大人校园篇</a>[<a class="red" href="/comic/4878/list_87855.html" target="_blank" title="第14话">第14话</a>]</li>
+      <li><em>2013-9-9</em><a href="/comic/4877/" target="_blank" title="夏空毕业礼">夏空毕业礼</a>[<a class="green" href="/comic/4877/list_87758.html" target="_blank" title="完结">完结</a>]</li>
+      <li><em>2013-9-8</em><a href="/comic/4876/" target="_blank" title="那个女孩的俘虏">那个女孩的俘虏</a>[<a class="red" href="/comic/4876/list_87724.html" target="_blank" title="第01话">第01话</a>]</li>
+      <li><em>2013-9-8</em><a href="/comic/4875/" target="_blank" title="因为反正但是一定">因为反正但是一定</a>[<a class="green" href="/comic/4875/list_87717.html" target="_blank" title="完结">完结</a>]</li>
+      <li><em>2013-9-8</em><a href="/comic/4873/" target="_blank" title="Deep Water">Deep Water</a>[<a class="red" href="/comic/4873/list_87715.html" target="_blank" title="第01话">第01话</a>]</li>
+      <li><em>2013-9-8</em><a href="/comic/4872/" target="_blank" title="孤岛浪漫">孤岛浪漫</a>[<a class="red" href="/comic/4872/list_87714.html" target="_blank" title="第01话">第01话</a>]</li>
+      <li><em>2013-9-7</em><a href="/comic/4871/" target="_blank" title="银狐">银狐</a>[<a class="red" href="/comic/4871/list_87653.html" target="_blank" title="第06话">第06话</a>]</li>
+      <li><em>2013-9-7</em><a href="/comic/4870/" target="_blank" title="宫河家的空腹">宫河家的空腹</a>[<a class="red" href="/comic/4870/list_87644.html" target="_blank" title="第09话">第09话</a>]</li>
+      <li><em>2013-9-7</em><a href="/comic/4869/" target="_blank" title="向阳素描">向阳素描</a>[<a class="red" href="/comic/4869/list_87649.html" target="_blank" title="第05卷">第05卷</a>]</li>
+      <li><em>2013-9-7</em><a href="/comic/4868/" target="_blank" title="人鱼又上钩">人鱼又上钩</a>[<a class="red" href="/comic/4868/list_87635.html" target="_blank" title="第03卷">第03卷</a>]</li> 
+     </ul> 
+    </div> 
+   </div> 
+   <div class="blank4 bookBG cf"></div> 
+  </div>
+  <div class="blank8"></div> 
+  <script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=12103"></script> 
+  <script type="text/javascript" id="bdshell_js"></script> 
+  <script type="text/javascript">        var desc = 1;        function order(type) {            if ((type == 0 && desc == 1) || (type == 1 && desc == 0)) {                desc = desc == 1 ? 0 : 1;                var s = [];                var doms = $('#chapterList li');                for (var i = doms.length; i--; i >= 0) {                    s.push('<li>'+doms[i].innerHTML+'</li>');                }                $('#chapterList').html('<ul>' + s.join('') + '</ul>');            }        }        $(function () {$.get('/v2/user/count.aspx', { bid: 120 } );            $('#asc').click(function () { order(0); $(this).addClass('on'); $('#desc').removeClass('on'); });            $('#desc').click(function () { order(1); $(this).addClass('on'); $('#asc').removeClass('on'); });        });        var duoshuoQuery = { short_name: "imanhua" };        document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date() / 3600000);        (function () {            var ds = document.createElement('script');            ds.type = 'text/javascript'; ds.async = true;            ds.src = 'http://static.duoshuo.com/embed.js';            ds.charset = 'UTF-8';            (document.getElementsByTagName('head')[0]            || document.getElementsByTagName('body')[0]).appendChild(ds);        })();    </script>
+  <div class="footer">
+   死神漫画来自网友分享和上传，以供漫画爱好者研究死神漫画画法技巧和构图方式。若侵犯到您的权益，请立即
+   <a target="_blank" class="red" href="/contact.html"><b>联系我们</b></a>删除。本站不负任何相关责任。 
+   <br />
+   <script src="/template/default/foot.js" language="JavaScript" charset="gb2312"></script>
+   <script src="/v2.2/scripts/icount.js" language="JavaScript" charset="gb2312"></script>
+  </div> 
+ </body>
+</html>

@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=gb2312" /> 
+  <title>海贼王 海贼王漫画 海贼王在线漫画 爱漫画</title> 
+  <meta name="Keywords" content="海贼王 海贼王漫画 海贼王在线漫画" /> 
+  <link href="/v2.3/css/global.css" rel="stylesheet" type="text/css" /> 
+  <link href="/v2.3/css/book.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="/v2.3/scripts/jquery.js"></script> 
+  <script type="text/javascript" src="/v2.3/scripts/book.js"></script> 
+  <script type="text/javascript" src="http://www.imanhua.com/v2/money/book.js"></script>
+ </head>
+ <body> 
+  <div class="main"> 
+   <div class="top"> 
+    <div class="logo">
+     <a href="/" title="爱漫画为您提供漫画、在线漫画、最新漫画免费观看">爱漫画网专为您提供漫画、在线漫画 、火影忍者漫画、火影漫画 ，并提供死神、海贼王漫画、网球王子、灌蓝高手、七龙珠等漫画在线免费观看</a>
+    </div> 
+    <div class="fr" style="width: 640px;"> 
+     <div class="hotListText" id="hotComic"></div> 
+     <div class="search" id="search"> 
+      <span id="searchTip">标题或作者：</span>
+      <input name="kw" type="text" value="火影忍者" id="kw" /> 
+      <input type="button" class="btnBig" id="btnSend" name="Submit" value="搜索本站漫画" onclick="searchSend()" /> 
+      <div id="suggest"></div> 
+     </div> 
+    </div> 
+   </div> 
+  </div> 
+  <div class="main_nav"> 
+   <ul class="navList"> 
+    <li class="first"><a href="/">首页</a></li> 
+    <li><a href="/comic/shaonian/" title="少年热血">少年热血</a></li> 
+    <li><a href="/comic/wuxia/" title="武侠格斗">武侠格斗</a></li> 
+    <li><a href="/comic/kehuan/" title="科幻魔幻">科幻魔幻</a></li> 
+    <li><a href="/comic/tiyu/" title="竞技体育">竞技体育</a></li> 
+    <li><a href="/comic/xiju/" title="爆笑喜剧">爆笑喜剧</a></li> 
+    <li><a href="/comic/tuili/" title="侦探推理">侦探推理</a></li> 
+    <li><a href="/comic/kongbu/" title="恐怖灵异">恐怖灵异</a></li> 
+    <li><a href="/comic/dalu/" title="大陆漫画">大陆漫画</a></li> 
+    <li><a href="/comic/japan/" title="日本漫画">日本漫画</a></li> 
+    <li class="mini"><a href="/comic/hk/" title="港台漫画">港台</a></li> 
+    <li class="mini"><a href="/comic/oumei/" title="欧美漫画">欧美</a></li> 
+    <li class="last"><a href="http://www.dm456.com" target="_blank" title="精彩动画片">精彩动画片</a></li> 
+   </ul> 
+  </div> 
+  <div class="subNav"> 
+   <div class="subNavList"> 
+    <div class="charNav"> 
+     <strong> <img src="/template/default/images/btn-chrlist.gif" /></strong>
+     <a href="/comic/A/">A</a>
+     <a href="/comic/B/">B</a>
+     <a href="/comic/C/">C</a>
+     <a href="/comic/D/">D</a>
+     <a href="/comic/E/">E</a>
+     <a href="/comic/F/">F</a>
+     <a href="/comic/G/">G</a>
+     <a href="/comic/H/">H</a>
+     <a href="/comic/I/">I</a>
+     <a href="/comic/J/">J</a>
+     <a href="/comic/K/">K</a>
+     <a href="/comic/L/">L</a>
+     <a href="/comic/M/">M</a>
+     <a href="/comic/N/">N</a>
+     <a href="/comic/O/">O</a>
+     <a href="/comic/P/">P</a>
+     <a href="/comic/Q/">Q</a>
+     <a href="/comic/R/">R</a>
+     <a href="/comic/S/">S</a>
+     <a href="/comic/T/">T</a>
+     <a href="/comic/U/">U</a>
+     <a href="/comic/V/">V</a>
+     <a href="/comic/W/">W</a>
+     <a href="/comic/X/">X</a>
+     <a href="/comic/Y/">Y</a>
+     <a href="/comic/Z/">Z</a> 
+    </div> 
+    <div class="otherNav">
+     <span><a href="/support/tuijian.aspx" onclick="return openWindow(this.href,540,600);">我要推荐漫画</a><a href="/support/jubao.aspx" onclick="return openWindow(this.href,500,520);">举报低俗漫画</a><a href="javascript:void(0);" onclick="window.external.AddFavorite('http://www.imanhua.com/?fav','爱漫画,在线漫画,为您提供最新、最好看的漫画');" class="addFav">收藏爱漫画</a></span>
+     <a href="/wanjie.html">完结漫画</a> 
+     <a href="/lianzai.html">连载漫画</a> 
+     <a href="/all.html">全部漫画</a> 
+     <a href="/top.html" class="red">漫画风云榜</a> 
+     <a href="/recent.html" class="red">最新更新</a>
+    </div> 
+   </div> 
+  </div> 
+  <div class="main cf" style="padding: 4px 0;"> 
+   <script type="text/javascript" src="http://www.imanhua.com/v2/money/top.js"></script> 
+  </div> 
+  <div class="main bookBG1 cf"> 
+   <div class="w752 fr"> 
+    <div class="bar"> 
+     <div class="position">
+      您当前的位置 ：
+      <a href="/">首页</a> 
+      <em>&gt;&gt;</em> 
+      <a href="/comic/H/">字母H漫画列表</a> 
+      <em>&gt;&gt;</em> 
+      <a href="/comic/55/">海贼王漫画</a>
+     </div> 
+    </div> 
+    <div class="bookInfo cf"> 
+     <h1>海贼王</h1> 
+     <p class="cf bookAttr"><span class="fr">完结状态：[ <em>连载中</em> ]</span>原作者：尾田荣一郎 | 字母索引：<a href="/comic/H">H</a> | 加入时间：2007-04-30 | 更新时间：2013-09-10 </p> 
+     <div class="fr bookIntro"> 
+      <div class="fr" style="width: 250px; height: 250px; background-color: #f6f6f6; margin-left:10px;"> 
+       <script type="text/javascript">show(1);</script> 
+      </div> 
+      <h2>海贼王漫画</h2> 
+      <div class="intro"> 
+       <p><a style="color: red; font-size: 18px"><strong>周日上午10点15：</strong></a> <a id="dm456" target="_blank" style="color: blue; font-size: 20px" href="http://www.dm456.com/donghua/9/"><strong>海贼王612</strong></a></p>
+       <p>路&#xfffd;所生&#xfffd;的小村&#xfffd;&#xfffd;曾&#xfffd;是一群以「&#xfffd;&#xfffd;香克斯」&#xfffd;首的海&#xfffd;&#xfffd;的&#xfffd;居地，而幼年路&#xfffd;一直希望可以成&#xfffd;他&#xfffd;的一&#xfffd;，可在一次意外的情&#xfffd;下，他吃了一&#xfffd;叫做「橡皮果&#xfffd;」的&#xfffd;魔果&#xfffd;&#xfffd;成了橡&#xfffd;人。&#xfffd;魔果&#xfffd;&#xfffd;予了他&#xfffd;&#xfffd;奇特的本&#xfffd;，但是吃了&#xfffd;魔果&#xfffd;的人是再也&#xfffd;有能力游泳的…&#xfffd;&#xfffd;&#xfffd;能成&#xfffd;海&#xfffd;&#xfffd;？「&#xfffd;有&#xfffd;&#xfffd;，我只要不掉到海&#xfffd;去就行了…」天性&#xfffd;&#xfffd;的路&#xfffd;&#xfffd;&#xfffd;有放&#xfffd;他的海&#xfffd;之路，他和香克斯&#xfffd;好，&#xfffd;有一天他&#xfffd;&#xfffd;著他的夥伴&#xfffd;成&#xfffd;海&#xfffd;王。（&#xfffd;上去好像很有道理，可是……我真的&#xfffd;&#xfffd;&#xfffd;&#xfffd;&#xfffd;胞的&#xfffd;伙打&#xfffd;了）。</p>
+       <p>名&#xfffd;，&#xfffd;富，&#xfffd;力，曾&#xfffd;&#xfffd;有世界上一切的“海&#xfffd;王”哥&#xfffd;&middot;D&middot;&#xfffd;&#xfffd;，在&#xfffd;死前留下了一句&#xfffd;，&#xfffd;全世界的人&#xfffd;，&#xfffd;之若&#xfffd;奔向大海：“想要我的&#xfffd;&#xfffd;&#xfffd;？想要的&#xfffd;可以&#xfffd;你，去找吧！我把一切都放在那&#xfffd;了！”於是所有的人&#xfffd;&#xfffd;始起航，&#xfffd;入&#xfffd;大航路，世界迎&#xfffd;了『大海&#xfffd;&#xfffd;代』。</p>
+       <p>蒙其.D.路&#xfffd;&#x2014;&#x2014;一&#xfffd;以成&#xfffd;海&#xfffd;王&#xfffd;目&#xfffd;的男孩，&#xfffd;了&#xfffd;&#xfffd;&#xfffd;救了他命的香克斯的承&#xfffd;，戴著香克斯留&#xfffd;他的草帽&#xfffd;身一人向著大海出&#xfffd;了！可路&#xfffd;&#xfffd;因小&#xfffd;候&#xfffd;食了&#xfffd;魔果&#xfffd;而&#xfffd;法游泳了，就是在&#xfffd;&#xfffd;情&#xfffd;下，路&#xfffd;展&#xfffd;了他的冒&#xfffd;……一路上他先後&#xfffd;&#xfffd;了一位又一位可靠的夥伴，打倒了一&#xfffd;又一&#xfffd;&#xfffd;大的&#xfffd;人，&#xfffd;&#xfffd;一次又一次殊死的&#xfffd;&#xfffd;，路&#xfffd;也&#xfffd;那&#xfffd;&#xfffd;“ONE&nbsp;PIECE”越&#xfffd;越近了……</p> 
+      </div> 
+      <!-- Baidu Button BEGIN --> 
+      <div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare"> 
+       <span class="bds_more">分享到：</span> 
+       <a class="bds_tsina"></a> 
+       <a class="bds_qzone"></a> 
+       <a class="bds_tqq"></a> 
+       <a class="bds_renren"></a> 
+       <a class="bds_t163"></a> 
+       <a class="bds_mshare"></a> 
+       <a class="bds_sqq"></a> 
+       <a class="bds_ty"></a> 
+       <a class="bds_douban"></a> 
+       <a class="bds_kaixin001"></a> 
+       <a class="bds_tqf"></a> 
+       <a class="shareCount"></a> 
+      </div> 
+      <!-- Baidu Button END -->
+      <div class="blank8"></div> 
+     </div> 
+     <div class="fl bookCover"> 
+      <img src="/Cover/2011-09/op.jpg" alt="海贼王漫画" /> 
+     </div> 
+    </div> 
+    <div class="blank2" style="border-top: 1px solid #999; background-color: #fff;"></div>
+    <div class="cf" style="background-color: #fff;">
+     <script type="text/javascript">show(3);</script>
+    </div> 
+    <div class="blank2" style="background-color: #fff;"></div> 
+    <div class="bar"> 
+     <div class="fr order"> 
+      <strong>[ 最近更新于：2013-09-10 ]</strong> 排序：
+      <a href="javascript:;" class="on" id="desc">降序</a> 
+      <em>|</em> 
+      <a href="javascript:;" id="asc">升序</a> 
+     </div> 
+     <h3><strong>海贼王漫画全集列表</strong>&nbsp;</h3> 
+    </div> 
+    <div class="chapterList" id="chapterList"> 
+     <div class="bookAdvice">
+      海贼王721话“蕾贝卡与士兵先生”已更新。海贼王722话 预计于9月18日（星期三)更新，敬请各位漫友关注。
+     </div>
+     <ul>
+      <li><a href="/comic/55/haizeiwang721.shtml" title="721话 蕾贝卡与士兵先生"><span>721话<i>蕾贝卡与士兵先生</i><em></em></span></a></li>
+      <li><a href="/comic/55/haizeiwang720.shtml" title="720话 囚犯剑斗士"><span>720话<i>囚犯剑斗士</i><em></em></span></a></li>
+      <li><a href="/comic/55/haizeiwang719.shtml" title="719话 青椒开门"><span>719话<i>青椒开门</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang718.shtml" title="718话 花田中的力库王军"><span>718话<i>花田中的力库王军</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang717.shtml" title="717话 德雷斯罗萨的遗忘之物"><span>717话<i>德雷斯罗萨的遗忘之物</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang716.shtml" title="716话 首领青椒"><span>716话<i>首领青椒</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang715.shtml" title="715话 激战区C区"><span>715话<i>激战区C区</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang714.shtml" title="714话 路西与乌西"><span>714话<i>路西与乌西</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang713.shtml" title="713话 乌索兰度"><span>713话<i>乌索兰度</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang712.shtml" title="712话 维奥莱特"><span>712话<i>维奥莱特</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang711.shtml" title="711话 小人&#xfffd;的冒&#xfffd;"><span>711话<i>小人&#xfffd;的冒&#xfffd;</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang710.shtml" title="710话 前往格林比特"><span>710话<i>前往格林比特</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang709.shtml" title="709话 王者 之拳"><span>709话<i>王者 之拳</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang708.shtml" title="708话 怪客们的竞技场"><span>708话<i>怪客们的竞技场</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang707.shtml" title="707话 B区"><span>707话<i>B区</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang706.shtml" title="706话 不会再耻笑你了"><span>706话<i>不会再耻笑你了</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang705.shtml" title="705话 追击者梅纳德"><span>705话<i>追击者梅纳德</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang704.shtml" title="704话 路西与居鲁士雕像"><span>704话<i>路西与居鲁士雕像</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang703.shtml" title="703话 候&#xfffd;室"><span>703话<i>候&#xfffd;室</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang702.shtml" title="702话 斗牛竞技场"><span>702话<i>斗牛竞技场</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang701.shtml" title="701话 爱与激情与玩具之国的冒险"><span>701话<i>爱与激情与玩具之国的冒险</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang700.shtml" title="700话 诡计"><span>700话<i>诡计</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang699.shtml" title="699话 今日头条"><span>699话<i>今日头条</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang698.shtml" title="698话 多弗朗明戈现身"><span>698话<i>多弗朗明戈现身</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang697.shtml" title="697话 交易"><span>697话<i>交易</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang696.shtml" title="696话 利害一致"><span>696话<i>利害一致</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang695.shtml" title="695话 交给我吧！"><span>695话<i>交给我吧！</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang694.shtml" title="694话 危险的男人"><span>694话<i>危险的男人</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang693.shtml" title="693话 为我捐躯"><span>693话<i>为我捐躯</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang692.shtml" title="692话 从德雷斯罗萨来的刺客"><span>692话<i>从德雷斯罗萨来的刺客</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang691.shtml" title="691话 死亡国度的国王"><span>691话<i>死亡国度的国王</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang690.shtml" title="690话 SAD"><span>690话<i>SAD</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang689.shtml" title="689话 仿佛不存在的岛屿"><span>689话<i>仿佛不存在的岛屿</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang688.shtml" title="688话 莫查"><span>688话<i>莫查</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang687.shtml" title="687话 猛兽"><span>687话<i>猛兽</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang686.shtml" title="686话 饼干小屋的雪女"><span>686话<i>饼干小屋的雪女</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang685.shtml" title="685话 吾名 桃之助是也"><span>685话<i>吾名 桃之助是也</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang684.shtml" title="684话 住手啊贝加庞克"><span>684话<i>住手啊贝加庞克</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang683.shtml" title="683话 冰一样的女子"><span>683话<i>冰一样的女子</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang682.shtml" title="682话 黑幕"><span>682话<i>黑幕</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang681.shtml" title="681话 路飞vs.M"><span>681话<i>路飞vs.M</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang680.shtml" title="680话 鬼竹维尔戈"><span>680话<i>鬼竹维尔戈</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang679.shtml" title="679话 血性G-5"><span>679话<i>血性G-5</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang678.shtml" title="678话 研究所&#xfffd;A栋大厅"><span>678话<i>研究所&#xfffd;A栋大厅</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang677.shtml" title="677话 COUNTER HAZARD"><span>677话<i>COUNTER HAZARD</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang676.shtml" title="676话 杀戮兵器完全体"><span>676话<i>杀戮兵器完全体</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang675.shtml" title="675话 命名为「死亡国度」"><span>675话<i>命名为「死亡国度」</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang674.shtml" title="674话 旁观者们"><span>674话<i>旁观者们</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang673.shtml" title="673话 威尔戈与JOKER"><span>673话<i>威尔戈与JOKER</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang672.shtml" title="672话 在下!!名为锦卫门!!"><span>672话<i>在下!!名为锦卫门!!</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang671.shtml" title="671话 瓦斯果实"><span>671话<i>瓦斯果实</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang670.shtml" title="670话 本日天气为暴雪转史莱姆"><span>670话<i>本日天气为暴雪转史莱姆</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang669.shtml" title="669话 作战开始"><span>669话<i>作战开始</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang668.shtml" title="668话 海贼同盟"><span>668话<i>海贼同盟</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang667.shtml" title="667话 雪山之战（COOL话 FIGHT）"><span>667话<i>雪山之战（COOL话 FIGHT）</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang666.shtml" title="666话 野人COOL话 BROTHERS"><span>666话<i>野人COOL话 BROTHERS</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang665.shtml" title="665话 CANDY"><span>665话<i>CANDY</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang664.shtml" title="664话 M(主人)话 ?凯撒?库朗"><span>664话<i>M(主人)话 ?凯撒?库朗</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang663.shtml" title="663话 CC"><span>663话<i>CC</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang662.shtml" title="662话 七武海罗vs.烟鬼中将"><span>662话<i>七武海罗vs.烟鬼中将</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang661.shtml" title="661话 强盗出没之湖"><span>661话<i>强盗出没之湖</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang660.shtml" title="660话 “王下七武海”特拉法尔加?罗"><span>660话<i>“王下七武海”特拉法尔加?罗</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang659.shtml" title="659话 身体说的话"><span>659话<i>身体说的话</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang658.shtml" title="658话 饼干房"><span>658话<i>饼干房</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang657.shtml" title="657话 首级"><span>657话<i>首级</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang656.shtml" title="656话 燃烧岛的冒险"><span>656话<i>燃烧岛的冒险</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang655.shtml" title="655话 班克禁区"><span>655话<i>班克禁区</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang654.shtml" title="654话 鲸鱼群"><span>654话<i>鲸鱼群</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang653.shtml" title="653话 英雄的帽子"><span>653话<i>英雄的帽子</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang652.shtml" title="652话 前途多桀的预感"><span>652话<i>前途多桀的预感</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang651.shtml" title="651话 来自新世界的声音"><span>651话<i>来自新世界的声音</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang650.shtml" title="650话 应该知道的2个变化"><span>650话<i>应该知道的2个变化</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang649.shtml" title="649话 鲷鱼及比目鱼的曼舞"><span>649话<i>鲷鱼及比目鱼的曼舞</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang648.shtml" title="648话 通往太阳之路"><span>648话<i>通往太阳之路</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang647.shtml" title="647话 停下来诺亚"><span>647话<i>停下来诺亚</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang646.shtml" title="646话 青蛙"><span>646话<i>青蛙</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang645.shtml" title="645话 死也是种复仇"><span>645话<i>死也是种复仇</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang644.shtml" title="644话 归零"><span>644话<i>归零</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang643.shtml" title="643话 虚幻"><span>643话<i>虚幻</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang642.shtml" title="642话 颜面尽失"><span>642话<i>颜面尽失</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang641.shtml" title="641话 你是什么人"><span>641话<i>你是什么人</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang640.shtml" title="640话 鱼人岛正上方"><span>640话<i>鱼人岛正上方</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang639.shtml" title="639话 全部守护"><span>639话<i>全部守护</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang638.shtml" title="638话 逃跑星"><span>638话<i>逃跑星</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang637.shtml" title="637话 古老的方舟"><span>637话<i>古老的方舟</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang636.shtml" title="636话 来自未来过的将军"><span>636话<i>来自未来过的将军</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang635.shtml" title="635话 冲入云霄的强悍"><span>635话<i>冲入云霄的强悍</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang634.shtml" title="634话 10万VS.10"><span>634话<i>10万VS.10</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang633.shtml" title="633话 是敌是友"><span>633话<i>是敌是友</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang632.shtml" title="632话 早已知道"><span>632话<i>早已知道</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang631.shtml" title="631话 吉尔克鲁德广场"><span>631话<i>吉尔克鲁德广场</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang630.shtml" title="630话 开始发威"><span>630话<i>开始发威</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang629.shtml" title="629话 阻挡在面前的原七武海"><span>629话<i>阻挡在面前的原七武海</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang628.shtml" title="628话 大清洗"><span>628话<i>大清洗</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang627.shtml" title="627话 不胜感激"><span>627话<i>不胜感激</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang626.shtml" title="626话 尼普顿三兄弟"><span>626话<i>尼普顿三兄弟</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang625.shtml" title="625话 无法继承的意志"><span>625话<i>无法继承的意志</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang624.shtml" title="624话 乙姬王妃"><span>624话<i>乙姬王妃</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang623.shtml" title="623话 海盗费雪・泰格"><span>623话<i>海盗费雪・泰格</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang622.shtml" title="622话 太阳海盗团"><span>622话<i>太阳海盗团</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang621.shtml" title="621话 乙姬和泰格"><span>621话<i>乙姬和泰格</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang620.shtml" title="620话 憧憬的游园地"><span>620话<i>憧憬的游园地</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang619.shtml" title="619话 在海之森"><span>619话<i>在海之森</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang618.shtml" title="618话 求婚"><span>618话<i>求婚</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang617.shtml" title="617话 珊瑚丘的大事件"><span>617话<i>珊瑚丘的大事件</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang616.shtml" title="616话 复仇的纪念日"><span>616话<i>复仇的纪念日</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang615.shtml" title="615话 靶靶的诅咒"><span>615话<i>靶靶的诅咒</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang614.shtml" title="614话 事已至此无法挽回"><span>614话<i>事已至此无法挽回</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang613.shtml" title="613话 硬壳塔里的人鱼公主"><span>613话<i>硬壳塔里的人鱼公主</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang612.shtml" title="612话 在获救鲨鱼的带领下"><span>612话<i>在获救鲨鱼的带领下</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang611.shtml" title="611话 霍迪・琼斯"><span>611话<i>霍迪・琼斯</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang610.shtml" title="610话 占卜师夏莉夫人"><span>610话<i>占卜师夏莉夫人</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang609.shtml" title="609话 鱼人岛的冒险"><span>609话<i>鱼人岛的冒险</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang608.shtml" title="608话 海底乐园"><span>608话<i>海底乐园</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang607.shtml" title="607话 海底一万米"><span>607话<i>海底一万米</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang606.shtml" title="606话 深海的冒险"><span>606话<i>深海的冒险</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang605.shtml" title="605话 北海巨妖和海盗"><span>605话<i>北海巨妖和海盗</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang604.shtml" title="604话 向深层进发"><span>604话<i>向深层进发</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang603.shtml" title="603话 铭记于心"><span>603话<i>铭记于心</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang602.shtml" title="602话 下满舵！"><span>602话<i>下满舵！</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang601.shtml" title="601话 ROMANCE DAWN"><span>601话<i>ROMANCE DAWN</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang600.shtml" title="600话 再次出发之岛"><span>600话<i>再次出发之岛</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang599.shtml" title="599话 九人的海盗"><span>599话<i>九人的海盗</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang598.shtml" title="598话 两年后"><span>598话<i>两年后</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang597.shtml" title="597话 3D2Y"><span>597话<i>3D2Y</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang596.shtml" title="596话 SPECTRUM"><span>596话<i>SPECTRUM</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang595.shtml" title="595话 宣誓"><span>595话<i>宣誓</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang594.shtml" title="594话 信息"><span>594话<i>信息</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang593.shtml" title="593话 NEWS"><span>593话<i>NEWS</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang592.shtml" title="592话 声援"><span>592话<i>声援</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang591.shtml" title="591话 这样可以吗"><span>591话<i>这样可以吗</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang590.shtml" title="590话 弟弟啊"><span>590话<i>弟弟啊</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang589.shtml" title="589话 风云之志"><span>589话<i>风云之志</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang588.shtml" title="588话 萨波之海"><span>588话<i>萨波之海</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang587.shtml" title="587话 我不会逃"><span>587话<i>我不会逃</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang586.shtml" title="586话 恶臭弥漫的城市"><span>586话<i>恶臭弥漫的城市</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang585.shtml" title="585话 结义杯"><span>585话<i>结义杯</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang584.shtml" title="584话 普尔歇米事件"><span>584话<i>普尔歇米事件</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang583.shtml" title="583话 不确定物终点站"><span>583话<i>不确定物终点站</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang582.shtml" title="582话 路飞和艾斯"><span>582话<i>路飞和艾斯</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang581.shtml" title="581话 悄然而至的未来"><span>581话<i>悄然而至的未来</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang580.shtml" title="580话 停战"><span>580话<i>停战</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang579.shtml" title="579话 充满勇气的数秒"><span>579话<i>充满勇气的数秒</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang578.shtml" title="578话 托付于新时代之人"><span>578话<i>托付于新时代之人</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang577.shtml" title="577话 接二连三的大事件"><span>577话<i>接二连三的大事件</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang576.shtml" title="576话 大海盗爱德华?纽哥特"><span>576话<i>大海盗爱德华?纽哥特</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang575.shtml" title="575话 无言的愤怒"><span>575话<i>无言的愤怒</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang574.shtml" title="574话 波特夹斯?D?艾斯之死"><span>574话<i>波特夹斯?D?艾斯之死</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang573.shtml" title="573话 这个时间名为“白胡子”"><span>573话<i>这个时间名为“白胡子”</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang572.shtml" title="572话 The Times They Are A-"><span>572话<i>The Times They Are A-</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang571.shtml" title="571话 行刑台"><span>571话<i>行刑台</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang570.shtml" title="570话 命运之桥"><span>570话<i>命运之桥</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang569.shtml" title="569话 白色怪物"><span>569话<i>白色怪物</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang568.shtml" title="568话 随便你吧"><span>568话<i>随便你吧</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang567.shtml" title="567话 玛丽弗德海军总部奥利斯广场"><span>567话<i>玛丽弗德海军总部奥利斯广场</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang566.shtml" title="566话 猛攻"><span>566话<i>猛攻</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang565.shtml" title="565话 奥兹的路"><span>565话<i>奥兹的路</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang564.shtml" title="564话 撼动世界的男人"><span>564话<i>撼动世界的男人</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang563.shtml" title="563话 一颗心 一个人"><span>563话<i>一颗心 一个人</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang562.shtml" title="562话 海盗大涡蜘蛛斯库亚德"><span>562话<i>海盗大涡蜘蛛斯库亚德</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang561.shtml" title="561话 路飞VS米霍克"><span>561话<i>路飞VS米霍克</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang560.shtml" title="560话 因佩尔地狱的犯人们"><span>560话<i>因佩尔地狱的犯人们</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang559.shtml" title="559话 天命"><span>559话<i>天命</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang558.shtml" title="558话 弟弟"><span>558话<i>弟弟</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang557.shtml" title="557话 路飞和白胡子"><span>557话<i>路飞和白胡子</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang556.shtml" title="556话 正义必胜"><span>556话<i>正义必胜</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang555.shtml" title="555话 奥兹和斗笠"><span>555话<i>奥兹和斗笠</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang554.shtml" title="554话 大将赤犬"><span>554话<i>大将赤犬</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang553.shtml" title="553话 顶尖决战"><span>553话<i>顶尖决战</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang552.shtml" title="552话 艾斯和白胡子"><span>552话<i>艾斯和白胡子</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang551.shtml" title="551话 四皇“白胡子”"><span>551话<i>四皇“白胡子”</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang550.shtml" title="550话 海军总部"><span>550话<i>海军总部</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang549.shtml" title="549话 出击之船"><span>549话<i>出击之船</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang548.shtml" title="548话 谢谢"><span>548话<i>谢谢</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang547.shtml" title="547话 攻破监狱岛"><span>547话<i>攻破监狱岛</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang546.shtml" title="546话 鱼人海盗团船长“七武海”甚平"><span>546话<i>鱼人海盗团船长“七武海”甚平</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang545.shtml" title="545话 朝向阳光照耀的自由世界"><span>545话<i>朝向阳光照耀的自由世界</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang544.shtml" title="544话 打开地狱之门"><span>544话<i>打开地狱之门</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang543.shtml" title="543话 草帽和黑胡子"><span>543话<i>草帽和黑胡子</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang542.shtml" title="542话 另一个突发事件"><span>542话<i>另一个突发事件</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang541.shtml" title="541话 前所未有"><span>541话<i>前所未有</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang540.shtml" title="540话 LEVEL 6 无限地狱"><span>540话<i>LEVEL 6 无限地狱</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang539.shtml" title="539话 妖王?亢奋荷尔蒙"><span>539话<i>妖王?亢奋荷尔蒙</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang538.shtml" title="538话 LEVEL 5.5区 新人类乐园"><span>538话<i>LEVEL 5.5区 新人类乐园</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang537.shtml" title="537话 地狱逢妖"><span>537话<i>地狱逢妖</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang536.shtml" title="536话 LEVEL 5 极寒地狱"><span>536话<i>LEVEL 5 极寒地狱</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang535.shtml" title="535话 朋友"><span>535话<i>朋友</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang534.shtml" title="534话 狱长麦哲伦VS海盗路飞"><span>534话<i>狱长麦哲伦VS海盗路飞</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang533.shtml" title="533话 LEVEL 4 焦热地狱"><span>533话<i>LEVEL 4 焦热地狱</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang532.shtml" title="532话 狱卒兽人牛怪"><span>532话<i>狱卒兽人牛怪</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang531.shtml" title="531话 LEVEL 3 饥饿地狱"><span>531话<i>LEVEL 3 饥饿地狱</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang530.shtml" title="530话 下地狱"><span>530话<i>下地狱</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang529.shtml" title="529话 LEVEL 2 猛兽地狱"><span>529话<i>LEVEL 2 猛兽地狱</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang528.shtml" title="528话 海峡甚平"><span>528话<i>海峡甚平</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang527.shtml" title="527话 LEVEL 1红莲地狱"><span>527话<i>LEVEL 1红莲地狱</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang526.shtml" title="526话 大监狱的冒险"><span>526话<i>大监狱的冒险</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang525.shtml" title="525话 海底监狱因佩尔地狱"><span>525话<i>海底监狱因佩尔地狱</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang524.shtml" title="524话 无人可以阻止"><span>524话<i>无人可以阻止</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang523.shtml" title="523话 地狱"><span>523话<i>地狱</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang522.shtml" title="522话 致命之疾"><span>522话<i>致命之疾</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang521.shtml" title="521话 天翔龙之蹄"><span>521话<i>天翔龙之蹄</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang520.shtml" title="520话 戈耳工之眼"><span>520话<i>戈耳工之眼</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang519.shtml" title="519话 王者资质"><span>519话<i>王者资质</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang518.shtml" title="518话 竞技台"><span>518话<i>竞技台</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang517.shtml" title="517话 入浴"><span>517话<i>入浴</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang516.shtml" title="516话 海盗女帝波尔?汉库珂"><span>516话<i>海盗女帝波尔?汉库珂</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang515.shtml" title="515话 女儿岛的冒险"><span>515话<i>女儿岛的冒险</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang514.shtml" title="514话 身上长蘑菇之菇"><span>514话<i>身上长蘑菇之菇</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang513.shtml" title="513话 救不了"><span>513话<i>救不了</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang512.shtml" title="512话 佐罗音信全无"><span>512话<i>佐罗音信全无</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang511.shtml" title="511话 扛战斧的战桃丸"><span>511话<i>扛战斧的战桃丸</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang510.shtml" title="510话 草帽一伙VS战斗兵器"><span>510话<i>草帽一伙VS战斗兵器</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang509.shtml" title="509话 黄猿VS四大船长"><span>509话<i>黄猿VS四大船长</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang508.shtml" title="508话 修罗之岛"><span>508话<i>修罗之岛</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang507.shtml" title="507话 黄猿登陆"><span>507话<i>黄猿登陆</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang506.shtml" title="506话 罗杰和雷利"><span>506话<i>罗杰和雷利</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang505.shtml" title="505话 大熊"><span>505话<i>大熊</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang504.shtml" title="504话 海盗前线在移动"><span>504话<i>海盗前线在移动</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang503.shtml" title="503话 矛盾激化的小岛"><span>503话<i>矛盾激化的小岛</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang502.shtml" title="502话 天龙人事件"><span>502话<i>天龙人事件</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang501.shtml" title="501话 风起云涌的世界"><span>501话<i>风起云涌的世界</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang500.shtml" title="500话 历史的残火"><span>500话<i>历史的残火</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang499.shtml" title="499话 香波迪乐园"><span>499话<i>香波迪乐园</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang498.shtml" title="498话 11名超新星"><span>498话<i>11名超新星</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang497.shtml" title="497话 泡泡纷飞的群岛冒险"><span>497话<i>泡泡纷飞的群岛冒险</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang496.shtml" title="496话 干荆蔓红树"><span>496话<i>干荆蔓红树</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang495.shtml" title="495话 狮吼炮"><span>495话<i>狮吼炮</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang494.shtml" title="494话 迪巴鲁的悲剧"><span>494话<i>迪巴鲁的悲剧</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang493.shtml" title="493话 认识"><span>493话<i>认识</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang492.shtml" title="492话 铁面迪巴鲁"><span>492话<i>铁面迪巴鲁</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang491.shtml" title="491话 飞鱼骑士团"><span>491话<i>飞鱼骑士团</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang490.shtml" title="490话 再次到达"><span>490话<i>再次到达</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang489.shtml" title="489话 第八人"><span>489话<i>第八人</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang488.shtml" title="488话 生命之歌"><span>488话<i>生命之歌</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang487.shtml" title="487话 那首歌"><span>487话<i>那首歌</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang486.shtml" title="486话 钢琴"><span>486话<i>钢琴</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang485.shtml" title="485话 草帽一伙?海盗猎人佐罗"><span>485话<i>草帽一伙?海盗猎人佐罗</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang484.shtml" title="484话 吧唧"><span>484话<i>吧唧</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang483.shtml" title="483话 梦醒时分"><span>483话<i>梦醒时分</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang482.shtml" title="482话 早晨来到了"><span>482话<i>早晨来到了</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang481.shtml" title="481话 影子集合地"><span>481话<i>影子集合地</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang480.shtml" title="480话 迎击"><span>480话<i>迎击</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang479.shtml" title="479话 希望战士"><span>479话<i>希望战士</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang478.shtml" title="478话 路飞VS路飞"><span>478话<i>路飞VS路飞</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang477.shtml" title="477话 3/8"><span>477话<i>3/8</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang476.shtml" title="476话 噩梦路飞"><span>476话<i>噩梦路飞</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang475.shtml" title="475话 森林海盗团"><span>475话<i>森林海盗团</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang474.shtml" title="474话 只能拼了"><span>474话<i>只能拼了</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang473.shtml" title="473话 王下七武海 巴索罗缪.大熊出现"><span>473话<i>王下七武海 巴索罗缪.大熊出现</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang472.shtml" title="472话 倒地"><span>472话<i>倒地</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang471.shtml" title="471话 MY FRIEND"><span>471话<i>MY FRIEND</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang470.shtml" title="470话 奥兹VS草帽一伙"><span>470话<i>奥兹VS草帽一伙</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang469.shtml" title="469话 滚出来，草帽一伙"><span>469话<i>滚出来，草帽一伙</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang468.shtml" title="468话 海盗乔巴VS怪人豪格巴克"><span>468话<i>海盗乔巴VS怪人豪格巴克</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang467.shtml" title="467话 海盗佐罗VS武士龙马"><span>467话<i>海盗佐罗VS武士龙马</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang466.shtml" title="466话 决出胜负"><span>466话<i>决出胜负</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang465.shtml" title="465话 海盗撒谎布VS怪人佩罗娜"><span>465话<i>海盗撒谎布VS怪人佩罗娜</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang464.shtml" title="464话 山智的梦想"><span>464话<i>山智的梦想</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang463.shtml" title="463话 海盗山智VS怪人阿布萨罗姆"><span>463话<i>海盗山智VS怪人阿布萨罗姆</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang462.shtml" title="462话 奥兹的冒险"><span>462话<i>奥兹的冒险</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang461.shtml" title="461话 幽灵克星"><span>461话<i>幽灵克星</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang460.shtml" title="460话 天亮之前夺回一切"><span>460话<i>天亮之前夺回一切</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang459.shtml" title="459话 说句我们死了，对不起，就可以算了吗"><span>459话<i>说句我们死了，对不起，就可以算了吗</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang458.shtml" title="458话 别碰我的爆炸头"><span>458话<i>别碰我的爆炸头</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang457.shtml" title="457话 肉……"><span>457话<i>肉……</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang456.shtml" title="456话 来自冰之国的魔人"><span>456话<i>来自冰之国的魔人</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang455.shtml" title="455话 “王下七武海”月光?莫利亚"><span>455话<i>“王下七武海”月光?莫利亚</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang454.shtml" title="454话 鼻哼"><span>454话<i>鼻哼</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang453.shtml" title="453话 多云有时有白骨"><span>453话<i>多云有时有白骨</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang452.shtml" title="452话 风之治五郎"><span>452话<i>风之治五郎</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang451.shtml" title="451话 佩罗娜的不可思议庭院"><span>451话<i>佩罗娜的不可思议庭院</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang450.shtml" title="450话 将军僵尸night"><span>450话<i>将军僵尸night</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang449.shtml" title="449话 恐怖之船上的四怪人"><span>449话<i>恐怖之船上的四怪人</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang448.shtml" title="448话 莫利亚"><span>448话<i>莫利亚</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang447.shtml" title="447话 吓人僵尸"><span>447话<i>吓人僵尸</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang446.shtml" title="446话 豪格巴克医生"><span>446话<i>豪格巴克医生</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang445.shtml" title="445话 僵尸"><span>445话<i>僵尸</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang444.shtml" title="444话 幽灵岛的大冒险"><span>444话<i>幽灵岛的大冒险</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang443.shtml" title="443话 恐怖之船"><span>443话<i>恐怖之船</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang442.shtml" title="442话 魔鬼海域的冒险"><span>442话<i>魔鬼海域的冒险</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang441.shtml" title="441话 巴拿罗岛上的决斗"><span>441话<i>巴拿罗岛上的决斗</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang440.shtml" title="440话 火拳VS黑胡子"><span>440话<i>火拳VS黑胡子</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang439.shtml" title="439话 第三人与第七人"><span>439话<i>第三人与第七人</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang438.shtml" title="438话 尊严"><span>438话<i>尊严</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang437.shtml" title="437话 男儿当裸奔"><span>437话<i>男儿当裸奔</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang436.shtml" title="436话 Pants from Frankyhouse"><span>436话<i>Pants from Frankyhouse</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang435.shtml" title="435话 心情可以理解"><span>435话<i>心情可以理解</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang434.shtml" title="434话 白胡子与红发"><span>434话<i>白胡子与红发</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang433.shtml" title="433话 那片大海的名字"><span>433话<i>那片大海的名字</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang432.shtml" title="432话 吓人盒子"><span>432话<i>吓人盒子</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang431.shtml" title="431话 爱的拳头"><span>431话<i>爱的拳头</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang430.shtml" title="430话 细雪飞舞，往事难忘"><span>430话<i>细雪飞舞，往事难忘</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang429.shtml" title="429话 惨败"><span>429话<i>惨败</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang428.shtml" title="428话 回去吧"><span>428话<i>回去吧</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang427.shtml" title="427话 这里不是地狱"><span>427话<i>这里不是地狱</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang426.shtml" title="426话 整装待发"><span>426话<i>整装待发</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang425.shtml" title="425话 决战之桥"><span>425话<i>决战之桥</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang424.shtml" title="424话 救生船"><span>424话<i>救生船</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang423.shtml" title="423话 人鱼传说"><span>423话<i>人鱼传说</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang422.shtml" title="422话 罗布?鲁兹"><span>422话<i>罗布?鲁兹</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang421.shtml" title="421话 变挡三"><span>421话<i>变挡三</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang420.shtml" title="420话 屠魔令"><span>420话<i>屠魔令</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang419.shtml" title="419话 英雄传说"><span>419话<i>英雄传说</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang418.shtml" title="418话 路飞VS罗布?鲁兹"><span>418话<i>路飞VS罗布?鲁兹</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang417.shtml" title="417话 阿修罗"><span>417话<i>阿修罗</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang416.shtml" title="416话 佐罗VS卡古"><span>416话<i>佐罗VS卡古</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang415.shtml" title="415话 聚热"><span>415话<i>聚热</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang414.shtml" title="414话 山智VS杰布拉"><span>414话<i>山智VS杰布拉</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang413.shtml" title="413话 猎人"><span>413话<i>猎人</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang412.shtml" title="412话 错失良机"><span>412话<i>错失良机</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang411.shtml" title="411话 奈美VS佳妮法"><span>411话<i>奈美VS佳妮法</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang410.shtml" title="410话 奈美变大"><span>410话<i>奈美变大</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang409.shtml" title="409话 噩耗紧急大广播"><span>409话<i>噩耗紧急大广播</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang408.shtml" title="408话 怪物VS脸谱"><span>408话<i>怪物VS脸谱</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang407.shtml" title="407话 怪物"><span>407话<i>怪物</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang406.shtml" title="406话 生命归还"><span>406话<i>生命归还</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang405.shtml" title="405话 力量"><span>405话<i>力量</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang404.shtml" title="404话 弗兰奇VS猫头鹰"><span>404话<i>弗兰奇VS猫头鹰</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang403.shtml" title="403话 Mr.骑士道"><span>403话<i>Mr.骑士道</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang402.shtml" title="402话 二号手铐"><span>402话<i>二号手铐</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang401.shtml" title="401话 海盗VS CP9"><span>401话<i>海盗VS CP9</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang400.shtml" title="400话 解放的钥匙"><span>400话<i>解放的钥匙</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang399.shtml" title="399话 飞向瀑布"><span>399话<i>飞向瀑布</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang398.shtml" title="398话 宣战"><span>398话<i>宣战</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang397.shtml" title="397话 寄托未来"><span>397话<i>寄托未来</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang396.shtml" title="396话 萨乌罗"><span>396话<i>萨乌罗</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang395.shtml" title="395话 奥哈拉VS世界政府"><span>395话<i>奥哈拉VS世界政府</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang394.shtml" title="394话 奥哈拉的恶魔们"><span>394话<i>奥哈拉的恶魔们</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang393.shtml" title="393话 奥尔比亚"><span>393话<i>奥尔比亚</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang392.shtml" title="392话 呔来嘻"><span>392话<i>呔来嘻</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang391.shtml" title="391话 被称为恶魔的少女"><span>391话<i>被称为恶魔的少女</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang390.shtml" title="390话 应战"><span>390话<i>应战</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang389.shtml" title="389话 应答"><span>389话<i>应答</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang388.shtml" title="388话 变挡2"><span>388话<i>变挡2</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang387.shtml" title="387话 变挡"><span>387话<i>变挡</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang386.shtml" title="386话 史无前例"><span>386话<i>史无前例</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang385.shtml" title="385话 还有路"><span>385话<i>还有路</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang384.shtml" title="384话 吹起反攻的号角"><span>384话<i>吹起反攻的号角</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang383.shtml" title="383话 路飞VS布鲁诺"><span>383话<i>路飞VS布鲁诺</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang382.shtml" title="382话 恶魔的隐匿处"><span>382话<i>恶魔的隐匿处</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang381.shtml" title="381话 解雇"><span>381话<i>解雇</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang380.shtml" title="380话 前往司法岛主岛的高速列车"><span>380话<i>前往司法岛主岛的高速列车</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang379.shtml" title="379话 道力"><span>379话<i>道力</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang378.shtml" title="378话 伤亡状况"><span>378话<i>伤亡状况</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang377.shtml" title="377话 司法岛大决战"><span>377话<i>司法岛大决战</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang376.shtml" title="376话 明白了"><span>376话<i>明白了</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang375.shtml" title="375话 艾尼爱斯司法岛的超人们"><span>375话<i>艾尼爱斯司法岛的超人们</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang374.shtml" title="374话 争夺战"><span>374话<i>争夺战</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang373.shtml" title="373话 必要的邪恶"><span>373话<i>必要的邪恶</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang372.shtml" title="372话 大整形"><span>372话<i>大整形</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang371.shtml" title="371话 好汉T彭上校"><span>371话<i>好汉T彭上校</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang370.shtml" title="370话 你不孤独"><span>370话<i>你不孤独</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang369.shtml" title="369话 拉面拳法"><span>369话<i>拉面拳法</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang368.shtml" title="368话 海上列车大作战"><span>368话<i>海上列车大作战</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang367.shtml" title="367话 狙击王"><span>367话<i>狙击王</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang366.shtml" title="366话 出击"><span>366话<i>出击</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang365.shtml" title="365话 火箭人"><span>365话<i>火箭人</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang364.shtml" title="364话 可可罗"><span>364话<i>可可罗</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang363.shtml" title="363话 阿库阿?拉古纳"><span>363话<i>阿库阿?拉古纳</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang362.shtml" title="362话 退潮"><span>362话<i>退潮</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang361.shtml" title="361话 再启"><span>361话<i>再启</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang360.shtml" title="360话 即将出航"><span>360话<i>即将出航</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang359.shtml" title="359话 找到了"><span>359话<i>找到了</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang358.shtml" title="358话 复活"><span>358话<i>复活</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang357.shtml" title="357话 卡提?弗兰姆"><span>357话<i>卡提?弗兰姆</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang356.shtml" title="356话 汤姆先生"><span>356话<i>汤姆先生</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang355.shtml" title="355话 斯巴达姆"><span>355话<i>斯巴达姆</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang353.shtml" title="353话 传说中的造船师"><span>353话<i>传说中的造船师</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang352.shtml" title="352话 海上列车"><span>352话<i>海上列车</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang352.shtml" title="352话 汤姆工作室"><span>352话<i>汤姆工作室</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang351.shtml" title="351话 船精灵"><span>351话<i>船精灵</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang350.shtml" title="350话 桥下的仓库"><span>350话<i>桥下的仓库</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang349.shtml" title="349话 一介平民"><span>349话<i>一介平民</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang348.shtml" title="348话 战斗力"><span>348话<i>战斗力</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang347.shtml" title="347话 六式"><span>347话<i>六式</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang346.shtml" title="346话 第九号正义"><span>346话<i>第九号正义</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang345.shtml" title="345话 潜伏者"><span>345话<i>潜伏者</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang344.shtml" title="344话 抵抗势力"><span>344话<i>抵抗势力</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang343.shtml" title="343话 CIPHER POL NO.9"><span>343话<i>CIPHER POL NO.9</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang342.shtml" title="342话 黑暗使者"><span>342话<i>黑暗使者</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang341.shtml" title="341话 恶魔"><span>341话<i>恶魔</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang340.shtml" title="340话 生活在黑暗中的女人"><span>340话<i>生活在黑暗中的女人</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang339.shtml" title="339话 传闻"><span>339话<i>传闻</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang338.shtml" title="338话 风来炮"><span>338话<i>风来炮</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang337.shtml" title="337话 水都的守护者"><span>337话<i>水都的守护者</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang336.shtml" title="336话 路飞VS弗兰奇"><span>336话<i>路飞VS弗兰奇</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang335.shtml" title="335话 警报"><span>335话<i>警报</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang334.shtml" title="334话 密室大事件"><span>334话<i>密室大事件</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang333.shtml" title="333话 船长"><span>333话<i>船长</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang332.shtml" title="332话 路飞VS撒谎布"><span>332话<i>路飞VS撒谎布</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang331.shtml" title="331话 大动干戈"><span>331话<i>大动干戈</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang330.shtml" title="330话 我决定了"><span>330话<i>我决定了</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang329.shtml" title="329话 我的名字叫弗兰奇"><span>329话<i>我的名字叫弗兰奇</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang328.shtml" title="328话 绑架海盗事件"><span>328话<i>绑架海盗事件</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang327.shtml" title="327话 造船岛造船工厂一号船坞"><span>327话<i>造船岛造船工厂一号船坞</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang326.shtml" title="326话 阿斯巴古先生"><span>326话<i>阿斯巴古先生</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang325.shtml" title="325话 弗兰奇一家"><span>325话<i>弗兰奇一家</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang324.shtml" title="324话 水上都市的冒险"><span>324话<i>水上都市的冒险</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang323.shtml" title="323话 七水之城"><span>323话<i>七水之城</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang322.shtml" title="322话 冒烟?汤姆"><span>322话<i>冒烟?汤姆</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang321.shtml" title="321话 单挑"><span>321话<i>单挑</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang320.shtml" title="320话 最强战斗力"><span>320话<i>最强战斗力</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang319.shtml" title="319话 海军总部大将青雉"><span>319话<i>海军总部大将青雉</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang318.shtml" title="318话 闭幕"><span>318话<i>闭幕</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang317.shtml" title="317话 击倒"><span>317话<i>击倒</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang316.shtml" title="316话 兄弟魂"><span>316话<i>兄弟魂</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang315.shtml" title="315话 秘密房间"><span>315话<i>秘密房间</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang314.shtml" title="314话 决斗"><span>314话<i>决斗</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang313.shtml" title="313话 MAIN EVENT"><span>313话<i>MAIN EVENT</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang312.shtml" title="312话 GOAL"><span>312话<i>GOAL</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang311.shtml" title="311话 暴力游戏"><span>311话<i>暴力游戏</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang310.shtml" title="310话 武斗球赛"><span>310话<i>武斗球赛</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang309.shtml" title="309话 武斗怪物"><span>309话<i>武斗怪物</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang308.shtml" title="308话 干扰大作战"><span>308话<i>干扰大作战</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang307.shtml" title="307话 预备……环岛划艇"><span>307话<i>预备……环岛划艇</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang306.shtml" title="306话 环岛划艇赛"><span>306话<i>环岛划艇赛</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang305.shtml" title="305话 银狐福克斯"><span>305话<i>银狐福克斯</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang304.shtml" title="304话 长岛的冒险"><span>304话<i>长岛的冒险</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang303.shtml" title="303话 富有的海盗团"><span>303话<i>富有的海盗团</i></span></a></li>
+      <li><a href="/comic/55/4114.shtml" title="草帽剧场:海的音乐会"><span>草帽剧场:海的音乐会</span></a></li>
+      <li><a href="/comic/55/haizeiwang302.shtml" title="302话 最终乐章"><span>302话<i>最终乐章</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang301.shtml" title="301话 我来到此地"><span>301话<i>我来到此地</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang300.shtml" title="300话 交响乐"><span>300话<i>交响乐</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang299.shtml" title="299话 幻想曲"><span>299话<i>幻想曲</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang298.shtml" title="298话 岛上歌声"><span>298话<i>岛上歌声</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang297.shtml" title="297话 歌颂大地"><span>297话<i>歌颂大地</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang296.shtml" title="296话 最终局面"><span>296话<i>最终局面</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang295.shtml" title="295话 巨大藤蔓"><span>295话<i>巨大藤蔓</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang294.shtml" title="294话 雷迎"><span>294话<i>雷迎</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang293.shtml" title="293话 舞曲"><span>293话<i>舞曲</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang292.shtml" title="292话 古诗曰：云遮月，难相逢"><span>292话<i>古诗曰：云遮月，难相逢</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang291.shtml" title="291话 我在这里"><span>291话<i>我在这里</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang290.shtml" title="290话 香多拉之灯"><span>290话<i>香多拉之灯</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang289.shtml" title="289话 望月"><span>289话<i>望月</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang288.shtml" title="288话 诅咒"><span>288话<i>诅咒</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang287.shtml" title="287话 弑神"><span>287话<i>弑神</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang286.shtml" title="286话 香多拉的魔物"><span>286话<i>香多拉的魔物</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang285.shtml" title="285话 狂想曲"><span>285话<i>狂想曲</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang284.shtml" title="284话 不好意思啊"><span>284话<i>不好意思啊</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang283.shtml" title="283话 爱的前线营救"><span>283话<i>爱的前线营救</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang282.shtml" title="282话 希望"><span>282话<i>希望</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang281.shtml" title="281话 绝望"><span>281话<i>绝望</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang280.shtml" title="280话 浮气"><span>280话<i>浮气</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang279.shtml" title="279话 海盗路飞VS神?艾尼路"><span>279话<i>海盗路飞VS神?艾尼路</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang278.shtml" title="278话 柯尼丝"><span>278话<i>柯尼丝</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang277.shtml" title="277话 箴言"><span>277话<i>箴言</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang276.shtml" title="276话 山迪亚的旋律"><span>276话<i>山迪亚的旋律</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang275.shtml" title="275话 神曲"><span>275话<i>神曲</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang274.shtml" title="274话 圣谭曲"><span>274话<i>圣谭曲</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang273.shtml" title="273话 五重奏"><span>273话<i>五重奏</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang272.shtml" title="272话 戏曲"><span>272话<i>戏曲</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang271.shtml" title="271话 海盗佐罗VS神官欧姆"><span>271话<i>海盗佐罗VS神官欧姆</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang270.shtml" title="270话 小夜曲"><span>270话<i>小夜曲</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang269.shtml" title="269话 协奏曲"><span>269话<i>协奏曲</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang268.shtml" title="268话 组曲"><span>268话<i>组曲</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang267.shtml" title="267话 前进曲"><span>267话<i>前进曲</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang266.shtml" title="266话 海盗乔巴VS神官欧姆"><span>266话<i>海盗乔巴VS神官欧姆</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang265.shtml" title="265话 海盗罗宾VS神兵长耶摩"><span>265话<i>海盗罗宾VS神兵长耶摩</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang264.shtml" title="264话 战士螳螂VS神?艾尼路"><span>264话<i>战士螳螂VS神?艾尼路</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang263.shtml" title="263话 海盗娜美与古怪骑士VS副神兵长小鸟与小边"><span>263话<i>海盗娜美与古怪骑士VS副神兵长小鸟与小边</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang262.shtml" title="262话 海盗乔巴VS神官涅&#xfffd;"><span>262话<i>海盗乔巴VS神官涅&#xfffd;</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang261.shtml" title="261话 战士捷宝VS神兵长耶摩"><span>261话<i>战士捷宝VS神兵长耶摩</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang260.shtml" title="260话 海盗路飞VS战鬼瓦帕"><span>260话<i>海盗路飞VS战鬼瓦帕</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang259.shtml" title="259话 海盗佐罗VS战士布拉哈姆"><span>259话<i>海盗佐罗VS战士布拉哈姆</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang258.shtml" title="258话 各自的南方"><span>258话<i>各自的南方</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang257.shtml" title="257话 贝激战"><span>257话<i>贝激战</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang256.shtml" title="256话 战鬼瓦帕"><span>256话<i>战鬼瓦帕</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang255.shtml" title="255话 大蟒蛇和探险组"><span>255话<i>大蟒蛇和探险组</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang254.shtml" title="254话 夜明曲"><span>254话<i>夜明曲</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang253.shtml" title="253话 大地"><span>253话<i>大地</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang252.shtml" title="252话 JUNCTION"><span>252话<i>JUNCTION</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang251.shtml" title="251话 序曲"><span>251话<i>序曲</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang250.shtml" title="250话 球龙"><span>250话<i>球龙</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang249.shtml" title="249话 云隐村"><span>249话<i>云隐村</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang248.shtml" title="248话 前任神VS神官"><span>248话<i>前任神VS神官</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang247.shtml" title="247话 球之考验"><span>247话<i>球之考验</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang246.shtml" title="246话 迷失森林的神官阿悟"><span>246话<i>迷失森林的神官阿悟</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang245.shtml" title="245话 神之岛的冒险"><span>245话<i>神之岛的冒险</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang244.shtml" title="244话 SOS"><span>244话<i>SOS</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang243.shtml" title="243话 考验"><span>243话<i>考验</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang242.shtml" title="242话 第二级犯罪"><span>242话<i>第二级犯罪</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang241.shtml" title="241话 天之制裁"><span>241话<i>天之制裁</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang240.shtml" title="240话 贝能源"><span>240话<i>贝能源</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang239.shtml" title="239话 天使海滩"><span>239话<i>天使海滩</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang238.shtml" title="238话 天国之门"><span>238话<i>天国之门</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang237.shtml" title="237话 在天空"><span>237话<i>在天空</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang236.shtml" title="236话 船要飞上天"><span>236话<i>船要飞上天</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang235.shtml" title="235话 冲天海流"><span>235话<i>冲天海流</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang234.shtml" title="234话 请牢记"><span>234话<i>请牢记</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang233.shtml" title="233话 世界最高权力"><span>233话<i>世界最高权力</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang232.shtml" title="232话 价值一亿的男人"><span>232话<i>价值一亿的男人</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang231.shtml" title="231话 猎狗贝拉密"><span>231话<i>猎狗贝拉密</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang230.shtml" title="230话 追踪向南鸟"><span>230话<i>追踪向南鸟</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang229.shtml" title="229话 一起吃饭吧"><span>229话<i>一起吃饭吧</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang228.shtml" title="228话 “猿山联合军最终园长”蒙布朗?库利凯特"><span>228话<i>“猿山联合军最终园长”蒙布朗?库利凯特</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang227.shtml" title="227话 大骗子诺兰度"><span>227话<i>大骗子诺兰度</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang226.shtml" title="226话 海底打探王猩猩"><span>226话<i>海底打探王猩猩</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang225.shtml" title="225话 人的梦想"><span>225话<i>人的梦想</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang224.shtml" title="224话 别做梦了"><span>224话<i>别做梦了</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang223.shtml" title="223话 我发誓，绝对不在这个镇上打架"><span>223话<i>我发誓，绝对不在这个镇上打架</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang222.shtml" title="222话 重量级新手"><span>222话<i>重量级新手</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang221.shtml" title="221话 怪物"><span>221话<i>怪物</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang220.shtml" title="220话 海底散步"><span>220话<i>海底散步</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang219.shtml" title="219话 打捞王人猿"><span>219话<i>打捞王人猿</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang218.shtml" title="218话 “记录指针”是球形的理由"><span>218话<i>“记录指针”是球形的理由</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang217.shtml" title="217话 偷渡者"><span>217话<i>偷渡者</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang216.shtml" title="216话 薇薇的冒险"><span>216话<i>薇薇的冒险</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang215.shtml" title="215话 最后的华尔兹"><span>215话<i>最后的华尔兹</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang214.shtml" title="214话 逃出砂之国大作战"><span>214话<i>逃出砂之国大作战</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang213.shtml" title="213话 VIP"><span>213话<i>VIP</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang212.shtml" title="212话 所谓的正义"><span>212话<i>所谓的正义</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang211.shtml" title="211话 章王"><span>211话<i>章王</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang210.shtml" title="210话 零"><span>210话<i>零</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang209.shtml" title="209话 超越"><span>209话<i>超越</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang208.shtml" title="208话 守护神"><span>208话<i>守护神</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang207.shtml" title="207话 恶梦"><span>207话<i>恶梦</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang206.shtml" title="206话 点火"><span>206话<i>点火</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang205.shtml" title="205话 砂砂团的秘密基地"><span>205话<i>砂砂团的秘密基地</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang204.shtml" title="204话 RED"><span>204话<i>RED</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang203.shtml" title="203话 非常可疑"><span>203话<i>非常可疑</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang202.shtml" title="202话 皇家之墓"><span>202话<i>皇家之墓</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang201.shtml" title="201话 妮古?罗宾"><span>201话<i>妮古?罗宾</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang200.shtml" title="200话 水路飞"><span>200话<i>水路飞</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang199.shtml" title="199话 HOPE"><span>199话<i>HOPE</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang198.shtml" title="198话 下午四点十五分"><span>198话<i>下午四点十五分</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang197.shtml" title="197话 统帅们"><span>197话<i>统帅们</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang196.shtml" title="196话 一"><span>196话<i>一</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang195.shtml" title="195话 Mr.武士道"><span>195话<i>Mr.武士道</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang194.shtml" title="194话 斩铁"><span>194话<i>斩铁</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang193.shtml" title="193话 理想乡"><span>193话<i>理想乡</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang192.shtml" title="192话 旋风警报"><span>192话<i>旋风警报</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang191.shtml" title="191话 操纵天候的女人"><span>191话<i>操纵天候的女人</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang190.shtml" title="190话 天候棒"><span>190话<i>天候棒</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang189.shtml" title="189话 二"><span>189话<i>二</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang188.shtml" title="188话 人妖拳法"><span>188话<i>人妖拳法</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang187.shtml" title="187话 势均力敌"><span>187话<i>势均力敌</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang186.shtml" title="186话 四"><span>186话<i>四</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang185.shtml" title="185话 哦――这样啊"><span>185话<i>哦――这样啊</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang184.shtml" title="184话 鼹鼠&#xfffd;四号街"><span>184话<i>鼹鼠&#xfffd;四号街</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang183.shtml" title="183话 黑鸭队长"><span>183话<i>黑鸭队长</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang182.shtml" title="182话 怒号"><span>182话<i>怒号</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang181.shtml" title="181话 超级快跑鸭猜谜"><span>181话<i>超级快跑鸭猜谜</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang180.shtml" title="180话 阿拉巴斯坦动物军团"><span>180话<i>阿拉巴斯坦动物军团</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang179.shtml" title="179话 决战阿鲁巴拿"><span>179话<i>决战阿鲁巴拿</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang178.shtml" title="178话 LEVEL.G?L"><span>178话<i>LEVEL.G?L</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang177.shtml" title="177话 3000万VS 8100万"><span>177话<i>3000万VS 8100万</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang176.shtml" title="176话 Rush"><span>176话<i>Rush</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang175.shtml" title="175话 解放"><span>175话<i>解放</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang174.shtml" title="174话 Mr.王子"><span>174话<i>Mr.王子</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang173.shtml" title="173话 香蕉鳄"><span>173话<i>香蕉鳄</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang172.shtml" title="172话 叛乱"><span>172话<i>叛乱</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang171.shtml" title="171话 叛乱军首领空扎"><span>171话<i>叛乱军首领空扎</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang170.shtml" title="170话 开始"><span>170话<i>开始</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang169.shtml" title="169话 王国最强的战士"><span>169话<i>王国最强的战士</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang168.shtml" title="168话 梦想城市“雨地”"><span>168话<i>梦想城市“雨地”</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang167.shtml" title="167话 战线"><span>167话<i>战线</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang166.shtml" title="166话 路飞VS薇薇"><span>166话<i>路飞VS薇薇</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang165.shtml" title="165话 作战名“理想乡”"><span>165话<i>作战名“理想乡”</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang164.shtml" title="164话 我爱祖国"><span>164话<i>我爱祖国</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang163.shtml" title="163话 叛乱军基地约巴"><span>163话<i>叛乱军基地约巴</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang162.shtml" title="162话 沙漠王国的冒险"><span>162话<i>沙漠王国的冒险</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang161.shtml" title="161话 绿色城市爱鲁马"><span>161话<i>绿色城市爱鲁马</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang160.shtml" title="160话 8点蜘蛛咖啡店见"><span>160话<i>8点蜘蛛咖啡店见</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang159.shtml" title="159话 来吧"><span>159话<i>来吧</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang158.shtml" title="158话 登陆阿拉巴斯坦"><span>158话<i>登陆阿拉巴斯坦</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang157.shtml" title="157话 艾斯登场"><span>157话<i>艾斯登场</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang156.shtml" title="156话 人妖晴朗日"><span>156话<i>人妖晴朗日</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang155.shtml" title="155话 海盗鳄鱼先生"><span>155话<i>海盗鳄鱼先生</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang154.shtml" title="154话 前往阿拉巴斯坦"><span>154话<i>前往阿拉巴斯坦</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang153.shtml" title="153话 西尔尔克的樱花"><span>153话<i>西尔尔克的樱花</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang152.shtml" title="152话 满月"><span>152话<i>满月</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang151.shtml" title="151话 铁桶国的天空"><span>151话<i>铁桶国的天空</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang150.shtml" title="150话 皇家铁桶王冠七连散弹铁皮大炮"><span>150话<i>皇家铁桶王冠七连散弹铁皮大炮</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang149.shtml" title="149话 RUMBLE"><span>149话<i>RUMBLE</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang148.shtml" title="148话 折不断"><span>148话<i>折不断</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang147.shtml" title="147话 谎话连篇"><span>147话<i>谎话连篇</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang146.shtml" title="146话 国防战"><span>146话<i>国防战</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang145.shtml" title="145话 继承遗志"><span>145话<i>继承遗志</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang144.shtml" title="144话 雪的故事"><span>144话<i>雪的故事</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang143.shtml" title="143话 没用"><span>143话<i>没用</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang142.shtml" title="142话 骷髅与樱花"><span>142话<i>骷髅与樱花</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang141.shtml" title="141话 蹩脚医生"><span>141话<i>蹩脚医生</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang140.shtml" title="140话 雪居住的城堡"><span>140话<i>雪居住的城堡</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang139.shtml" title="139话 托尼托尼?乔巴登场"><span>139话<i>托尼托尼?乔巴登场</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang138.shtml" title="138话 山顶"><span>138话<i>山顶</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang137.shtml" title="137话 雪崩"><span>137话<i>雪崩</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang136.shtml" title="136话 那个名叫多尔顿的男人"><span>136话<i>那个名叫多尔顿的男人</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang135.shtml" title="135话 拉邦"><span>135话<i>拉邦</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang134.shtml" title="134话 Dr.古蕾娃"><span>134话<i>Dr.古蕾娃</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang133.shtml" title="133话 无名国的冒险之旅"><span>133话<i>无名国的冒险之旅</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang132.shtml" title="132话 看吧"><span>132话<i>看吧</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang131.shtml" title="131话 白铁皮的瓦波尔"><span>131话<i>白铁皮的瓦波尔</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang130.shtml" title="130话 最快速度"><span>130话<i>最快速度</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang129.shtml" title="129话 笔直前进"><span>129话<i>笔直前进</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang128.shtml" title="128话 海盗旗"><span>128话<i>海盗旗</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang127.shtml" title="127话 电话虫"><span>127话<i>电话虫</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang126.shtml" title="126话 本能"><span>126话<i>本能</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang125.shtml" title="125话 蜡烛冠军"><span>125话<i>蜡烛冠军</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang124.shtml" title="124话 茶真好喝"><span>124话<i>茶真好喝</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang123.shtml" title="123话 路飞VS话 Mr.3"><span>123话<i>路飞VS话 Mr.3</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang122.shtml" title="122话 死人是没有用的"><span>122话<i>死人是没有用的</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang121.shtml" title="121话 早就知道了"><span>121话<i>早就知道了</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang120.shtml" title="120话 红鬼哭了"><span>120话<i>红鬼哭了</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang119.shtml" title="119话 奸计"><span>119话<i>奸计</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang118.shtml" title="118话 有其他人在"><span>118话<i>有其他人在</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang117.shtml" title="117话 多里与布罗基"><span>117话<i>多里与布罗基</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang116.shtml" title="116话 好大"><span>116话<i>好大</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang115.shtml" title="115话 小花园历险"><span>115话<i>小花园历险</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang114.shtml" title="114话 前进的方向"><span>114话<i>前进的方向</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang113.shtml" title="113话 不要紧"><span>113话<i>不要紧</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang112.shtml" title="112话 路飞VS佐罗"><span>112话<i>路飞VS佐罗</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang111.shtml" title="111话 秘密犯罪公司"><span>111话<i>秘密犯罪公司</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang110.shtml" title="110话 夜晚没有结束"><span>110话<i>夜晚没有结束</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang109.shtml" title="109话 责任问题"><span>109话<i>责任问题</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang108.shtml" title="108话 100个赏金猎人"><span>108话<i>100个赏金猎人</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang107.shtml" title="107话 月光与墓碑"><span>107话<i>月光与墓碑</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang106.shtml" title="106话 欢迎之镇"><span>106话<i>欢迎之镇</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang105.shtml" title="105话 记录指针"><span>105话<i>记录指针</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang104.shtml" title="104话 约定之岬"><span>104话<i>约定之岬</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang103.shtml" title="103话 鲸鱼"><span>103话<i>鲸鱼</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang102.shtml" title="102话 伟大航线"><span>102话<i>伟大航线</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang101.shtml" title="101话 李维斯山"><span>101话<i>李维斯山</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang100.shtml" title="100话 传说开始了"><span>100话<i>传说开始了</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang99.shtml" title="99话 路飞死了"><span>99话<i>路飞死了</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang98.shtml" title="98话 乌云"><span>98话<i>乌云</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang97.shtml" title="97话 三代鬼彻"><span>97话<i>三代鬼彻</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang96.shtml" title="96话 东海头号恶人"><span>96话<i>东海头号恶人</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang95.shtml" title="95话 风车，转吧"><span>95话<i>风车，转吧</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang94.shtml" title="94话 第二个伙伴"><span>94话<i>第二个伙伴</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang93.shtml" title="93话 到下面去"><span>93话<i>到下面去</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang92.shtml" title="92话 幸福"><span>92话<i>幸福</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang91.shtml" title="91话 DARTS"><span>91话<i>DARTS</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang90.shtml" title="90话 你能干什么"><span>90话<i>你能干什么</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang89.shtml" title="89话 换班"><span>89话<i>换班</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang88.shtml" title="88话 去死吧"><span>88话<i>去死吧</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang87.shtml" title="87话 结束了"><span>87话<i>结束了</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang86.shtml" title="86话 骑士精神VS人鱼空手道"><span>86话<i>骑士精神VS人鱼空手道</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang85.shtml" title="85话 三刀流对抗六刀流"><span>85话<i>三刀流对抗六刀流</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang84.shtml" title="84话 僵尸"><span>84话<i>僵尸</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang83.shtml" title="83话 路飞 IN BLACK"><span>83话<i>路飞 IN BLACK</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang82.shtml" title="82话 OK，Let’s STAND UP！"><span>82话<i>OK，Let’s STAND UP！</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang81.shtml" title="81话 眼泪"><span>81话<i>眼泪</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang80.shtml" title="80话 罪就是罪"><span>80话<i>罪就是罪</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang79.shtml" title="79话 活下去"><span>79话<i>活下去</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang78.shtml" title="78话 贝鲁梅尔阿姨"><span>78话<i>贝鲁梅尔阿姨</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang77.shtml" title="77话 梦想的第一步"><span>77话<i>梦想的第一步</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang76.shtml" title="76话 睡觉"><span>76话<i>睡觉</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang75.shtml" title="75话 海图和人鱼"><span>75话<i>海图和人鱼</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang74.shtml" title="74话 生意"><span>74话<i>生意</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang73.shtml" title="73话 从“伟大航线”来的怪物"><span>73话<i>从“伟大航线”来的怪物</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang72.shtml" title="72话 合乎身份"><span>72话<i>合乎身份</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang71.shtml" title="71话 万物之灵"><span>71话<i>万物之灵</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang70.shtml" title="70话 撒谎布大冒险"><span>70话<i>撒谎布大冒险</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang69.shtml" title="69话 阿龙公园"><span>69话<i>阿龙公园</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang68.shtml" title="68话 第四个人"><span>68话<i>第四个人</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang67.shtml" title="67话 SOUP"><span>67话<i>SOUP</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang66.shtml" title="66话 被咬断的枪"><span>66话<i>被咬断的枪</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang65.shtml" title="65话 觉悟"><span>65话<i>觉悟</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang64.shtml" title="64话 大战枪"><span>64话<i>大战枪</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang63.shtml" title="63话 不会死的"><span>63话<i>不会死的</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang62.shtml" title="62话 M?H?5"><span>62话<i>M?H?5</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang61.shtml" title="61话 鬼"><span>61话<i>鬼</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang60.shtml" title="60话 宗旨"><span>60话<i>宗旨</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang59.shtml" title="59话 恩"><span>59话<i>恩</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang58.shtml" title="58话 臭老头"><span>58话<i>臭老头</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang57.shtml" title="57话 因为有梦想"><span>57话<i>因为有梦想</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang56.shtml" title="56话 我不干"><span>56话<i>我不干</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang55.shtml" title="55话 密林暴徒"><span>55话<i>密林暴徒</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang54.shtml" title="54话 帕鲁先生"><span>54话<i>帕鲁先生</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang53.shtml" title="53话 青花鱼头一号"><span>53话<i>青花鱼头一号</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang52.shtml" title="52话 誓言"><span>52话<i>誓言</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang51.shtml" title="51话 罗罗诺亚?佐罗陨落海上"><span>51话<i>罗罗诺亚?佐罗陨落海上</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang50.shtml" title="50话 分道扬镳"><span>50话<i>分道扬镳</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang49.shtml" title="49话 暴风雨"><span>49话<i>暴风雨</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang48.shtml" title="48话 放弃那条航线吧"><span>48话<i>放弃那条航线吧</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang47.shtml" title="47话 海盗舰队提督首领?克里克"><span>47话<i>海盗舰队提督首领?克里克</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang46.shtml" title="46话 不速之客"><span>46话<i>不速之客</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang45.shtml" title="45话 暴风雨前夕"><span>45话<i>暴风雨前夕</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang44.shtml" title="44话 三位厨师"><span>44话<i>三位厨师</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang43.shtml" title="43话 山智登场"><span>43话<i>山智登场</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang42.shtml" title="42话 约撒和强尼"><span>42话<i>约撒和强尼</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang41.shtml" title="41话 奔向大海"><span>41话<i>奔向大海</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang40.shtml" title="40话 撒谎布海盗团"><span>40话<i>撒谎布海盗团</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang39.shtml" title="39话 钟声为谁而鸣"><span>39话<i>钟声为谁而鸣</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang38.shtml" title="38话 海盗团"><span>38话<i>海盗团</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang37.shtml" title="37话 海盗“诡计克洛”"><span>37话<i>海盗“诡计克洛”</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang36.shtml" title="36话 追"><span>36话<i>追</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang35.shtml" title="35话 斜坡大逆转"><span>35话<i>斜坡大逆转</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang34.shtml" title="34话 管家克拉哈特尔"><span>34话<i>管家克拉哈特尔</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang33.shtml" title="33话 无声的男人"><span>33话<i>无声的男人</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang32.shtml" title="32话 大凶"><span>32话<i>大凶</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang31.shtml" title="31话 真相"><span>31话<i>真相</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang30.shtml" title="30话 GREAT"><span>30话<i>GREAT</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang29.shtml" title="29话 斜坡"><span>29话<i>斜坡</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang28.shtml" title="28话 新月"><span>28话<i>新月</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang27.shtml" title="27话 路"><span>27话<i>路</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang26.shtml" title="26话 克洛船长的诡计"><span>26话<i>克洛船长的诡计</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang25.shtml" title="25话 吹嘘王"><span>25话<i>吹嘘王</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang24.shtml" title="24话 不须隐瞒的事"><span>24话<i>不须隐瞒的事</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang23.shtml" title="23话 撒谎布船长登场"><span>23话<i>撒谎布船长登场</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang22.shtml" title="22话 你是珍惜动物"><span>22话<i>你是珍惜动物</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang21.shtml" title="21话 小镇"><span>21话<i>小镇</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang20.shtml" title="20话 神偷之道"><span>20话<i>神偷之道</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang19.shtml" title="19话 恶魔果实"><span>19话<i>恶魔果实</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang18.shtml" title="18话 海盗“小丑巴奇”"><span>18话<i>海盗“小丑巴奇”</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang17.shtml" title="17话 实力"><span>17话<i>实力</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang16.shtml" title="16话 对抗巴奇海盗团"><span>16话<i>对抗巴奇海盗团</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang15.shtml" title="15话 GONE"><span>15话<i>GONE</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang14.shtml" title="14话 鲁莽"><span>14话<i>鲁莽</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang13.shtml" title="13话 宝贝"><span>13话<i>宝贝</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang12.shtml" title="12话 狗"><span>12话<i>狗</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang11.shtml" title="11话 失败"><span>11话<i>失败</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang10.shtml" title="10话 酒吧事件"><span>10话<i>酒吧事件</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang9.shtml" title="9话 魔性之女"><span>9话<i>魔性之女</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang8.shtml" title="8话 奈美登场"><span>8话<i>奈美登场</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang7.shtml" title="7话 朋友"><span>7话<i>朋友</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang6.shtml" title="6话 第一个人"><span>6话<i>第一个人</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang5.shtml" title="5话 海盗王和剑圣"><span>5话<i>海盗王和剑圣</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang4.shtml" title="4话 海军上校“斧手摩根”"><span>4话<i>海军上校“斧手摩根”</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang3.shtml" title="3话 “海盗猎人”佐罗出场"><span>3话<i>“海盗猎人”佐罗出场</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang2.shtml" title="2话 戴草帽的路飞"><span>2话<i>戴草帽的路飞</i></span></a></li>
+      <li><a href="/comic/55/haizeiwang1.shtml" title="1话 ROMANCE DAWN 冒险的序幕"><span>1话<i>ROMANCE DAWN 冒险的序幕</i></span></a></li>
+     </ul>
+    </div> 
+    <div class="blank8" style="border-top: 1px solid #999; background-color: #fff;"></div> 
+    <div class="bar"> 
+     <h3><strong>海贼王漫画评论</strong><a id="comment"></a></h3> 
+    </div> 
+    <div class="duoshuo"> 
+     <div class="ds-thread"></div> 
+    </div> 
+   </div> 
+   <div class="w220"> 
+    <div class="bar cf"> 
+     <span><a href="/recent.html" class="red">&gt;&gt;更多</a></span> 
+     <h3>最新更新漫画</h3> 
+    </div> 
+    <div class="newUpdate"> 
+     <ul> 
+      <li><em class="red">2013-9-12</em><a href="/comic/4249/" target="_blank" title="达尔文游戏">达尔文游戏</a>[<a class="red" href="/comic/4249/list_87888.html" target="_blank" title="第10话">第10话</a>]</li>
+      <li><em class="red">2013-9-12</em><a href="/comic/1523/" target="_blank" title="空之轨迹">空之轨迹</a>[<a class="green" href="/comic/1523/list_87887.html" target="_blank" title="完结">完结</a>]</li>
+      <li><em class="red">2013-9-12</em><a href="/comic/3728/" target="_blank" title="世界最佳组合">世界最佳组合</a>[<a class="red" href="/comic/3728/list_87886.html" target="_blank" title="#11">#11</a>]</li>
+      <li><em class="red">2013-9-12</em><a href="/comic/4474/" target="_blank" title="翻面人">翻面人</a>[<a class="red" href="/comic/4474/list_87885.html" target="_blank" title="第05话">第05话</a>]</li>
+      <li><em class="red">2013-9-12</em><a href="/comic/3261/" target="_blank" title="猩红蜘蛛">猩红蜘蛛</a>[<a class="red" href="/comic/3261/list_87884.html" target="_blank" title="第14卷">第14卷</a>]</li>
+      <li><em class="red">2013-9-12</em><a href="/comic/251/" target="_blank" title="独领风骚">独领风骚</a>[<a class="red" href="/comic/251/list_87883.html" target="_blank" title="105话">105话</a>]</li>
+      <li><em class="red">2013-9-12</em><a href="/comic/2925/" target="_blank" title="朱月的羽音">朱月的羽音</a>[<a class="red" href="/comic/2925/list_87882.html" target="_blank" title="第13话">第13话</a>]</li>
+      <li><em class="red">2013-9-12</em><a href="/comic/4670/" target="_blank" title="革命机VALVRAVE 流星的少女">革命机VALVRAVE 流星的少女</a>[<a class="red" href="/comic/4670/list_87881.html" target="_blank" title="第03话">第03话</a>]</li>
+      <li><em class="red">2013-9-12</em><a href="/comic/2408/" target="_blank" title="绯弹的亚里亚AA">绯弹的亚里亚AA</a>[<a class="red" href="/comic/2408/list_87880.html" target="_blank" title="第37话">第37话</a>]</li>
+      <li><em class="red">2013-9-12</em><a href="/comic/4587/" target="_blank" title="今天的爱情时间表">今天的爱情时间表</a>[<a class="red" href="/comic/4587/list_87879.html" target="_blank" title="第02话">第02话</a>]</li> 
+     </ul> 
+    </div> 
+    <script type="text/javascript">show(4);</script> 
+    <div style="background-color: #f0f0f0; border-top:1px solid #999; margin: 1px;"> 
+     <script type="text/javascript">show(5);</script> 
+    </div> 
+    <div class="bar cf"> 
+     <span class="fr"><a href="/recent.html" class="red">&gt;&gt;更多</a></span> 
+     <h3>最新添加的漫画</h3> 
+    </div> 
+    <div class="newUpdate"> 
+     <ul> 
+      <li><em class="orange">2013-9-11</em><a href="/comic/4878/" target="_blank" title="打工吧魔王大人校园篇">打工吧魔王大人校园篇</a>[<a class="red" href="/comic/4878/list_87855.html" target="_blank" title="第14话">第14话</a>]</li>
+      <li><em>2013-9-9</em><a href="/comic/4877/" target="_blank" title="夏空毕业礼">夏空毕业礼</a>[<a class="green" href="/comic/4877/list_87758.html" target="_blank" title="完结">完结</a>]</li>
+      <li><em>2013-9-8</em><a href="/comic/4876/" target="_blank" title="那个女孩的俘虏">那个女孩的俘虏</a>[<a class="red" href="/comic/4876/list_87724.html" target="_blank" title="第01话">第01话</a>]</li>
+      <li><em>2013-9-8</em><a href="/comic/4875/" target="_blank" title="因为反正但是一定">因为反正但是一定</a>[<a class="green" href="/comic/4875/list_87717.html" target="_blank" title="完结">完结</a>]</li>
+      <li><em>2013-9-8</em><a href="/comic/4873/" target="_blank" title="Deep Water">Deep Water</a>[<a class="red" href="/comic/4873/list_87715.html" target="_blank" title="第01话">第01话</a>]</li>
+      <li><em>2013-9-8</em><a href="/comic/4872/" target="_blank" title="孤岛浪漫">孤岛浪漫</a>[<a class="red" href="/comic/4872/list_87714.html" target="_blank" title="第01话">第01话</a>]</li>
+      <li><em>2013-9-7</em><a href="/comic/4871/" target="_blank" title="银狐">银狐</a>[<a class="red" href="/comic/4871/list_87653.html" target="_blank" title="第06话">第06话</a>]</li>
+      <li><em>2013-9-7</em><a href="/comic/4870/" target="_blank" title="宫河家的空腹">宫河家的空腹</a>[<a class="red" href="/comic/4870/list_87644.html" target="_blank" title="第09话">第09话</a>]</li>
+      <li><em>2013-9-7</em><a href="/comic/4869/" target="_blank" title="向阳素描">向阳素描</a>[<a class="red" href="/comic/4869/list_87649.html" target="_blank" title="第05卷">第05卷</a>]</li>
+      <li><em>2013-9-7</em><a href="/comic/4868/" target="_blank" title="人鱼又上钩">人鱼又上钩</a>[<a class="red" href="/comic/4868/list_87635.html" target="_blank" title="第03卷">第03卷</a>]</li> 
+     </ul> 
+    </div> 
+   </div> 
+   <div class="blank4 bookBG cf"></div> 
+  </div>
+  <div class="blank8"></div> 
+  <script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=12103"></script> 
+  <script type="text/javascript" id="bdshell_js"></script> 
+  <script type="text/javascript">        var desc = 1;        function order(type) {            if ((type == 0 && desc == 1) || (type == 1 && desc == 0)) {                desc = desc == 1 ? 0 : 1;                var s = [];                var doms = $('#chapterList li');                for (var i = doms.length; i--; i >= 0) {                    s.push('<li>'+doms[i].innerHTML+'</li>');                }                $('#chapterList').html('<ul>' + s.join('') + '</ul>');            }        }        $(function () {$.get('/v2/user/count.aspx', { bid: 55 } );            $('#asc').click(function () { order(0); $(this).addClass('on'); $('#desc').removeClass('on'); });            $('#desc').click(function () { order(1); $(this).addClass('on'); $('#asc').removeClass('on'); });        });        var duoshuoQuery = { short_name: "imanhua" };        document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date() / 3600000);        (function () {            var ds = document.createElement('script');            ds.type = 'text/javascript'; ds.async = true;            ds.src = 'http://static.duoshuo.com/embed.js';            ds.charset = 'UTF-8';            (document.getElementsByTagName('head')[0]            || document.getElementsByTagName('body')[0]).appendChild(ds);        })();    </script>
+  <div class="footer">
+   海贼王漫画来自网友分享和上传，以供漫画爱好者研究海贼王漫画画法技巧和构图方式。若侵犯到您的权益，请立即
+   <a target="_blank" class="red" href="/contact.html"><b>联系我们</b></a>删除。本站不负任何相关责任。 
+   <br />
+   <script src="/template/default/foot.js" language="JavaScript" charset="gb2312"></script>
+   <script src="/v2.2/scripts/icount.js" language="JavaScript" charset="gb2312"></script>
+  </div> 
+ </body>
+</html>

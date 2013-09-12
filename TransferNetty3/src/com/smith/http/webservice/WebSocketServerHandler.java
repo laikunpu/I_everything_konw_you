@@ -15,6 +15,10 @@
  */
 package com.smith.http.webservice;
 
+import java.net.URLDecoder;
+import java.nio.charset.Charset;
+
+import org.jboss.netty.buffer.BigEndianHeapChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffers;
 import org.jboss.netty.channel.ChannelFuture;
@@ -77,7 +81,7 @@ public class WebSocketServerHandler extends SimpleChannelUpstreamHandler {
 	private void handleHttpRequest(ChannelHandlerContext ctx, HttpRequest req) throws Exception {
 
 		// Allow only GET methods.
-		if (req.getMethod() != GET) {
+		if (req.getMethod() != GET && req.getMethod() != POST) {
 			sendHttpResponse(ctx, req, new DefaultHttpResponse(HTTP_1_1, FORBIDDEN));
 			return;
 		}
@@ -106,6 +110,8 @@ public class WebSocketServerHandler extends SimpleChannelUpstreamHandler {
 			if (s.length == 4) {
 				if (TN_Constant.PROJECT_TN.equals(s[1])) {
 					System.out.println("request=" + req.getUri());
+					System.out.println("req.getContent()=" + URLDecoder.decode(new String(req.getContent().array()), "utf-8"));
+					
 					Bean_Result result = ActionTop.distributeAction(s);
 
 					if (null != result) {

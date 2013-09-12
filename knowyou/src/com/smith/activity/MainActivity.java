@@ -3,7 +3,7 @@ package com.smith.activity;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.smith.adapter.ModuleAdapter;
+import com.smith.adapter.UIAdapter;
 import com.smith.adapter.MyPagerAdapter;
 import com.smith.db.DBHelper;
 import com.smith.entity.Bean_UI;
@@ -39,7 +39,7 @@ public class MainActivity extends BaseActivity {
 
 	private List<Bean_UI> uis;
 	private int currentPage = 0;
-	private List<ModuleAdapter> adapters = new ArrayList<ModuleAdapter>();
+	private List<UIAdapter> adapters = new ArrayList<UIAdapter>();
 
 	private RelativeLayout view_parent;
 
@@ -98,7 +98,7 @@ public class MainActivity extends BaseActivity {
 		mGridView.setScrollBarStyle(-1);
 		mGridView.setVerticalSpacing(20);
 		mGridView.setHorizontalSpacing(20);
-		ModuleAdapter moduleAdapter = new ModuleAdapter(this, uis);
+		UIAdapter moduleAdapter = new UIAdapter(this, uis);
 		mGridView.setAdapter(moduleAdapter);
 		moduleAdapter.setOnClickListener(clickListener);
 		mViews.add(mGridView);
@@ -192,6 +192,6 @@ public class MainActivity extends BaseActivity {
 	protected void onStop() {
 		// TODO Auto-generated method stub
 		super.onStop();
-		System.out.println("onStop");
+//		System.out.println("onStop");
 	}
 }

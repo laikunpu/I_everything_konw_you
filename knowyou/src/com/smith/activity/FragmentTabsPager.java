@@ -69,7 +69,7 @@ public class FragmentTabsPager extends FragmentActivity {
 			bundle.putInt("classify", i);
 			mTabsAdapter.addTab(mTabHost.newTabSpec(common_Res.getBean_second_modules().get(i).getSecond_module_name())
 					.setIndicator(common_Res.getBean_second_modules().get(i).getSecond_module_name()),
-					CommonFragment.class, bundle);
+					CommonModuleFragment.class, bundle);
 		}
 		if (savedInstanceState != null) {
 			mTabHost.setCurrentTabByTag(savedInstanceState.getString("tab"));

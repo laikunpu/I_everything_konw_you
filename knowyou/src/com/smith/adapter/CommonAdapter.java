@@ -16,12 +16,12 @@ import android.widget.TextView;
 import com.smith.activity.R;
 import com.smith.entity.Bean_common;
 
-public class ComicAdapter extends BaseAdapter {
+public class CommonAdapter extends BaseAdapter {
 	private Context context;
 	private List<Bean_common> datas;
 	private OnClickListener onClickListener;
 
-	public ComicAdapter(Context context, List<Bean_common> datas) {
+	public CommonAdapter(Context context, List<Bean_common> datas) {
 		this.context = context;
 		this.datas = datas;
 	}
@@ -55,13 +55,15 @@ public class ComicAdapter extends BaseAdapter {
 		final ViewHolder viewHolder = new ViewHolder();
 		final Bean_common data = datas.get(position);
 		convertView = LayoutInflater.from(context).inflate(
-				R.layout.channel_item, null);
+				R.layout.common_module_item, null);
 
 		viewHolder.img_cover = (NetworkedCacheableImageView) convertView
 				.findViewById(R.id.img_cover);
 		viewHolder.txt_data_name = (TextView) convertView
 				.findViewById(R.id.txt_data_name);
 		viewHolder.img_cover.loadImage(data.getCover_url(), false, null);
+		viewHolder.img_cover.setTag(position);
+		viewHolder.img_cover.setOnClickListener(onClickListener);
 		return convertView;
 	}
 

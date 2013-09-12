@@ -14,12 +14,12 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class ModuleAdapter extends BaseAdapter {
+public class UIAdapter extends BaseAdapter {
 	private Context context;
 	private List<Bean_UI> uis;
 	private OnClickListener onClickListener;
 
-	public ModuleAdapter(Context context, List<Bean_UI> uis) {
+	public UIAdapter(Context context, List<Bean_UI> uis) {
 		this.context = context;
 		this.uis = uis;
 

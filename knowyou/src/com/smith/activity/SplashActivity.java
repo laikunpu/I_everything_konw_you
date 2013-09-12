@@ -70,9 +70,9 @@ public class SplashActivity extends BaseActivity {
 		public void onStart() {
 			// TODO Auto-generated method stub
 			List<Bean_UI> uis = null;
-			try {
+			try { 
 				Bean_UI_Res bean_UI_Res = KnowyouApplication.getApplication().gson.fromJson(
-						KYHttpClient.get(ServiceApi.MODULE), Bean_UI_Res.class);
+						KYHttpClient.post(ServiceApi.MODULE,"天下一统"), Bean_UI_Res.class);
 				uis = bean_UI_Res.getUis();
 				if (null != uis) {
 					dao.delete_table(DBHelper.TABLE_BEAN_UI);
