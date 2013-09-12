@@ -63,11 +63,11 @@ public class DaoImpl implements IDao {
 		try {
 			StringBuffer sql = new StringBuffer("INSERT INTO " + DBHelper.TABLE_BEAN_UI + " (" + DBHelper.MODULE_NAME + ","
 					+ DBHelper.MODULE_BACKGROUND_URL + "," + DBHelper.MODULE_BACKGROUND_COLOR + ","
-					+ DBHelper.MODULE_URL + ")");
+					+ DBHelper.MODULE_URL+ "," +  DBHelper.MODULE_ACTION +")");
 
-			sql.append(" values(?,?,?,?)");
+			sql.append(" values(?,?,?,?,?)");
 			mdb.execSQL(sql.toString(), new String[] { ui.getName(), ui.getBackground_url(), ui.getBackground_color(),
-					ui.getModule_url() });
+					ui.getModule_url() ,ui.getModule_action()});
 
 			return true;
 		} catch (Exception e) {
@@ -113,6 +113,7 @@ public class DaoImpl implements IDao {
 				ui.setBackground_color(cursor.getString(cursor.getColumnIndex(DBHelper.MODULE_BACKGROUND_COLOR)));
 				ui.setBackground_url(cursor.getString(cursor.getColumnIndex(DBHelper.MODULE_BACKGROUND_URL)));
 				ui.setModule_url(cursor.getString(cursor.getColumnIndex(DBHelper.MODULE_URL)));
+				ui.setModule_action(cursor.getString(cursor.getColumnIndex(DBHelper.MODULE_ACTION)));
 				uis.add(ui);
 			}
 

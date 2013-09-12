@@ -32,9 +32,9 @@ public class SplashActivity extends BaseActivity {
 		KnowyouApplication.getApplication().uis = dao.get_ui();
 		if (null == KnowyouApplication.getApplication().uis || KnowyouApplication.getApplication().uis.size() == 0) {
 			KnowyouApplication.getApplication().uis = new ArrayList<Bean_UI>();
-			Bean_UI ui1 = new Bean_UI("漫画", "", "", "");
-			Bean_UI ui2 = new Bean_UI("动画", "", "", "");
-			Bean_UI ui3 = new Bean_UI("电影", "", "", "");
+			Bean_UI ui1 = new Bean_UI("漫画", "", "", "", "");
+			Bean_UI ui2 = new Bean_UI("动画", "", "", "", "");
+			Bean_UI ui3 = new Bean_UI("电影", "", "", "", "");
 			KnowyouApplication.getApplication().uis.add(ui1);
 			KnowyouApplication.getApplication().uis.add(ui2);
 			KnowyouApplication.getApplication().uis.add(ui3);

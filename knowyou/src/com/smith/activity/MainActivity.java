@@ -165,7 +165,7 @@ public class MainActivity extends BaseActivity {
 				if (null == common_Res || common_Res.getBean_second_modules().size() == 0) {
 
 					common_Res = KnowyouApplication.getApplication().gson.fromJson(
-							KYHttpClient.post(ServiceApi.RECOMMEND_MANHUA,uis.get(clickUI).getModule_url()), Bean_common_Res.class);
+							KYHttpClient.get(uis.get(clickUI).getModule_action()), Bean_common_Res.class);
 				}
 
 			} catch (Exception e) {

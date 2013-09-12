@@ -34,8 +34,10 @@
             android:name=".FragmentTabsPager"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".FragmentStackSupport"
+            android:name=".CommonDetailActivity"
             android:screenOrientation="portrait" />
+        
+        
     </application> 
 
     <uses-permission android:name="android.permission.INTERNET" />

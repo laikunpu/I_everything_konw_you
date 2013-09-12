@@ -17,6 +17,8 @@
 package com.smith.activity;
 
 import java.util.List;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -33,6 +35,7 @@ import com.smith.inter.DataCallback;
 import com.smith.util.AsyncDataLoader;
 import com.smith.util.KYHttpClient;
 import com.smith.util.KnowyouUtil;
+import com.smith.util.ToastUtils;
 
 public class CommonModuleFragment extends Fragment {
 	private int classify;
@@ -125,7 +128,7 @@ public class CommonModuleFragment extends Fragment {
 			// TODO Auto-generated method stub
 			try {
 				detail = KnowyouApplication.getApplication().gson.fromJson(
-						KYHttpClient.get(datas.get(currentData).getDetail_url()), Bean_common_detail.class);
+						KYHttpClient.post(datas.get(currentData).getDetail_action(),datas.get(currentData).getDetail_url()), Bean_common_detail.class);
 
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -137,15 +140,13 @@ public class CommonModuleFragment extends Fragment {
 		public void onFinish() {
 			// TODO Auto-generated method stub
 
-			// if (null != common_Res &&
-			// common_Res.getBean_second_modules().size() > 0) {
-			// KnowyouApplication.getApplication().common_Res = common_Res;
-			// Intent intent = new Intent(MainActivity.this,
-			// FragmentTabsPager.class);
-			// startActivity(intent);
-			// } else {
-			// ToastUtils.showToast(getActivity(), "网络异常!!!");
-			// }
+			if (null != detail) {
+				KnowyouApplication.getApplication().common_detail = detail;
+				Intent intent = new Intent(getActivity(), CommonDetailActivity.class);
+				startActivity(intent);
+			} else {
+				ToastUtils.showToast(getActivity(), "网络异常!!!");
+			}
 
 			KnowyouUtil.removeLoadingWin(view_parent);
 

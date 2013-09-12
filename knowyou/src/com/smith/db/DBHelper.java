@@ -27,13 +27,15 @@ public class DBHelper extends SQLiteOpenHelper {
 	public static final String MODULE_BACKGROUND_URL = "background_url";
 	public static final String MODULE_BACKGROUND_COLOR = "background_color";
 	public static final String MODULE_URL = "module_url";
+	public static final String MODULE_ACTION = "module_action";
 
 	/**
 	 * 创建模块表
 	 */
 	private static String SQL_CREATE_MODULE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_BEAN_UI + " (" + _ID
 			+ " INTEGER PRIMARY KEY AUTOINCREMENT," + MODULE_NAME + " VARCHAR(200)," + MODULE_BACKGROUND_URL
-			+ " VARCHAR(200)," + MODULE_BACKGROUND_COLOR + " VARCHAR(200)," + MODULE_URL + " VARCHAR(200))";
+			+ " VARCHAR(200)," + MODULE_BACKGROUND_COLOR + " VARCHAR(200)," + MODULE_URL + " VARCHAR(200),"
+			+ MODULE_ACTION + " VARCHAR(200))";
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {

@@ -3,6 +3,7 @@ package com.smith.http.webservice.entity;
 public class Bean_common {
 	private String name; // 动漫名字
 	private int type; // 动漫类型 0：漫画 1：动画
+	private String detail_action;
 	private String summary; // 简介
 	private String cover_url; // 封面url
 	private String detail_url; // 详情url
@@ -23,6 +24,14 @@ public class Bean_common {
 
 	public void setType(int type) {
 		this.type = type;
+	}
+
+	public String getDetail_action() {
+		return detail_action;
+	}
+
+	public void setDetail_action(String detail_action) {
+		this.detail_action = detail_action;
 	}
 
 	public String getSummary() {
@@ -65,10 +74,11 @@ public class Bean_common {
 		this.size = size;
 	}
 
-	public Bean_common(String name, int type, String summary, String cover_url, String detail_url, String download_url,
-			String size) {
+	public Bean_common(String name, int type, String detail_action, String summary, String cover_url,
+			String detail_url, String download_url, String size) {
 		this.name = name;
 		this.type = type;
+		this.detail_action = detail_action;
 		this.summary = summary;
 		this.cover_url = cover_url;
 		this.detail_url = detail_url;
