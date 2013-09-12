@@ -7,12 +7,14 @@ import com.smith.http.webservice.entity.Bean_UI_Res;
 import com.smith.http.webservice.entity.Bean_UI;
 import com.smith.http.webservice.entity.heard.Bean_Heard;
 import com.smith.http.webservice.global.Msg_Type;
+import com.smith.http.webservice.util.TNUrl;
 
 public class GlobalAction {
 
 	public Bean_Result getUI_Module(String s) {
 		Bean_Heard type = new Bean_Heard(Msg_Type.UI_CODE);
-		Bean_UI module = new Bean_UI("在线漫画", "http://www.xxx.jpg/", "#000000", "http://www.imanhua.com/");
+		Bean_UI module = new Bean_UI("在线漫画", "http://www.xxx.jpg/", "#000000", "http://" + TNUrl.IP + ":" + TNUrl.PORT
+				+ "/tn/CommonAction/getOnlin_manhua");
 		List<Bean_UI> modules = new ArrayList<Bean_UI>();
 		modules.add(module);
 		Bean_UI_Res ui = new Bean_UI_Res(type, modules);

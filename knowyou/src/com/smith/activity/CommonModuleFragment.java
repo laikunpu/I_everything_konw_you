@@ -16,10 +16,7 @@
 
 package com.smith.activity;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -29,17 +26,13 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.GridView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-
 import com.smith.adapter.CommonAdapter;
 import com.smith.entity.Bean_common;
-import com.smith.entity.Bean_common_Res;
+import com.smith.entity.Bean_common_detail;
 import com.smith.inter.DataCallback;
 import com.smith.util.AsyncDataLoader;
 import com.smith.util.KYHttpClient;
 import com.smith.util.KnowyouUtil;
-import com.smith.util.ServiceApi;
-import com.smith.util.ToastUtils;
 
 public class CommonModuleFragment extends Fragment {
 	private int classify;
@@ -48,7 +41,10 @@ public class CommonModuleFragment extends Fragment {
 	private GridView gd_list;
 
 	private List<Bean_common> datas;
+	private int currentData;
 	private CommonAdapter comicAdapter;
+
+	private Bean_common_detail detail;
 
 	/**
 	 * When creating, retrieve this instance's number from its arguments.
@@ -95,7 +91,7 @@ public class CommonModuleFragment extends Fragment {
 
 	private void initOnClickListener() {
 		// TODO Auto-generated method stub
-
+		comicAdapter.setOnClickListener(clickListener);
 	}
 
 	OnClickListener clickListener = new OnClickListener() {
@@ -105,6 +101,7 @@ public class CommonModuleFragment extends Fragment {
 			// TODO Auto-generated method stub
 			switch (v.getId()) {
 			case R.id.img_cover:
+				currentData = Integer.parseInt(v.getTag().toString());
 				new AsyncDataLoader(callback).execute();
 
 				break;
@@ -127,10 +124,8 @@ public class CommonModuleFragment extends Fragment {
 		public void onStart() {
 			// TODO Auto-generated method stub
 			try {
-//				if (null == common_Res || common_Res.getBean_second_modules().size() == 0) {
-//					common_Res = KnowyouApplication.getApplication().gson.fromJson(
-//							KYHttpClient.get(ServiceApi.RECOMMEND_MANHUA), Bean_common_Res.class);
-//				}
+				detail = KnowyouApplication.getApplication().gson.fromJson(
+						KYHttpClient.get(datas.get(currentData).getDetail_url()), Bean_common_detail.class);
 
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -142,13 +137,15 @@ public class CommonModuleFragment extends Fragment {
 		public void onFinish() {
 			// TODO Auto-generated method stub
 
-//			if (null != common_Res && common_Res.getBean_second_modules().size() > 0) {
-//				KnowyouApplication.getApplication().common_Res = common_Res;
-//				Intent intent = new Intent(MainActivity.this, FragmentTabsPager.class);
-//				startActivity(intent);
-//			} else {
-//				ToastUtils.showToast(getActivity(), "网络异常!!!");
-//			}
+			// if (null != common_Res &&
+			// common_Res.getBean_second_modules().size() > 0) {
+			// KnowyouApplication.getApplication().common_Res = common_Res;
+			// Intent intent = new Intent(MainActivity.this,
+			// FragmentTabsPager.class);
+			// startActivity(intent);
+			// } else {
+			// ToastUtils.showToast(getActivity(), "网络异常!!!");
+			// }
 
 			KnowyouUtil.removeLoadingWin(view_parent);
 

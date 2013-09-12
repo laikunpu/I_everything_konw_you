@@ -24,7 +24,7 @@ public class CommonService {
 
 	public Bean_second_module getComic_Recommend(String s) {
 
-		Bean_second_module second_module = new Bean_second_module("推荐漫画", 1, new ArrayList<Bean_common>());
+		Bean_second_module second_module = new Bean_second_module("推荐漫画", 0, new ArrayList<Bean_common>());
 		try {
 			Document doc = null;
 			doc = TNUtil.loadUrl(TNUrl.ONLINE_COMIC_RECOMMEND);

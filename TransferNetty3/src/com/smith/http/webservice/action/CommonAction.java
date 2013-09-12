@@ -20,12 +20,16 @@ public class CommonAction {
 		Bean_second_module recommend_module = service.getComic_Recommend(json);
 		// 漫画排行
 		Bean_second_module toplist_module = service.getComic_Toplist(json);
-
+		
 		List<Bean_second_module> second_modules = new ArrayList<Bean_second_module>();
 		second_modules.add(recommend_module);
 		second_modules.add(toplist_module);
 		Bean_common_Res res = new Bean_common_Res(new Bean_Heard(Msg_Type.CARTOON_CODE), second_modules);
 		Bean_Result<Bean_common_Res> result = new Bean_Result<Bean_common_Res>(TN_Constant.TYPE_JSON, res);
 		return result;
+	}
+	public Bean_Result getCommonData(String json){
+		
+		return null;
 	}
 }

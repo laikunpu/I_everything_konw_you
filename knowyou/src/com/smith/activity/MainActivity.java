@@ -38,7 +38,9 @@ public class MainActivity extends BaseActivity {
 	private MyHandler mMyHandler;
 
 	private List<Bean_UI> uis;
+	private Bean_UI ui;
 	private int currentPage = 0;
+	private int clickUI = 0;
 	private List<UIAdapter> adapters = new ArrayList<UIAdapter>();
 
 	private RelativeLayout view_parent;
@@ -116,7 +118,7 @@ public class MainActivity extends BaseActivity {
 			// TODO Auto-generated method stub
 			switch (v.getId()) {
 			case R.id.lly_module:
-				Bean_UI ui = adapters.get(currentPage).getItem(Integer.parseInt(v.getTag().toString()));
+				clickUI = Integer.parseInt(v.getTag().toString());
 				new AsyncDataLoader(callback).execute();
 
 				break;
@@ -161,8 +163,9 @@ public class MainActivity extends BaseActivity {
 			// TODO Auto-generated method stub
 			try {
 				if (null == common_Res || common_Res.getBean_second_modules().size() == 0) {
+
 					common_Res = KnowyouApplication.getApplication().gson.fromJson(
-							KYHttpClient.get(ServiceApi.RECOMMEND_MANHUA), Bean_common_Res.class);
+							KYHttpClient.post(ServiceApi.RECOMMEND_MANHUA,uis.get(clickUI).getModule_url()), Bean_common_Res.class);
 				}
 
 			} catch (Exception e) {
@@ -192,6 +195,6 @@ public class MainActivity extends BaseActivity {
 	protected void onStop() {
 		// TODO Auto-generated method stub
 		super.onStop();
-//		System.out.println("onStop");
+		// System.out.println("onStop");
 	}
 }

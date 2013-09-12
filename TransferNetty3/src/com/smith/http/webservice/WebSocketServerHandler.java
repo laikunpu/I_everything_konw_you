@@ -111,8 +111,9 @@ public class WebSocketServerHandler extends SimpleChannelUpstreamHandler {
 				if (TN_Constant.PROJECT_TN.equals(s[1])) {
 					System.out.println("request=" + req.getUri());
 					System.out.println("req.getContent()=" + URLDecoder.decode(new String(req.getContent().array()), "utf-8"));
-					
-					Bean_Result result = ActionTop.distributeAction(s);
+					String json=URLDecoder.decode(new String(req.getContent().array()), "utf-8");
+					System.out.println("json=" + json);
+					Bean_Result result = ActionTop.distributeAction(s,json);
 
 					if (null != result) {
 						ChannelBuffer content = ChannelBuffers.copiedBuffer(TNUtil.gson.toJson(result.getT()),
