@@ -5,173 +5,180 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:id="@+id/lly_detail"
+    <ScrollView
+        android:id="@+id/sc_contents"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="bottom" >
-
-            <uk.co.senab.bitmapcache.samples.NetworkedCacheableImageView
-                android:id="@+id/img_cover"
-                android:layout_width="90dp"
-                android:layout_height="120dp"
-                android:layout_marginLeft="10dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:orientation="vertical" >
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:orientation="horizontal" >
-
-                    <TextView
-                        android:id="@+id/txt_bookName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:singleLine="true"
-                        android:text="名字" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:orientation="horizontal" >
-
-                    <TextView
-                        android:id="@+id/txt_bookAuthor"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:singleLine="true"
-                        android:text="XXX" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:orientation="horizontal" >
-
-                    <TextView
-                        android:id="@+id/txt_modifiedTime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="XX年XX月XX日" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="bottom" >
-
-                    <Button
-                        android:id="@+id/btn_online"
-                        android:layout_width="fill_parent"
-                        android:layout_height="35dp"
-                        android:layout_weight="1"
-                        android:text="在线阅读" />
-
-                    <Button
-                        android:id="@+id/btn_download"
-                        android:layout_width="fill_parent"
-                        android:layout_height="35dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="1"
-                        android:text="点击下载" />
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-
-                <ScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
-
-                    <TextView
-                        android:id="@+id/txt_summary"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:text="XXXXXXXXXXXXXXXXXXXXX" />
-                </ScrollView>
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="0.5dp"
-                android:background="#47AAA8" />
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="0.5dp"
-                android:background="#5AC7C5" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-
-                <TextView
-                    android:id="@+id/txt_related"
-                    android:layout_width="fill_parent"
-                    android:layout_height="35dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="相关阅读" />
-
-                <TextView
-                    android:layout_width="0.5dp"
-                    android:layout_height="20dp"
-                    android:background="#47AAA8" />
-
-                <TextView
-                    android:layout_width="0.5dp"
-                    android:layout_height="20dp"
-                    android:background="#5AC7C5" />
-
-                <TextView
-                    android:id="@+id/txt_comment"
-                    android:layout_width="fill_parent"
-                    android:layout_height="35dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="漫画评论" />
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="0.5dp"
-                android:background="#47AAA8" />
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="0.5dp"
-                android:background="#5AC7C5" />
-        </LinearLayout>
+        android:layout_height="match_parent" >
 
         <LinearLayout
             android:id="@+id/lly_detail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="bottom" >
+
+                <uk.co.senab.bitmapcache.samples.NetworkedCacheableImageView
+                    android:id="@+id/img_cover"
+                    android:layout_width="90dp"
+                    android:layout_height="120dp"
+                    android:layout_marginLeft="10dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="vertical" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:id="@+id/txt_bookName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:singleLine="true"
+                            android:text="名字" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:id="@+id/txt_bookAuthor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:singleLine="true"
+                            android:text="XXX" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:id="@+id/txt_modifiedTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="XX年XX月XX日" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="bottom" >
+
+                        <Button
+                            android:id="@+id/btn_online"
+                            android:layout_width="fill_parent"
+                            android:layout_height="35dp"
+                            android:layout_weight="1"
+                            android:text="在线阅读" />
+
+                        <Button
+                            android:id="@+id/btn_download"
+                            android:layout_width="fill_parent"
+                            android:layout_height="35dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_weight="1"
+                            android:text="点击下载" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <TextView
+                            android:id="@+id/txt_summary"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:text="XXXXXXXXXXXXXXXXXXXXX" />
+                    </ScrollView>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#47AAA8" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#5AC7C5" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/txt_related"
+                        android:layout_width="fill_parent"
+                        android:layout_height="35dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="相关阅读" />
+
+                    <TextView
+                        android:layout_width="0.5dp"
+                        android:layout_height="20dp"
+                        android:background="#47AAA8" />
+
+                    <TextView
+                        android:layout_width="0.5dp"
+                        android:layout_height="20dp"
+                        android:background="#5AC7C5" />
+
+                    <TextView
+                        android:id="@+id/txt_comment"
+                        android:layout_width="fill_parent"
+                        android:layout_height="35dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="漫画评论" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#47AAA8" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#5AC7C5" />
+            </LinearLayout>
+
+            <com.smith.view.MyGridView
+                android:id="@+id/gd_contents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:numColumns="3"
+                android:stretchMode="columnWidth" />
         </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

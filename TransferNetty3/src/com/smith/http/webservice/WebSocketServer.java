@@ -20,6 +20,12 @@ import java.util.concurrent.Executors;
 
 import org.jboss.netty.bootstrap.ServerBootstrap;
 import org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.smith.http.webservice.dao.DaoImpl;
+import com.smith.http.webservice.inter.IDao;
+import com.smith.http.webservice.util.TNUtil;
 
 /**
  * A HTTP server which serves Web Socket requests at:
@@ -70,6 +76,8 @@ public class WebSocketServer {
         } else {
             port = 8080;
         }
+        ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml"); 
+        TNUtil.dao=context.getBean("dao", DaoImpl.class);
         new WebSocketServer(port).run();
     }
 }

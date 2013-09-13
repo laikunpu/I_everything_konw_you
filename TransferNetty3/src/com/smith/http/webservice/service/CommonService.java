@@ -4,21 +4,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jsoup.Jsoup;
+import javax.annotation.Resource;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import com.smith.http.webservice.entity.Bean_common;
-import com.smith.http.webservice.entity.Bean_common_Res;
-import com.smith.http.webservice.entity.Bean_UI_Res;
-import com.smith.http.webservice.entity.Bean_Result;
 import com.smith.http.webservice.entity.Bean_common_detail;
 import com.smith.http.webservice.entity.Bean_common_detail_content;
 import com.smith.http.webservice.entity.Bean_second_module;
-import com.smith.http.webservice.entity.heard.Bean_Heard;
-import com.smith.http.webservice.global.Msg_Type;
-import com.smith.http.webservice.global.TN_Constant;
+import com.smith.http.webservice.inter.IDao;
 import com.smith.http.webservice.util.TNUrl;
 import com.smith.http.webservice.util.TNUtil;
 
@@ -29,7 +24,7 @@ public class CommonService {
 		Bean_second_module second_module = new Bean_second_module("推荐漫画", 0, new ArrayList<Bean_common>());
 		try {
 			Document doc = null;
-			doc = TNUtil.loadUrl(TNUrl.ONLINE_COMIC);
+			doc = TNUtil.loadUrl(TNUrl.ONLINE_COMIC, TNUtil.dao);
 
 			Elements topHits = doc.select(".topHits");
 			Elements manhuas = topHits.get(1).select("a");
@@ -50,7 +45,7 @@ public class CommonService {
 				// 二级链接
 				second_url = TNUrl.ONLINE_COMIC + manhuas.get(i).attr("href");
 
-				Document doc_second = TNUtil.loadUrl(second_url);
+				Document doc_second = TNUtil.loadUrl(second_url, TNUtil.dao);
 				summary = doc_second.select("div.intro").first().text();
 				if (summary != null)
 					summary = summary.replaceAll(",由爱漫画收集自互联网－爱漫画，让你爱上漫画！", "");
@@ -78,7 +73,7 @@ public class CommonService {
 		Bean_second_module second_module = new Bean_second_module("漫画排行", 1, new ArrayList<Bean_common>());
 		try {
 			Document doc = null;
-			doc = TNUtil.loadUrl(TNUrl.ONLINE_COMIC);
+			doc = TNUtil.loadUrl(TNUrl.ONLINE_COMIC, TNUtil.dao);
 
 			Elements topHits = doc.select(".topHits");
 			Elements manhuas = topHits.get(0).select("a");
@@ -99,7 +94,7 @@ public class CommonService {
 				// 二级链接
 				second_url = TNUrl.ONLINE_COMIC + manhuas.get(i).attr("href");
 
-				Document doc_second = TNUtil.loadUrl(second_url);
+				Document doc_second = TNUtil.loadUrl(second_url, TNUtil.dao);
 				summary = doc_second.select("div.intro").first().text();
 				if (summary != null)
 					summary = summary.replaceAll(",由爱漫画收集自互联网－爱漫画，让你爱上漫画！", "");
@@ -127,7 +122,7 @@ public class CommonService {
 		Bean_common_detail detail = null;
 		try {
 			Document doc = null;
-			doc = TNUtil.loadUrl(url);
+			doc = TNUtil.loadUrl(url, TNUtil.dao);
 
 			int type = 0;
 			String cover_url;

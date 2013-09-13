@@ -1,10 +1,13 @@
 package com.smith.http.webservice.entity;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
@@ -13,7 +16,7 @@ public class Normal_Html {
 	private int id;
 	private String name;
 	private int weight;
-	private String content;
+	private byte[] content;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -44,16 +47,17 @@ public class Normal_Html {
 		this.weight = weight;
 	}
 
-	@Column
-	public String getContent() {
+	@Lob
+	@Basic(fetch = FetchType.LAZY)
+	public byte[] getContent() {
 		return content;
 	}
 
-	public void setContent(String content) {
+	public void setContent(byte[] content) {
 		this.content = content;
 	}
 
-	public Normal_Html(String name, int weight, String content) {
+	public Normal_Html(String name, int weight, byte[] content) {
 		this.name = name;
 		this.weight = weight;
 		this.content = content;

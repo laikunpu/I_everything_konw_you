@@ -133,6 +133,7 @@ public class CommonModuleFragment extends Fragment {
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				detail=null;
 			}
 		}
 

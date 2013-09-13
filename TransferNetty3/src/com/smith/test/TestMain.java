@@ -18,7 +18,7 @@ public class TestMain {
 		
 		ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml"); 
 		IDao dao=context.getBean("dao", DaoImpl.class); 
-		dao.addT(new Normal_Html("1", 2, "3"));
+//		dao.addT(new Normal_Html("1", 2, "3"));
 	}
 
 }

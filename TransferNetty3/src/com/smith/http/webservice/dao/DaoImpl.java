@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 
@@ -36,6 +37,26 @@ public class DaoImpl<T> implements IDao<T> {
 			query.setInteger("id", id);
 			List<T> list = query.list();
 			return list;
+		}
+		return null;
+
+	}
+
+	@Override
+	public T findT(String name, Class<T> c) {
+		// TODO Auto-generated method stub
+		try {
+			String hql = "from " + TNUtil.getTableName(c) + " as t where t.name=:name";
+			Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+			query.setString("name", name);
+			List<T> list = query.list();
+			if (null != list&&list.size()>0) {
+				return list.get(0);
+			}
+
+		} catch (HibernateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return null;
 

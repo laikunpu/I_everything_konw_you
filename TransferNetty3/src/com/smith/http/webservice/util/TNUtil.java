@@ -10,15 +10,20 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import com.google.gson.Gson;
+import com.smith.http.webservice.entity.Normal_Html;
 import com.smith.http.webservice.global.TN_Constant;
+import com.smith.http.webservice.inter.IDao;
 
 public class TNUtil {
 	public static final Gson gson = new Gson();
+
+	public static IDao dao;;
 
 	public static String fileToContent(String path) {
 		String encoded = "UTF-8";
@@ -107,11 +112,13 @@ public class TNUtil {
 
 	}
 
-	public static Document loadUrl(final String url) throws IOException {
+	public static Document loadUrl(final String url, final IDao<Normal_Html> dao) throws IOException {
 		final Document doc;
-		String htnl_cache = fileToContent(TN_Constant.NORMAL_HTML_CACHE + TNUtil.htmlToPath(url) + ".html");
-		if (null != htnl_cache && !"".equals(htnl_cache.trim())) {
-			doc = Jsoup.parse(htnl_cache);
+		// String htnl_cache = fileToContent(TN_Constant.NORMAL_HTML_CACHE +
+		// TNUtil.htmlToPath(url) + ".html");
+		Normal_Html htnl_cache = dao.findT(TNUtil.htmlToPath(url) + ".html", Normal_Html.class);
+		if (null != htnl_cache) {
+			doc = Jsoup.parse(new String(htnl_cache.getContent(), "utf-8"));
 			System.out.println(url + "  从本地读取!!!");
 		} else {
 			doc = Jsoup.connect(url).get();
@@ -120,7 +127,15 @@ public class TNUtil {
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
-					writeToFile(TN_Constant.NORMAL_HTML_CACHE, TNUtil.htmlToPath(url) + ".html", doc.toString());
+					// writeToFile(TN_Constant.NORMAL_HTML_CACHE,
+					// TNUtil.htmlToPath(url) + ".html", doc.toString());
+					try {
+						dao.addT(new Normal_Html(TNUtil.htmlToPath(url) + ".html", 1, doc.toString().trim()
+								.getBytes("utf-8")));
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}).start();
 
@@ -128,6 +143,7 @@ public class TNUtil {
 		}
 		return doc;
 	}
+
 	/**
 	 * 根据Class获取类的名字
 	 * 

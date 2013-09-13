@@ -3,8 +3,6 @@ package com.smith.http.webservice.inter;
 import java.util.List;
 import java.util.Map;
 
-
-
 /**
  * 
  * @author lai
@@ -47,13 +45,12 @@ public interface IDao<T> {
 	 * @param map
 	 *            map=null将会查询所有
 	 * @param first
-	 *           first 查询开始位置    
+	 *            first 查询开始位置
 	 * @param max
-	 *            max 最大查询条数   first必须>=0 && max 必须>0    否则返回全部
+	 *            max 最大查询条数 first必须>=0 && max 必须>0 否则返回全部
 	 * @return
 	 */
-	public List<T> findByCondition(Class<T> c, Map<String, String> map,
-			int first, int max);
+	public List<T> findByCondition(Class<T> c, Map<String, String> map, int first, int max);
 
 	/**
 	 * 
@@ -68,8 +65,7 @@ public interface IDao<T> {
 	 *            条数
 	 * @return
 	 */
-	public List<T> getListByCondition(Class<T> c, String field,
-			boolean ascOrdesc, int first, int max);
+	public List<T> getListByCondition(Class<T> c, String field, boolean ascOrdesc, int first, int max);
 
 	/**
 	 * 根据字段查找指定的表中有多少条记录
@@ -79,8 +75,10 @@ public interface IDao<T> {
 	 * @param field
 	 *            实体 为null则查询整张表 && 名字 为null则查询整张表
 	 * @param name
-//	 *            名字
+	 *            // * 名字
 	 * @return
 	 */
 	public int getCount(Class<T> c, String field, String name);
+
+	public T findT(String name, Class<T> c);
 }
