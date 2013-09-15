@@ -106,7 +106,7 @@ public class MySurfaceView extends SurfaceView implements Callback, Runnable {
 						surfaceHolder.unlockCanvasAndPost(mCanvas);
 
 						Thread.sleep(100);
-					} catch (InterruptedException e) {
+					} catch (Exception e) {
 						e.printStackTrace();
 					}
 				}
