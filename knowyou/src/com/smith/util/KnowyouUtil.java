@@ -1,9 +1,15 @@
 package com.smith.util;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStreamWriter;
+import java.net.Socket;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.smith.activity.R;
-
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,7 +22,7 @@ import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 
 public class KnowyouUtil {
-
+	private static String encoding = "UTF-8";
 	private static HashMap<Integer, PopupWindow> loadingViews = new HashMap<Integer, PopupWindow>();
 
 	/**
@@ -38,8 +44,7 @@ public class KnowyouUtil {
 		pLayout.setGravity(Gravity.CENTER);
 		pLayout.setBackgroundResource(R.drawable.popmenu_bg_general);
 		pLayout.addView(pDialog);
-		PopupWindow popupWindow = new PopupWindow(pLayout, 200,
-				100, true);
+		PopupWindow popupWindow = new PopupWindow(pLayout, 200, 100, true);
 		loadingViews.put(viewGroup.getId(), popupWindow);
 		popupWindow.showAtLocation(viewGroup, Gravity.CENTER, 0, 0);
 		context.setProgressBarVisibility(true);
@@ -109,4 +114,5 @@ public class KnowyouUtil {
 		}
 		return false;
 	}
+
 }

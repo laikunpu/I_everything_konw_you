@@ -50,7 +50,7 @@ public class DaoImpl<T> implements IDao<T> {
 			Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
 			query.setString("name", name);
 			List<T> list = query.list();
-			if (null != list&&list.size()>0) {
+			if (null != list && list.size() > 0) {
 				return list.get(0);
 			}
 

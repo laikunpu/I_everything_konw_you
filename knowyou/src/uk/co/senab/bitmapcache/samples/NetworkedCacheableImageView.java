@@ -34,6 +34,8 @@ import java.net.URL;
 import java.util.concurrent.RejectedExecutionException;
 
 import com.smith.activity.KnowyouApplication;
+import com.smith.entity.Bean_common_socketToHttp;
+import com.smith.util.KnowyouUtil;
 import com.smith.util.SDK11;
 
 import uk.co.senab.bitmapcache.BitmapLruCache;
@@ -68,12 +70,15 @@ public class NetworkedCacheableImageView extends CacheableImageView {
 
 		private final BitmapFactory.Options mDecodeOpts;
 
+		private final Bean_common_socketToHttp socketToHttp;
+
 		ImageUrlAsyncTask(ImageView imageView, BitmapLruCache cache, BitmapFactory.Options decodeOpts,
-				OnImageLoadedListener listener) {
+				OnImageLoadedListener listener, Bean_common_socketToHttp socketToHttp) {
 			mCache = cache;
 			mImageViewRef = new WeakReference<ImageView>(imageView);
 			mListener = listener;
 			mDecodeOpts = decodeOpts;
+			this.socketToHttp = socketToHttp;
 		}
 
 		@Override
@@ -92,12 +97,32 @@ public class NetworkedCacheableImageView extends CacheableImageView {
 				if (null == result) {
 					Log.d("ImageUrlAsyncTask", "Downloading: " + url);
 
-					// The bitmap isn't cached so download from the web
-					HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
-					InputStream is = new BufferedInputStream(conn.getInputStream());
+					if (null != socketToHttp && true == socketToHttp.isUseSocket()) {
+//						InputStream is = new BufferedInputStream(KnowyouUtil.getImgDataFromUrl(url,
+//								socketToHttp.getParameter()));
+//						result = mCache.put(url, is, mDecodeOpts);
+						
+						
+						
+						// The bitmap isn't cached so download from the web
+						HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
+						conn.setInstanceFollowRedirects(true);
+						conn.setRequestProperty("Referer", socketToHttp.getParameter());
+						InputStream is = new BufferedInputStream(conn.getInputStream());
 
-					// Add to cache
-					result = mCache.put(url, is, mDecodeOpts);
+						// Add to cache
+						result = mCache.put(url, is, mDecodeOpts);
+						
+						
+					} else {
+						// The bitmap isn't cached so download from the web
+						HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
+						InputStream is = new BufferedInputStream(conn.getInputStream());
+
+						// Add to cache
+						result = mCache.put(url, is, mDecodeOpts);
+					}
+
 				} else {
 					Log.d("ImageUrlAsyncTask", "Got from Cache: " + url);
 				}
@@ -144,7 +169,8 @@ public class NetworkedCacheableImageView extends CacheableImageView {
 	 *            - Whether the image should be kept at the original size
 	 * @return true if the bitmap was found in the cache
 	 */
-	public boolean loadImage(String url, final boolean fullSize, OnImageLoadedListener listener) {
+	public boolean loadImage(String url, final boolean fullSize, OnImageLoadedListener listener,
+			Bean_common_socketToHttp socketToHttp) {
 		// First check whether there's already a task running, if so cancel it
 		if (null != mCurrentTask) {
 			mCurrentTask.cancel(true);
@@ -166,11 +192,11 @@ public class NetworkedCacheableImageView extends CacheableImageView {
 			BitmapFactory.Options decodeOpts = null;
 
 			if (!fullSize) {
-				// decodeOpts = new BitmapFactory.Options();
-				// decodeOpts.inSampleSize = 2;
+				 decodeOpts = new BitmapFactory.Options();
+				 decodeOpts.inSampleSize = 2;
 			}
 
-			mCurrentTask = new ImageUrlAsyncTask(this, mCache, decodeOpts, listener);
+			mCurrentTask = new ImageUrlAsyncTask(this, mCache, decodeOpts, listener, socketToHttp);
 
 			try {
 				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {

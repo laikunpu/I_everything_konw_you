@@ -53,14 +53,13 @@ public class UIAdapter extends BaseAdapter {
 
 		final ViewHolder viewHolder = new ViewHolder();
 		final Bean_UI ui = uis.get(position);
-		convertView = LayoutInflater.from(context).inflate(
-				R.layout.module_item, null);
 
-		viewHolder.txt_module_name = (TextView) convertView
-				.findViewById(R.id.txt_module_name);
-		viewHolder.lly_module = (LinearLayout) convertView
-				.findViewById(R.id.lly_module);
+		if (convertView == null) {
+			convertView = LayoutInflater.from(context).inflate(R.layout.module_item, null);
 
+		}
+		viewHolder.txt_module_name = (TextView) convertView.findViewById(R.id.txt_module_name);
+		viewHolder.lly_module = (LinearLayout) convertView.findViewById(R.id.lly_module);
 		viewHolder.txt_module_name.setText(ui.getName());
 		viewHolder.lly_module.getBackground().setAlpha(80);
 		viewHolder.lly_module.setTag(position);

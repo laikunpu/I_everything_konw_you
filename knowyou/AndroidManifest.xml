@@ -36,6 +36,9 @@
         <activity
             android:name=".CommonDetailActivity"
             android:screenOrientation="portrait" />
+                <activity
+            android:name=".CommonDetailNextActivity"
+            android:screenOrientation="portrait" />
         
         
     </application> 

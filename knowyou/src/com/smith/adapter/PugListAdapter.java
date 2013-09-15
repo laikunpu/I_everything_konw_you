@@ -66,7 +66,7 @@ public class PugListAdapter extends BaseAdapter {
 		TextView status = (TextView) convertView.findViewById(R.id.tv_status);
 
 		final boolean fromCache = imageView
-				.loadImage(mPugUrls.get(position), false, new UpdateTextViewListener(status));
+				.loadImage(mPugUrls.get(position), false, new UpdateTextViewListener(status),null);
 
 		if (fromCache) {
 			status.setText("From Memory Cache");

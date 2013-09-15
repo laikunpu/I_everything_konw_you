@@ -10,14 +10,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-
 import com.google.gson.Gson;
 import com.smith.http.webservice.entity.Normal_Html;
-import com.smith.http.webservice.global.TN_Constant;
 import com.smith.http.webservice.inter.IDao;
 
 public class TNUtil {
@@ -130,8 +126,11 @@ public class TNUtil {
 					// writeToFile(TN_Constant.NORMAL_HTML_CACHE,
 					// TNUtil.htmlToPath(url) + ".html", doc.toString());
 					try {
-						dao.addT(new Normal_Html(TNUtil.htmlToPath(url) + ".html", 1, doc.toString().trim()
-								.getBytes("utf-8")));
+						if (dao.findT(TNUtil.htmlToPath(url) + ".html", Normal_Html.class) == null) {
+							dao.addT(new Normal_Html(TNUtil.htmlToPath(url) + ".html", 1, doc.toString().trim()
+									.getBytes("utf-8")));
+						}
+
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

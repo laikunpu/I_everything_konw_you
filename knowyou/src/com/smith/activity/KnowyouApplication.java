@@ -10,6 +10,8 @@ import com.google.gson.Gson;
 import com.smith.entity.Bean_UI;
 import com.smith.entity.Bean_common_Res;
 import com.smith.entity.Bean_common_detail;
+import com.smith.entity.Bean_common_detail_content;
+import com.smith.entity.Bean_common_page_Res;
 import com.smith.entity.Bean_second_module;
 
 import android.app.Application;
@@ -28,6 +30,10 @@ public class KnowyouApplication extends Application {
 	Bean_common_Res common_Res = null;
 
 	Bean_common_detail common_detail = null;
+
+	Bean_common_detail_content content = null;
+
+	Bean_common_page_Res common_page_Res = null;
 
 	public static KnowyouApplication getApplication() {
 		return instance;

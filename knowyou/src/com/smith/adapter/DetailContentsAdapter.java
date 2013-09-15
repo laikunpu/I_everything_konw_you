@@ -55,10 +55,11 @@ public class DetailContentsAdapter extends BaseAdapter {
 
 		final ViewHolder viewHolder = new ViewHolder();
 		final Bean_common_detail_content data = datas.get(position);
-		convertView = LayoutInflater.from(context).inflate(R.layout.detail_contents_item, null);
 
+		if (convertView == null) {
+			convertView = LayoutInflater.from(context).inflate(R.layout.detail_contents_item, null);
+		}
 		viewHolder.btn_content = (Button) convertView.findViewById(R.id.btn_content);
-
 		viewHolder.btn_content.setText(data.getContet_name());
 		viewHolder.btn_content.setTag(position);
 		viewHolder.btn_content.setOnClickListener(onClickListener);

@@ -100,10 +100,11 @@ public class MySurfaceView extends SurfaceView implements Callback, Runnable {
 		while (flag) {
 			synchronized (surfaceHolder) {
 				if (flag) {
-					mCanvas = surfaceHolder.lockCanvas();
-					onDraws();
-					surfaceHolder.unlockCanvasAndPost(mCanvas);
 					try {
+						mCanvas = surfaceHolder.lockCanvas();
+						onDraws();
+						surfaceHolder.unlockCanvasAndPost(mCanvas);
+
 						Thread.sleep(100);
 					} catch (InterruptedException e) {
 						e.printStackTrace();

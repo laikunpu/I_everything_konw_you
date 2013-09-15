@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Resource;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -12,8 +11,12 @@ import org.jsoup.select.Elements;
 import com.smith.http.webservice.entity.Bean_common;
 import com.smith.http.webservice.entity.Bean_common_detail;
 import com.smith.http.webservice.entity.Bean_common_detail_content;
+import com.smith.http.webservice.entity.Bean_common_page;
+import com.smith.http.webservice.entity.Bean_common_page_Res;
+import com.smith.http.webservice.entity.Bean_common_socketToHttp;
+import com.smith.http.webservice.entity.Bean_commonshowlist;
+import com.smith.http.webservice.entity.Bean_commonshowlist_Res;
 import com.smith.http.webservice.entity.Bean_second_module;
-import com.smith.http.webservice.inter.IDao;
 import com.smith.http.webservice.util.TNUrl;
 import com.smith.http.webservice.util.TNUtil;
 
@@ -144,7 +147,7 @@ public class CommonService {
 			name = bookInfo.child(2).text();
 			author = bookInfo.child(3).childNode(1).toString().split(" ")[0];
 			modify = bookInfo.child(3).childNode(3).toString();
-			action = "";
+			action = TNUrl.ACTION_DEATIL_NEXT;
 			collection = "";
 			summary = doc.select("div.intro").first().text();
 			related = "";
@@ -157,7 +160,8 @@ public class CommonService {
 				String contet_name = element_content.children().get(i).select("a").first().attr("title");
 				String contet_url = TNUrl.ONLINE_COMIC
 						+ element_content.children().get(i).select("a").first().attr("href");
-				Bean_common_detail_content detail_content = new Bean_common_detail_content(contet_name, contet_url);
+				Bean_common_detail_content detail_content = new Bean_common_detail_content(contet_name, contet_url,
+						TNUrl.ACTION_DEATIL_NEXT);
 				contents.add(detail_content);
 			}
 
@@ -172,4 +176,34 @@ public class CommonService {
 		return detail;
 	}
 
+	public List<Bean_common_page> getComic_Page(String url) {
+
+		List<Bean_common_page> common_pages = null;
+		try {
+			Document doc = null;
+			doc = TNUtil.loadUrl(url, TNUtil.dao);
+			int maximum = doc.select("#pageSelect").select("option").size();
+			common_pages = new ArrayList<Bean_common_page>();
+
+
+			for (int i = 1; i < maximum + 1; i++) {
+
+				String name = "";
+				String page_url = url+"?p=" + i;
+				String condition = "/Files/Images/";
+				String action = "";
+//				Bean_common_socketToHttp socketToHttp = new Bean_common_socketToHttp(true, "Referer: " + page_url + "\r\n");
+				Bean_common_socketToHttp socketToHttp = new Bean_common_socketToHttp(true,  page_url );
+				Bean_common_page common_page = new Bean_common_page(page_url, maximum, name, condition, action,
+						socketToHttp);
+				common_pages.add(common_page);
+			}
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return common_pages;
+	}
 }
