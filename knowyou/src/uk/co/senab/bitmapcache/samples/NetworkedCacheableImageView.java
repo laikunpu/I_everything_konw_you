@@ -111,8 +111,9 @@ public class NetworkedCacheableImageView extends CacheableImageView {
 							for (int i = 0; i < socketToHttp.getProperties().size(); i++) {
 								conn.setRequestProperty(socketToHttp.getProperties().get(i).getField(), socketToHttp
 										.getProperties().get(i).getNewValue());
-								System.out.println(socketToHttp.getProperties().get(i).getField()+ socketToHttp
-										.getProperties().get(i).getNewValue());
+								// System.out.println(socketToHttp.getProperties().get(i).getField()+
+								// socketToHttp
+								// .getProperties().get(i).getNewValue());
 							}
 						}
 

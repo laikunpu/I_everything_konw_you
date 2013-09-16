@@ -4,11 +4,10 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-
-
     <uk.co.senab.bitmapcache.samples.NetworkedCacheableImageView
         android:id="@+id/img_content"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY" />
 
 </LinearLayout>

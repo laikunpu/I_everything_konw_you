@@ -1,6 +1,10 @@
 package com.smith.adapter;
 
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.List;
+
+import org.apache.http.client.utils.URLEncodedUtils;
 
 import uk.co.senab.bitmapcache.samples.NetworkedCacheableImageView;
 

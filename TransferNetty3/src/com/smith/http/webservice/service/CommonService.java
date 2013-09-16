@@ -203,8 +203,9 @@ public class CommonService {
 				pre = pre + i;
 
 				page_img_url = pre + after;
+//				page_img_url.replace("_", "%2");
 
-				Bean_socket_requestProperty property = new Bean_socket_requestProperty("Referer: ", page_url);
+				Bean_socket_requestProperty property = new Bean_socket_requestProperty("Referer", page_url);
 				List<Bean_socket_requestProperty> properties = new ArrayList<Bean_socket_requestProperty>();
 				properties.add(property);
 				Bean_common_socketToHttp socketToHttp = new Bean_common_socketToHttp(true, properties);
