@@ -12,8 +12,16 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import com.google.gson.Gson;
 import com.smith.http.webservice.entity.Normal_Html;
+import com.smith.http.webservice.entity.Selenium_info;
 import com.smith.http.webservice.inter.IDao;
 
 public class TNUtil {
@@ -108,7 +116,8 @@ public class TNUtil {
 
 	}
 
-	public static Document loadUrl(final String url, final IDao<Normal_Html> dao) throws IOException {
+	public static Document loadUrl(final String url, final IDao<Normal_Html> dao, final Selenium_info selenium_info)
+			throws IOException {
 		final Document doc;
 		// String htnl_cache = fileToContent(TN_Constant.NORMAL_HTML_CACHE +
 		// TNUtil.htmlToPath(url) + ".html");
@@ -117,7 +126,25 @@ public class TNUtil {
 			doc = Jsoup.parse(new String(htnl_cache.getContent(), "utf-8"));
 			System.out.println(url + "  从本地读取!!!");
 		} else {
-			doc = Jsoup.connect(url).get();
+
+			if (null != selenium_info && selenium_info.isUseSelenium()) {
+				WebDriver driver = new FirefoxDriver();
+
+				driver.get(url);
+				WebDriverWait wait = new WebDriverWait(driver, 10);
+				wait.until(new ExpectedCondition<WebElement>() {
+					@Override
+					public WebElement apply(WebDriver d) {
+						return d.findElement(By.id(selenium_info.getTag()));
+					}
+				}).click();
+				String normal_html = driver.getPageSource();
+				doc = Jsoup.parse(normal_html);
+				driver.quit();
+
+			} else {
+				doc = Jsoup.connect(url).get();
+			}
 			new Thread(new Runnable() {
 
 				@Override
@@ -137,7 +164,6 @@ public class TNUtil {
 					}
 				}
 			}).start();
-
 			System.out.println(url + "  从网上抓取!!!");
 		}
 		return doc;

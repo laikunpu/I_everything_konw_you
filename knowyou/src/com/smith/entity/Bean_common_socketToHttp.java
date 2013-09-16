@@ -1,8 +1,10 @@
 package com.smith.entity;
 
+import java.util.List;
+
 public class Bean_common_socketToHttp {
 	private boolean isUseSocket;
-	private String parameter;
+	private List<Bean_socket_requestProperty> properties;
 
 	public boolean isUseSocket() {
 		return isUseSocket;
@@ -12,17 +14,17 @@ public class Bean_common_socketToHttp {
 		this.isUseSocket = isUseSocket;
 	}
 
-	public String getParameter() {
-		return parameter;
+	public List<Bean_socket_requestProperty> getProperties() {
+		return properties;
 	}
 
-	public void setParameter(String parameter) {
-		this.parameter = parameter;
+	public void setProperties(List<Bean_socket_requestProperty> properties) {
+		this.properties = properties;
 	}
 
-	public Bean_common_socketToHttp(boolean isUseSocket, String parameter) {
+	public Bean_common_socketToHttp(boolean isUseSocket, List<Bean_socket_requestProperty> properties) {
 		this.isUseSocket = isUseSocket;
-		this.parameter = parameter;
+		this.properties = properties;
 	}
 
 	public Bean_common_socketToHttp() {

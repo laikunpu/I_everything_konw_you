@@ -1,12 +1,14 @@
 package com.smith.http.webservice.entity;
 
+import java.util.List;
+
 public class Bean_common_page {
 	private String page_url;
 	private int maximum;
 	private String name;
-	private String condition;
 	private String action;
 	private Bean_common_socketToHttp socketToHttp;
+	private String page_img_url;
 
 	public String getPage_url() {
 		return page_url;
@@ -32,14 +34,6 @@ public class Bean_common_page {
 		this.name = name;
 	}
 
-	public String getCondition() {
-		return condition;
-	}
-
-	public void setCondition(String condition) {
-		this.condition = condition;
-	}
-
 	public String getAction() {
 		return action;
 	}
@@ -56,14 +50,22 @@ public class Bean_common_page {
 		this.socketToHttp = socketToHttp;
 	}
 
-	public Bean_common_page(String page_url, int maximum, String name, String condition, String action,
-			Bean_common_socketToHttp socketToHttp) {
+	public String getPage_img_url() {
+		return page_img_url;
+	}
+
+	public void setPage_img_url(String page_img_url) {
+		this.page_img_url = page_img_url;
+	}
+
+	public Bean_common_page(String page_url, int maximum, String name, String action,
+			Bean_common_socketToHttp socketToHttp, String page_img_url) {
 		this.page_url = page_url;
 		this.maximum = maximum;
 		this.name = name;
-		this.condition = condition;
 		this.action = action;
 		this.socketToHttp = socketToHttp;
+		this.page_img_url = page_img_url;
 	}
 
 	public Bean_common_page() {

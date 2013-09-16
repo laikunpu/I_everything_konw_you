@@ -4,11 +4,7 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <WebView
-        android:id="@+id/wb_content"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:visibility="gone" />
+
 
     <uk.co.senab.bitmapcache.samples.NetworkedCacheableImageView
         android:id="@+id/img_content"

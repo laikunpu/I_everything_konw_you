@@ -64,47 +64,19 @@ public class CommonDetailNextAdapter extends BaseAdapter {
 		final Bean_common_page data = datas.get(position);
 		final int pos = position;
 
-		if (convertView == null) {
-			convertView = LayoutInflater.from(context).inflate(R.layout.common_detail_next_item, null);
+		convertView = LayoutInflater.from(context).inflate(R.layout.common_detail_next_item, null);
 
-		}
-		viewHolder.wb_content = (WebView) convertView.findViewById(R.id.wb_content);
 		viewHolder.img_content = (NetworkedCacheableImageView) convertView.findViewById(R.id.img_content);
+		String img_url = data.getPage_img_url();
+		if (null != img_url && !"".equals(img_url.trim())) {
+			viewHolder.img_content.loadImage(img_url, false, null, data.getSocketToHttp());
+		}
 
-		WebSettings setting = viewHolder.wb_content.getSettings();
-		setting.setJavaScriptEnabled(true);
-		setting.setBuiltInZoomControls(true);
-
-		
-		viewHolder.wb_content.setWebViewClient(new WebViewClient() {
-
-			@Override
-			public void onLoadResource(WebView view, String url) {
-				// TODO Auto-generated method stub
-				super.onLoadResource(view, url);
-
-				if (url.contains(data.getCondition())) {
-					viewHolder.wb_content.stopLoading();
-					viewHolder.wb_content.clearCache(true);
-					viewHolder.wb_content.clearView();
-//					System.out.println("onLoadResource->url= " + url);
-					viewHolder.img_content.loadImage(url, false, null,data.getSocketToHttp());
-					viewHolder.img_content.setTag(pos);
-					viewHolder.img_content.setOnClickListener(onClickListener);
-					
-				}
-				
-			}
-
-		});
-		viewHolder.wb_content.loadUrl(data.getPage_url());
-		
-//		System.out.println("wb_content->url= " + data.getPage_url());
+		// System.out.println("wb_content->url= " + data.getPage_url());
 		return convertView;
 	}
 
 	public class ViewHolder {
 		NetworkedCacheableImageView img_content;
-		WebView wb_content;
 	}
 }

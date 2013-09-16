@@ -98,22 +98,29 @@ public class NetworkedCacheableImageView extends CacheableImageView {
 					Log.d("ImageUrlAsyncTask", "Downloading: " + url);
 
 					if (null != socketToHttp && true == socketToHttp.isUseSocket()) {
-//						InputStream is = new BufferedInputStream(KnowyouUtil.getImgDataFromUrl(url,
-//								socketToHttp.getParameter()));
-//						result = mCache.put(url, is, mDecodeOpts);
-						
-						
-						
+						// InputStream is = new
+						// BufferedInputStream(KnowyouUtil.getImgDataFromUrl(url,
+						// socketToHttp.getParameter()));
+						// result = mCache.put(url, is, mDecodeOpts);
+
 						// The bitmap isn't cached so download from the web
 						HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
 						conn.setInstanceFollowRedirects(true);
-						conn.setRequestProperty("Referer", socketToHttp.getParameter());
+
+						if (null != socketToHttp.getProperties()) {
+							for (int i = 0; i < socketToHttp.getProperties().size(); i++) {
+								conn.setRequestProperty(socketToHttp.getProperties().get(i).getField(), socketToHttp
+										.getProperties().get(i).getNewValue());
+								System.out.println(socketToHttp.getProperties().get(i).getField()+ socketToHttp
+										.getProperties().get(i).getNewValue());
+							}
+						}
+
 						InputStream is = new BufferedInputStream(conn.getInputStream());
 
 						// Add to cache
 						result = mCache.put(url, is, mDecodeOpts);
-						
-						
+
 					} else {
 						// The bitmap isn't cached so download from the web
 						HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
@@ -192,8 +199,8 @@ public class NetworkedCacheableImageView extends CacheableImageView {
 			BitmapFactory.Options decodeOpts = null;
 
 			if (!fullSize) {
-				 decodeOpts = new BitmapFactory.Options();
-				 decodeOpts.inSampleSize = 2;
+				decodeOpts = new BitmapFactory.Options();
+				decodeOpts.inSampleSize = 2;
 			}
 
 			mCurrentTask = new ImageUrlAsyncTask(this, mCache, decodeOpts, listener, socketToHttp);
