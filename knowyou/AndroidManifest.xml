@@ -36,12 +36,12 @@
         <activity
             android:name=".CommonDetailActivity"
             android:screenOrientation="portrait" />
-                <activity
+        <activity
             android:name=".CommonDetailNextActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="landscape" />
-        
-        
-    </application> 
+    </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
