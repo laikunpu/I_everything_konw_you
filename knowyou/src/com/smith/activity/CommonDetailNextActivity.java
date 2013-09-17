@@ -1,5 +1,6 @@
 package com.smith.activity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import uk.co.senab.bitmapcache.CacheableBitmapDrawable;
@@ -39,7 +40,8 @@ public class CommonDetailNextActivity extends Activity {
 	private List<Bean_common_page> pages;
 	private List<Bean_common_page> show_pages;
 	private TextView txt_FootRefreshTip;
-	private int refreshAmount = 3;
+	private int refreshStart = 0;
+	private int refreshEnd = 3;
 	private int loadImageResult=0;
 	private boolean isFootRefreshing=false;
 
@@ -66,7 +68,11 @@ public class CommonDetailNextActivity extends Activity {
 	private void initData() {
 		// TODO Auto-generated method stub
 		pages = KnowyouApplication.getApplication().common_page_Res.getBean_common_pages();
-		show_pages = pages.subList(0, refreshAmount);
+		show_pages=new ArrayList<Bean_common_page>();
+		for (int i = refreshStart; i < refreshEnd; i++) {
+			show_pages.add(pages.get(i));
+		}
+		
 		commonDetailNextAdapter = new CommonDetailNextAdapter(CommonDetailNextActivity.this, show_pages);
 		commonDetailNextAdapter.setOnImageLoadedListener(loadedListener);
 		pullToRefreshListView.setAdapter(commonDetailNextAdapter);
@@ -80,9 +86,10 @@ public class CommonDetailNextActivity extends Activity {
 			@Override
 			public void onLastItemVisible() {
 				// TODO Auto-generated method stub
-				if (refreshAmount < pages.size()&&!isFootRefreshing) {
+				if (refreshStart<refreshEnd&&refreshEnd < pages.size()&&!isFootRefreshing) {
 					isFootRefreshing=true;
-					refreshAmount = refreshAmount + 3 < pages.size() ? refreshAmount + 3 : pages.size();
+					refreshStart=refreshEnd;
+					refreshEnd = refreshEnd + 3 < pages.size() ? refreshEnd + 3 : pages.size();
 					txt_FootRefreshTip.setVisibility(View.VISIBLE);
 					KnowyouApplication.getApplication().handler.postDelayed(new Runnable() {
 						
@@ -90,7 +97,10 @@ public class CommonDetailNextActivity extends Activity {
 						public void run() {
 							// TODO Auto-generated method stub
 							
-							show_pages=pages.subList(0, refreshAmount);
+							for (int i = refreshStart; i < refreshEnd; i++) {
+								show_pages.add(pages.get(i));
+							}
+							
 							isFootRefreshing=false;
 							commonDetailNextAdapter.notifyDataSetChanged();
 							txt_FootRefreshTip.setVisibility(View.GONE);

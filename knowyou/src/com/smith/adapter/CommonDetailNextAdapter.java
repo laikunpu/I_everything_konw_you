@@ -43,7 +43,7 @@ public class CommonDetailNextAdapter extends BaseAdapter {
 		this.context = context;
 		this.datas = datas;
 		updateViewListener = new UpdateViewListener();
-		img_status = new int[datas.size()];
+		img_status = new int[datas.get(0).getMaximum()];
 	}
 
 	public void setOnClickListener(OnClickListener onRewardClickListener) {

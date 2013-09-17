@@ -30,9 +30,10 @@ public class KnowyouUtil {
 	private static HashMap<Integer, PopupWindow> loadingViews = new HashMap<Integer, PopupWindow>();
 	private static HashMap<Integer, ProgressView> pgvViews = new HashMap<Integer, ProgressView>();
 	private static int max = 100;
-	public final static long delayMillis = 200;
+	public final static long predelayMillis = 100;
+	public final static long postdelayMillis = 30;
 	private final static int preStart = 0;
-	private final static int preNum = 80;
+	private final static int preNum = 65;
 
 	/**
 	 * 用于显示数据加载提示界面
@@ -46,8 +47,7 @@ public class KnowyouUtil {
 	 * @param text
 	 *            需要显示的文字
 	 */
-	public static void addLoadingWin(Activity context, ViewGroup viewGroup) {
-
+	public static void addLoadingWin(Activity context, ViewGroup viewGroup, ProgressStatus preStatus) {
 		View view = LayoutInflater.from(context).inflate(R.layout.loading, null);
 		ProgressView pDialog = (ProgressView) view.findViewById(R.id.pgv_load);
 		pDialog.setDensity(2);
@@ -58,7 +58,7 @@ public class KnowyouUtil {
 		pgvViews.put(viewGroup.getId(), pDialog);
 		popupWindow.showAtLocation(viewGroup, Gravity.CENTER, 0, 0);
 		context.setProgressBarVisibility(true);
-		sendProgress(viewGroup, preStart, preNum, delayMillis);
+		sendProgress(viewGroup, preStart, preNum, predelayMillis, null, preStatus);
 	}
 
 	/**
@@ -69,13 +69,21 @@ public class KnowyouUtil {
 	 * @param view
 	 *            需要加载数据的控件
 	 */
-	public static void removeLoadingWin(final ViewGroup viewGroup) {
+	public static void removeLoadingWin(final ViewGroup viewGroup, final Runnable runnable) {
 
-		sendProgress(viewGroup, 100);
-		PopupWindow popupWindow = loadingViews.get(viewGroup.getId());
-		popupWindow.dismiss();
-		loadingViews.remove(viewGroup.getId());
-		pgvViews.remove(viewGroup.getId());
+		Runnable r = new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				runnable.run();
+				PopupWindow popupWindow = loadingViews.get(viewGroup.getId());
+				popupWindow.dismiss();
+				loadingViews.remove(viewGroup.getId());
+				pgvViews.remove(viewGroup.getId());
+			}
+		};
+		sendProgress(viewGroup, preNum, max, postdelayMillis, r, null);
 
 	}
 
@@ -88,7 +96,8 @@ public class KnowyouUtil {
 
 	}
 
-	public static void sendProgress(final ViewGroup viewGroup, final int start, final int num, final long delayMillis) {
+	public static void sendProgress(final ViewGroup viewGroup, final int start, final int num, final long delayMillis,
+			final Runnable r, final ProgressStatus preStatus) {
 		if (0 < num && num <= max) {
 			final ProgressView pDialog = pgvViews.get(viewGroup.getId());
 			if (null != pDialog) {
@@ -97,12 +106,15 @@ public class KnowyouUtil {
 					@Override
 					public void run() {
 						// TODO Auto-generated method stub
-						if (start < num) {
+						if (null != preStatus && preStatus.cancel) {
+							return;
+						} else if (start <= num) {
 							pDialog.setProgress(start);
 							int newStart = start + 1;
-							sendProgress(viewGroup, newStart, num, delayMillis);
+							sendProgress(viewGroup, newStart, num, delayMillis, r, preStatus);
+						} else if (null != r) {
+							r.run();
 						}
-
 					}
 				}, delayMillis);
 
@@ -160,5 +172,7 @@ public class KnowyouUtil {
 		}
 		return false;
 	}
+
+
 
 }

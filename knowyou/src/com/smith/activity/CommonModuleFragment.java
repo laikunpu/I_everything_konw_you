@@ -35,6 +35,7 @@ import com.smith.inter.DataCallback;
 import com.smith.util.AsyncDataLoader;
 import com.smith.util.KYHttpClient;
 import com.smith.util.KnowyouUtil;
+import com.smith.util.ProgressStatus;
 import com.smith.util.ToastUtils;
 
 public class CommonModuleFragment extends Fragment {
@@ -115,26 +116,35 @@ public class CommonModuleFragment extends Fragment {
 		}
 	};
 	DataCallback callback = new DataCallback() {
-		private int times ;
+		private int times;
+		private ProgressStatus preStatus;
 		@Override
 		public void onPrepare() {
 			// TODO Auto-generated method stub
-			times=3;
-			KnowyouUtil.addLoadingWin(getActivity(), view_parent);
+			times = 3;
+			preStatus=new ProgressStatus();
+			KnowyouUtil.addLoadingWin(getActivity(), view_parent,preStatus);
 		}
 
 		@Override
 		public void onStart() {
 			// TODO Auto-generated method stub
 			try {
-				detail = KnowyouApplication.getApplication().gson.fromJson(
-						KYHttpClient.post(datas.get(currentData).getDetail_action(),datas.get(currentData).getDetail_url()), Bean_common_detail.class);
+				detail = KnowyouApplication.getApplication().gson.fromJson(KYHttpClient.post(datas.get(currentData)
+						.getDetail_action(), datas.get(currentData).getDetail_url()), Bean_common_detail.class);
 
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				
+				try {
+					Thread.sleep(3000);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				times--;
-				detail=null;
+				detail = null;
 				if (times > 0) {
 					onStart();
 				}
@@ -144,16 +154,21 @@ public class CommonModuleFragment extends Fragment {
 		@Override
 		public void onFinish() {
 			// TODO Auto-generated method stub
+			preStatus.cancel=true;
+			KnowyouUtil.removeLoadingWin(view_parent, new Runnable() {
 
-			if (null != detail) {
-				KnowyouApplication.getApplication().common_detail = detail;
-				Intent intent = new Intent(getActivity(), CommonDetailActivity.class);
-				startActivity(intent);
-			} else {
-				ToastUtils.showToast(getActivity(), "网络异常!!!");
-			}
-
-			KnowyouUtil.removeLoadingWin(view_parent);
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					if (null != detail) {
+						KnowyouApplication.getApplication().common_detail = detail;
+						Intent intent = new Intent(getActivity(), CommonDetailActivity.class);
+						startActivity(intent);
+					} else {
+						ToastUtils.showToast(getActivity(), "网络异常!!!");
+					}
+				}
+			});
 
 		}
 	};

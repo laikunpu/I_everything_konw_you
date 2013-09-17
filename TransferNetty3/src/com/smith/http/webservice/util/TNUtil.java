@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.util.concurrent.TimeUnit;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.openqa.selenium.By;
@@ -129,15 +131,10 @@ public class TNUtil {
 
 			if (null != selenium_info && selenium_info.isUseSelenium()) {
 				WebDriver driver = new FirefoxDriver();
-
+				//设置10秒  
+				driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 				driver.get(url);
-				WebDriverWait wait = new WebDriverWait(driver, 10);
-				wait.until(new ExpectedCondition<WebElement>() {
-					@Override
-					public WebElement apply(WebDriver d) {
-						return d.findElement(By.id(selenium_info.getTag()));
-					}
-				}).click();
+				driver.findElement(By.id(selenium_info.getTag())).click();  
 				String normal_html = driver.getPageSource();
 				doc = Jsoup.parse(normal_html);
 				driver.quit();

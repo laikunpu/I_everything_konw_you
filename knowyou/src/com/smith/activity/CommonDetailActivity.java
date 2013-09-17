@@ -9,6 +9,7 @@ import com.smith.inter.DataCallback;
 import com.smith.util.AsyncDataLoader;
 import com.smith.util.KYHttpClient;
 import com.smith.util.KnowyouUtil;
+import com.smith.util.ProgressStatus;
 import com.smith.util.ToastUtils;
 
 import android.content.Intent;
@@ -129,13 +130,15 @@ public class CommonDetailActivity extends BaseActivity {
 	};
 
 	DataCallback callback = new DataCallback() {
-		private int times ;
-
+		private int times;
+		private ProgressStatus preStatus;
+		
 		@Override
 		public void onPrepare() {
 			// TODO Auto-generated method stub
-			times=3;
-			KnowyouUtil.addLoadingWin(CommonDetailActivity.this, view_parent);
+			times = 3;
+			preStatus=new ProgressStatus();
+			KnowyouUtil.addLoadingWin(CommonDetailActivity.this, view_parent,preStatus);
 		}
 
 		@Override
@@ -148,7 +151,15 @@ public class CommonDetailActivity extends BaseActivity {
 
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
+				
+				try {
+					Thread.sleep(3000);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				times--;
 				common_page_Res = null;
 				if (times > 0) {
@@ -160,16 +171,22 @@ public class CommonDetailActivity extends BaseActivity {
 		@Override
 		public void onFinish() {
 			// TODO Auto-generated method stub
+			
+			preStatus.cancel=true;
+			KnowyouUtil.removeLoadingWin(view_parent, new Runnable() {
 
-			if (null != common_page_Res) {
-				KnowyouApplication.getApplication().common_page_Res = common_page_Res;
-				Intent intent = new Intent(CommonDetailActivity.this, CommonDetailNextActivity.class);
-				startActivity(intent);
-			} else {
-				ToastUtils.showToast(CommonDetailActivity.this, "网络异常!!!");
-			}
-
-			KnowyouUtil.removeLoadingWin(view_parent);
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					if (null != common_page_Res) {
+						KnowyouApplication.getApplication().common_page_Res = common_page_Res;
+						Intent intent = new Intent(CommonDetailActivity.this, CommonDetailNextActivity.class);
+						startActivity(intent);
+					} else {
+						ToastUtils.showToast(CommonDetailActivity.this, "网络异常!!!");
+					}
+				}
+			});
 
 		}
 	};
