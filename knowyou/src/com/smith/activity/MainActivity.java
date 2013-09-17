@@ -150,11 +150,12 @@ public class MainActivity extends BaseActivity {
 	};
 
 	DataCallback callback = new DataCallback() {
+		private int times;
 
 		@Override
 		public void onPrepare() {
 			// TODO Auto-generated method stub
-
+			times=3;
 			KnowyouUtil.addLoadingWin(MainActivity.this, view_parent);
 		}
 
@@ -163,7 +164,6 @@ public class MainActivity extends BaseActivity {
 			// TODO Auto-generated method stub
 			try {
 				if (null == common_Res || common_Res.getBean_second_modules().size() == 0) {
-
 					common_Res = KnowyouApplication.getApplication().gson.fromJson(
 							KYHttpClient.get(uis.get(clickUI).getModule_action()), Bean_common_Res.class);
 				}
@@ -171,6 +171,12 @@ public class MainActivity extends BaseActivity {
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				times--;
+				System.out.println("重试" + times + "次");
+				if (times > 0) {
+					onStart();
+
+				}
 			}
 		}
 

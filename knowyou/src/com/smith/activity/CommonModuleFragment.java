@@ -115,11 +115,11 @@ public class CommonModuleFragment extends Fragment {
 		}
 	};
 	DataCallback callback = new DataCallback() {
-
+		private int times ;
 		@Override
 		public void onPrepare() {
 			// TODO Auto-generated method stub
-
+			times=3;
 			KnowyouUtil.addLoadingWin(getActivity(), view_parent);
 		}
 
@@ -133,7 +133,11 @@ public class CommonModuleFragment extends Fragment {
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				times--;
 				detail=null;
+				if (times > 0) {
+					onStart();
+				}
 			}
 		}
 

@@ -138,6 +138,10 @@ public class NetworkedCacheableImageView extends CacheableImageView {
 				return result;
 
 			} catch (IOException e) {
+//				if (null != socketToHttp && true == socketToHttp.isUseSocket() && null != socketToHttp.getProperties()) {
+//					System.out.println(socketToHttp.getProperties().get(0).getField()
+//							+ socketToHttp.getProperties().get(0).getNewValue());
+//				}
 				Log.e("ImageUrlAsyncTask", e.toString());
 			}
 

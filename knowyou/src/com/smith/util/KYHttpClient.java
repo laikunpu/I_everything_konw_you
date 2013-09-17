@@ -49,32 +49,25 @@ public class KYHttpClient {
 		return builder.toString();
 	}
 
-	public static String get(String url) {
-		String responseBody = "";
-		try {
-			HttpClient httpClient = new DefaultHttpClient();
-			httpClient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, CONNECTION_TIMEOUT);
-			httpClient.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, CONNECTION_TIMEOUT);
+	public static String get(String url) throws Exception {
+		HttpClient httpClient = new DefaultHttpClient();
+		httpClient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, CONNECTION_TIMEOUT);
+		httpClient.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, CONNECTION_TIMEOUT);
 
-			HttpGet httpGet = new HttpGet(url);
+		HttpGet httpGet = new HttpGet(url);
 
-			HttpResponse httpResponse = httpClient.execute(httpGet);
-			// 保存获取的json数据
-			StringBuilder builder = new StringBuilder();
-			BufferedReader bufferedReader2 = new BufferedReader(new InputStreamReader(httpResponse.getEntity()
-					.getContent()));
+		HttpResponse httpResponse = httpClient.execute(httpGet);
+		// 保存获取的json数据
+		StringBuilder builder = new StringBuilder();
+		BufferedReader bufferedReader2 = new BufferedReader(
+				new InputStreamReader(httpResponse.getEntity().getContent()));
 
-			for (String s = bufferedReader2.readLine(); s != null; s = bufferedReader2.readLine()) {
-				builder.append(s);
-			}
-			// System.out.println("服务器返回的数据=" + responseBody);
-			return builder.toString();
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		for (String s = bufferedReader2.readLine(); s != null; s = bufferedReader2.readLine()) {
+			builder.append(s);
 		}
-		return responseBody;
+		// System.out.println("服务器返回的数据=" + responseBody);
+		return builder.toString();
+
 	}
 
 }

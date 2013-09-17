@@ -58,6 +58,7 @@ public class Bean_common_page {
 		this.page_img_url = page_img_url;
 	}
 
+
 	public Bean_common_page(String page_url, int maximum, String name, String action,
 			Bean_common_socketToHttp socketToHttp, String page_img_url) {
 		this.page_url = page_url;

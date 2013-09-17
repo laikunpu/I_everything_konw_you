@@ -4,7 +4,7 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <!-- The PullToRefreshExpandableListView replaces a standard ExpandableListView widget. -->
+    <!-- The PullToRefreshListView replaces a standard ListView widget. -->
 
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/pull_refresh_list"
@@ -24,10 +24,9 @@
         android:id="@+id/txt_FootRefreshTip"
         android:layout_width="fill_parent"
         android:layout_height="35dp"
-        android:gravity="center"
         android:layout_weight="1"
-        android:text="正在加载..."
-        android:background="#CCCCCC"
-        android:visibility="gone" />
+        android:background="#000000"
+        android:gravity="center"
+        android:text="正在加载..."         />
 
 </LinearLayout>

@@ -2,6 +2,9 @@ package com.smith.activity;
 
 import java.util.List;
 
+import uk.co.senab.bitmapcache.CacheableBitmapDrawable;
+import uk.co.senab.bitmapcache.samples.NetworkedCacheableImageView.OnImageLoadedListener;
+
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnLastItemVisibleListener;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
@@ -36,16 +39,17 @@ public class CommonDetailNextActivity extends Activity {
 	private List<Bean_common_page> pages;
 	private List<Bean_common_page> show_pages;
 	private TextView txt_FootRefreshTip;
-	private int start = 0;
-	private int end = 3;
+	private int refreshAmount = 3;
+	private int loadImageResult=0;
+	private boolean isFootRefreshing=false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-//		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//		this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
-		
+		// this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		// this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
+
 		setContentView(R.layout.common_detail_next);
 
 		initView();
@@ -62,8 +66,9 @@ public class CommonDetailNextActivity extends Activity {
 	private void initData() {
 		// TODO Auto-generated method stub
 		pages = KnowyouApplication.getApplication().common_page_Res.getBean_common_pages();
-		show_pages=pages.subList(0, 3);
+		show_pages = pages.subList(0, refreshAmount);
 		commonDetailNextAdapter = new CommonDetailNextAdapter(CommonDetailNextActivity.this, show_pages);
+		commonDetailNextAdapter.setOnImageLoadedListener(loadedListener);
 		pullToRefreshListView.setAdapter(commonDetailNextAdapter);
 	}
 
@@ -75,15 +80,36 @@ public class CommonDetailNextActivity extends Activity {
 			@Override
 			public void onLastItemVisible() {
 				// TODO Auto-generated method stub
-				// if (end < pages.size()) {
-				// start = end;
-				// end = end + 3 < pages.size() ? end + 3 : pages.size();
-				// txt_FootRefreshTip.setVisibility(View.VISIBLE);
-				// loadData(start, end);
-				// }
+				if (refreshAmount < pages.size()&&!isFootRefreshing) {
+					isFootRefreshing=true;
+					refreshAmount = refreshAmount + 3 < pages.size() ? refreshAmount + 3 : pages.size();
+					txt_FootRefreshTip.setVisibility(View.VISIBLE);
+					KnowyouApplication.getApplication().handler.postDelayed(new Runnable() {
+						
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							
+							show_pages=pages.subList(0, refreshAmount);
+							isFootRefreshing=false;
+							commonDetailNextAdapter.notifyDataSetChanged();
+							txt_FootRefreshTip.setVisibility(View.GONE);
+							
+						}
+					}, 3000);
+				}
 
 			}
 		});
 	}
+
+	OnImageLoadedListener loadedListener = new OnImageLoadedListener() {
+
+		@Override
+		public void onImageLoaded(CacheableBitmapDrawable result) {
+			// TODO Auto-generated method stub
+			System.out.println("result");
+		}
+	};
 
 }

@@ -81,7 +81,7 @@ public class CommonDetailActivity extends BaseActivity {
 		// TODO Auto-generated method stub
 		data = KnowyouApplication.getApplication().common_detail;
 
-		img_cover.loadImage(data.getCover_url(), true, null,null);
+		img_cover.loadImage(data.getCover_url(), true, null, null);
 		txt_bookName.setText(data.getName());
 		txt_bookAuthor.setText(data.getAuthor());
 		txt_modifiedTime.setText(data.getModify());
@@ -129,11 +129,12 @@ public class CommonDetailActivity extends BaseActivity {
 	};
 
 	DataCallback callback = new DataCallback() {
+		private int times ;
 
 		@Override
 		public void onPrepare() {
 			// TODO Auto-generated method stub
-
+			times=3;
 			KnowyouUtil.addLoadingWin(CommonDetailActivity.this, view_parent);
 		}
 
@@ -148,7 +149,11 @@ public class CommonDetailActivity extends BaseActivity {
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				times--;
 				common_page_Res = null;
+				if (times > 0) {
+					onStart();
+				}
 			}
 		}
 

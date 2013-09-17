@@ -19,11 +19,13 @@ import android.os.Environment;
 import android.os.Handler;
 
 public class KnowyouApplication extends Application {
+
 	private static KnowyouApplication instance;
 
 	private BitmapLruCache mCache;
 
 	public final Gson gson = new Gson();
+	public final static Handler handler = new Handler();
 
 	public List<Bean_UI> uis = new ArrayList<Bean_UI>();
 
