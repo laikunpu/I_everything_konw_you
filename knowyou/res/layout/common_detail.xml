@@ -84,7 +84,8 @@
                             android:layout_width="fill_parent"
                             android:layout_height="35dp"
                             android:layout_weight="1"
-                            android:text="在线阅读" />
+                            android:enabled="false"
+                            android:text="无在线" />
 
                         <Button
                             android:id="@+id/btn_download"
@@ -92,7 +93,8 @@
                             android:layout_height="35dp"
                             android:layout_marginRight="10dp"
                             android:layout_weight="1"
-                            android:text="点击下载" />
+                            android:enabled="false"
+                            android:text="无下载" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>

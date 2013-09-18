@@ -2,6 +2,7 @@ package com.smith.http.webservice.entity;
 
 import java.util.List;
 
+
 public class Bean_common_detail {
 	private int type;
 	private String cover_url;
@@ -14,131 +15,125 @@ public class Bean_common_detail {
 	private String summary;
 	private String related;
 	private String comment;
+	private Bean_common_detail_online online;
+	private Bean_common_detail_download download;
 	private List<Bean_common_detail_content> contents;
-
 
 	public int getType() {
 		return type;
 	}
 
-
 	public void setType(int type) {
 		this.type = type;
 	}
-
 
 	public String getCover_url() {
 		return cover_url;
 	}
 
-
 	public void setCover_url(String cover_url) {
 		this.cover_url = cover_url;
 	}
-
 
 	public String getStatus() {
 		return status;
 	}
 
-
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
 
 	public String getName() {
 		return name;
 	}
 
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
 
 	public String getAuthor() {
 		return author;
 	}
 
-
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-
 
 	public String getModify() {
 		return modify;
 	}
 
-
 	public void setModify(String modify) {
 		this.modify = modify;
 	}
-
 
 	public String getAction() {
 		return action;
 	}
 
-
 	public void setAction(String action) {
 		this.action = action;
 	}
-
 
 	public String getCollection() {
 		return collection;
 	}
 
-
 	public void setCollection(String collection) {
 		this.collection = collection;
 	}
-
 
 	public String getSummary() {
 		return summary;
 	}
 
-
 	public void setSummary(String summary) {
 		this.summary = summary;
 	}
-
 
 	public String getRelated() {
 		return related;
 	}
 
-
 	public void setRelated(String related) {
 		this.related = related;
 	}
-
 
 	public String getComment() {
 		return comment;
 	}
 
-
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
 
+	public Bean_common_detail_online getOnline() {
+		return online;
+	}
+
+	public void setOnline(Bean_common_detail_online online) {
+		this.online = online;
+	}
+
+	public Bean_common_detail_download getDownload() {
+		return download;
+	}
+
+	public void setDownload(Bean_common_detail_download download) {
+		this.download = download;
+	}
 
 	public List<Bean_common_detail_content> getContents() {
 		return contents;
 	}
 
-
 	public void setContents(List<Bean_common_detail_content> contents) {
 		this.contents = contents;
 	}
 
-
 	public Bean_common_detail(int type, String cover_url, String status, String name, String author, String modify,
 			String action, String collection, String summary, String related, String comment,
+			Bean_common_detail_online online, Bean_common_detail_download download,
 			List<Bean_common_detail_content> contents) {
 		this.type = type;
 		this.cover_url = cover_url;
@@ -151,9 +146,10 @@ public class Bean_common_detail {
 		this.summary = summary;
 		this.related = related;
 		this.comment = comment;
+		this.online = online;
+		this.download = download;
 		this.contents = contents;
 	}
-
 
 	public Bean_common_detail() {
 	}

@@ -10,6 +10,7 @@ import com.smith.util.AsyncDataLoader;
 import com.smith.util.KYHttpClient;
 import com.smith.util.KnowyouUtil;
 import com.smith.util.ProgressStatus;
+import com.smith.util.ServiceApi;
 import com.smith.util.ToastUtils;
 
 import android.content.Intent;
@@ -109,6 +110,14 @@ public class CommonDetailActivity extends BaseActivity {
 	private void initOnClickListener() {
 		// TODO Auto-generated method stub
 		contentsAdapter.setOnClickListener(clickListener);
+		if (null != data.getOnline()) {
+			btn_online.setEnabled(true);
+			btn_online.setText(data.getOnline().getOnlineText());
+			btn_online.setOnClickListener(clickListener);
+		}
+		if (null != data.getDownload()) {
+
+		}
 	}
 
 	OnClickListener clickListener = new OnClickListener() {
@@ -122,7 +131,14 @@ public class CommonDetailActivity extends BaseActivity {
 				KnowyouApplication.getApplication().content = data.getContents().get(currentData);
 				new AsyncDataLoader(callback).execute();
 				break;
-
+			case R.id.btn_online:
+				switch (data.getOnline().getOnlineType()) {
+				case 1:
+					KnowyouApplication.getApplication().content = data.getContents().get(0);
+					new AsyncDataLoader(callback).execute();
+					break;
+				}
+				break;
 			default:
 				break;
 			}
@@ -132,36 +148,47 @@ public class CommonDetailActivity extends BaseActivity {
 	DataCallback callback = new DataCallback() {
 		private int times;
 		private ProgressStatus preStatus;
-		
+		private int netStatus = 0;
+
 		@Override
 		public void onPrepare() {
 			// TODO Auto-generated method stub
 			times = 3;
-			preStatus=new ProgressStatus();
-			KnowyouUtil.addLoadingWin(CommonDetailActivity.this, view_parent,preStatus);
+			preStatus = new ProgressStatus();
+			KnowyouUtil.addLoadingWin(CommonDetailActivity.this, view_parent, preStatus);
 		}
 
 		@Override
 		public void onStart() {
 			// TODO Auto-generated method stub
+
+			if (!KnowyouUtil.connectivityIsAvailable(CommonDetailActivity.this)) {
+				netStatus = -1;
+				return;
+			}
+			if (!KnowyouUtil.pingIP(ServiceApi.IP)) {
+				netStatus = 0;
+				return;
+			}
 			try {
 				String json = KYHttpClient.post(data.getContents().get(currentData).getAction(), data.getContents()
 						.get(currentData).getContet_url());
 				common_page_Res = KnowyouApplication.getApplication().gson.fromJson(json, Bean_common_page_Res.class);
-
+				netStatus = 1;
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				
+
 				e.printStackTrace();
-				
+				netStatus = 2;
+				times--;
+				common_page_Res = null;
 				try {
 					Thread.sleep(3000);
 				} catch (InterruptedException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				times--;
-				common_page_Res = null;
+
 				if (times > 0) {
 					onStart();
 				}
@@ -171,22 +198,40 @@ public class CommonDetailActivity extends BaseActivity {
 		@Override
 		public void onFinish() {
 			// TODO Auto-generated method stub
-			
-			preStatus.cancel=true;
-			KnowyouUtil.removeLoadingWin(view_parent, new Runnable() {
 
-				@Override
-				public void run() {
-					// TODO Auto-generated method stub
-					if (null != common_page_Res) {
-						KnowyouApplication.getApplication().common_page_Res = common_page_Res;
-						Intent intent = new Intent(CommonDetailActivity.this, CommonDetailNextActivity.class);
-						startActivity(intent);
-					} else {
-						ToastUtils.showToast(CommonDetailActivity.this, "网络异常!!!");
+			preStatus.cancel = true;
+
+			switch (netStatus) {
+			case -1:
+				KnowyouUtil.removeLoadingWin(view_parent);
+				ToastUtils.showToast(CommonDetailActivity.this, "无法连接网络,请确认手机处于联网状态!!!");
+				break;
+			case 0:
+				KnowyouUtil.removeLoadingWin(view_parent);
+				ToastUtils.showToast(CommonDetailActivity.this, "服务器尚未开启!!!");
+				break;
+			case 1:
+				KnowyouUtil.removeLoadingWin(view_parent, new Runnable() {
+
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						if (null != common_page_Res) {
+							KnowyouApplication.getApplication().common_page_Res = common_page_Res;
+							Intent intent = new Intent(CommonDetailActivity.this, CommonDetailNextActivity.class);
+							startActivity(intent);
+						} else {
+							ToastUtils.showToast(CommonDetailActivity.this, "网络异常!!!");
+						}
 					}
-				}
-			});
+				});
+
+				break;
+			case 2:
+				KnowyouUtil.removeLoadingWin(view_parent);
+				ToastUtils.showToast(CommonDetailActivity.this, "服务器正在收集该内容，请稍后尝试!!!");
+				break;
+			}
 
 		}
 	};

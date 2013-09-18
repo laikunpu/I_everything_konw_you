@@ -36,12 +36,14 @@ import com.smith.util.AsyncDataLoader;
 import com.smith.util.KYHttpClient;
 import com.smith.util.KnowyouUtil;
 import com.smith.util.ProgressStatus;
+import com.smith.util.ServiceApi;
 import com.smith.util.ToastUtils;
 
 public class CommonModuleFragment extends Fragment {
 	private int classify;
 	private LinearLayout view_parent;
 	private WebView wb_advert;
+	private String adUrl;
 	private GridView gd_list;
 
 	private List<Bean_common> datas;
@@ -89,6 +91,7 @@ public class CommonModuleFragment extends Fragment {
 	private void initData() {
 		// TODO Auto-generated method stub
 		datas = KnowyouApplication.getApplication().common_Res.getBean_second_modules().get(classify).getCommons();
+		adUrl = KnowyouApplication.getApplication().common_Res.getBean_second_modules().get(classify).getAdUrl();
 		comicAdapter = new CommonAdapter(getActivity(), datas);
 		gd_list.setAdapter(comicAdapter);
 	}
@@ -96,6 +99,11 @@ public class CommonModuleFragment extends Fragment {
 	private void initOnClickListener() {
 		// TODO Auto-generated method stub
 		comicAdapter.setOnClickListener(clickListener);
+		if (null != adUrl && !"".equals(adUrl)) {
+			wb_advert.setVisibility(View.VISIBLE);
+			wb_advert.getSettings().setJavaScriptEnabled(true);
+			wb_advert.loadUrl(adUrl);
+		}
 	}
 
 	OnClickListener clickListener = new OnClickListener() {
@@ -118,33 +126,44 @@ public class CommonModuleFragment extends Fragment {
 	DataCallback callback = new DataCallback() {
 		private int times;
 		private ProgressStatus preStatus;
+		private int netStatus = 0;
+
 		@Override
 		public void onPrepare() {
 			// TODO Auto-generated method stub
 			times = 3;
-			preStatus=new ProgressStatus();
-			KnowyouUtil.addLoadingWin(getActivity(), view_parent,preStatus);
+			preStatus = new ProgressStatus();
+			KnowyouUtil.addLoadingWin(getActivity(), view_parent, preStatus);
 		}
 
 		@Override
 		public void onStart() {
 			// TODO Auto-generated method stub
+			if (!KnowyouUtil.connectivityIsAvailable(getActivity())) {
+				netStatus = -1;
+				return;
+			}
+			if (!KnowyouUtil.pingIP(ServiceApi.IP)) {
+				netStatus = 0;
+				return;
+			}
 			try {
 				detail = KnowyouApplication.getApplication().gson.fromJson(KYHttpClient.post(datas.get(currentData)
 						.getDetail_action(), datas.get(currentData).getDetail_url()), Bean_common_detail.class);
-
+				netStatus = 1;
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				
+
+				netStatus = 2;
+				times--;
+				detail = null;
 				try {
 					Thread.sleep(3000);
 				} catch (InterruptedException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				times--;
-				detail = null;
 				if (times > 0) {
 					onStart();
 				}
@@ -154,21 +173,39 @@ public class CommonModuleFragment extends Fragment {
 		@Override
 		public void onFinish() {
 			// TODO Auto-generated method stub
-			preStatus.cancel=true;
-			KnowyouUtil.removeLoadingWin(view_parent, new Runnable() {
+			preStatus.cancel = true;
 
-				@Override
-				public void run() {
-					// TODO Auto-generated method stub
-					if (null != detail) {
-						KnowyouApplication.getApplication().common_detail = detail;
-						Intent intent = new Intent(getActivity(), CommonDetailActivity.class);
-						startActivity(intent);
-					} else {
-						ToastUtils.showToast(getActivity(), "网络异常!!!");
+			switch (netStatus) {
+			case -1:
+				KnowyouUtil.removeLoadingWin(view_parent);
+				ToastUtils.showToast(getActivity(), "无法连接网络,请确认手机处于联网状态!!!");
+				break;
+			case 0:
+				KnowyouUtil.removeLoadingWin(view_parent);
+				ToastUtils.showToast(getActivity(), "服务器尚未开启!!!");
+				break;
+			case 1:
+				KnowyouUtil.removeLoadingWin(view_parent, new Runnable() {
+
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						if (null != detail) {
+							KnowyouApplication.getApplication().common_detail = detail;
+							Intent intent = new Intent(getActivity(), CommonDetailActivity.class);
+							startActivity(intent);
+						} else {
+							ToastUtils.showToast(getActivity(), "网络异常!!!");
+						}
 					}
-				}
-			});
+				});
+
+				break;
+			case 2:
+				KnowyouUtil.removeLoadingWin(view_parent);
+				ToastUtils.showToast(getActivity(), "服务器正在收集该内容，请稍后尝试!!!");
+				break;
+			}
 
 		}
 	};

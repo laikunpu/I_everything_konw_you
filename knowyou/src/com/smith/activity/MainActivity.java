@@ -152,35 +152,47 @@ public class MainActivity extends BaseActivity {
 	DataCallback callback = new DataCallback() {
 		private int times;
 		private ProgressStatus preStatus;
+		private int netStatus = 0;
 
 		@Override
 		public void onPrepare() {
 			// TODO Auto-generated method stub
 			times = 3;
-			preStatus=new ProgressStatus();
-			KnowyouUtil.addLoadingWin(MainActivity.this, view_parent,preStatus);
+			preStatus = new ProgressStatus();
+			KnowyouUtil.addLoadingWin(MainActivity.this, view_parent, preStatus);
 		}
 
 		@Override
 		public void onStart() {
 			// TODO Auto-generated method stub
+			if (!KnowyouUtil.connectivityIsAvailable(MainActivity.this)) {
+				netStatus = -1;
+				return;
+			}
+			if (!KnowyouUtil.pingIP(ServiceApi.IP)) {
+				netStatus = 0;
+				return;
+			}
 			try {
 				if (null == common_Res || common_Res.getBean_second_modules().size() == 0) {
 					common_Res = KnowyouApplication.getApplication().gson.fromJson(
 							KYHttpClient.get(uis.get(clickUI).getModule_action()), Bean_common_Res.class);
+					netStatus = 1;
 				}
 
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				
+
+				netStatus = 2;
+				times--;
 				try {
 					Thread.sleep(3000);
 				} catch (InterruptedException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				times--;
+
 				System.out.println("重试" + times + "次");
 				if (times > 0) {
 					onStart();
@@ -192,21 +204,39 @@ public class MainActivity extends BaseActivity {
 		@Override
 		public void onFinish() {
 			// TODO Auto-generated method stub
-			preStatus.cancel=true;
-			KnowyouUtil.removeLoadingWin(view_parent, new Runnable() {
+			preStatus.cancel = true;
 
-				@Override
-				public void run() {
-					// TODO Auto-generated method stub
-					if (null != common_Res && common_Res.getBean_second_modules().size() > 0) {
-						KnowyouApplication.getApplication().common_Res = common_Res;
-						Intent intent = new Intent(MainActivity.this, FragmentTabsPager.class);
-						startActivity(intent);
-					} else {
-						ToastUtils.showToast(MainActivity.this, "网络异常!!!");
+			switch (netStatus) {
+			case -1:
+				KnowyouUtil.removeLoadingWin(view_parent);
+				ToastUtils.showToast(MainActivity.this, "无法连接网络,请确认手机处于联网状态!!!");
+				break;
+			case 0:
+				KnowyouUtil.removeLoadingWin(view_parent);
+				ToastUtils.showToast(MainActivity.this, "服务器尚未开启!!!");
+				break;
+			case 1:
+				KnowyouUtil.removeLoadingWin(view_parent, new Runnable() {
+
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						if (null != common_Res && common_Res.getBean_second_modules().size() > 0) {
+							KnowyouApplication.getApplication().common_Res = common_Res;
+							Intent intent = new Intent(MainActivity.this, FragmentTabsPager.class);
+							startActivity(intent);
+						} else {
+							ToastUtils.showToast(MainActivity.this, "服务器无数据返回!!!");
+						}
 					}
-				}
-			});
+				});
+
+				break;
+			case 2:
+				KnowyouUtil.removeLoadingWin(view_parent);
+				ToastUtils.showToast(MainActivity.this, "服务器正在收集该内容，请稍后尝试!!!");
+				break;
+			}
 
 		}
 	};

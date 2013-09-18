@@ -11,6 +11,7 @@ import org.jsoup.select.Elements;
 import com.smith.http.webservice.entity.Bean_common;
 import com.smith.http.webservice.entity.Bean_common_detail;
 import com.smith.http.webservice.entity.Bean_common_detail_content;
+import com.smith.http.webservice.entity.Bean_common_detail_online;
 import com.smith.http.webservice.entity.Bean_common_page;
 import com.smith.http.webservice.entity.Bean_common_page_Res;
 import com.smith.http.webservice.entity.Bean_common_socketToHttp;
@@ -26,7 +27,7 @@ public class CommonService {
 
 	public Bean_second_module getComic_Recommend(String s) {
 
-		Bean_second_module second_module = new Bean_second_module("推荐漫画", 0, new ArrayList<Bean_common>());
+		Bean_second_module second_module = new Bean_second_module("推荐漫画", 0, null, new ArrayList<Bean_common>());
 		try {
 			Document doc = null;
 			doc = TNUtil.loadUrl(TNUrl.ONLINE_COMIC, TNUtil.dao, null);
@@ -75,7 +76,7 @@ public class CommonService {
 
 	public Bean_second_module getComic_Toplist(String s) {
 
-		Bean_second_module second_module = new Bean_second_module("漫画排行", 1, new ArrayList<Bean_common>());
+		Bean_second_module second_module = new Bean_second_module("漫画排行", 1, null, new ArrayList<Bean_common>());
 		try {
 			Document doc = null;
 			doc = TNUtil.loadUrl(TNUrl.ONLINE_COMIC, TNUtil.dao, null);
@@ -166,9 +167,9 @@ public class CommonService {
 						TNUrl.ACTION_DEATIL_NEXT);
 				contents.add(detail_content);
 			}
-
+			Bean_common_detail_online online = new Bean_common_detail_online("在线观看", 1, null);
 			detail = new Bean_common_detail(type, cover_url, status, name, author, modify, action, collection, summary,
-					related, comment, contents);
+					related, comment, online, null, contents);
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -183,8 +184,7 @@ public class CommonService {
 		List<Bean_common_page> common_pages = null;
 		try {
 			Document doc = null;
-			doc = TNUtil.loadUrl(url, TNUtil.dao, new Selenium_info(
-					true, "mangaFile"));
+			doc = TNUtil.loadUrl(url, TNUtil.dao, new Selenium_info(true, "mangaFile"));
 			int maximum = doc.select("#pageSelect").select("option").size();
 			common_pages = new ArrayList<Bean_common_page>();
 
@@ -203,7 +203,7 @@ public class CommonService {
 				pre = pre + i;
 
 				page_img_url = pre + after;
-//				page_img_url.replace("_", "%2");
+				// page_img_url.replace("_", "%2");
 
 				Bean_socket_requestProperty property = new Bean_socket_requestProperty("Referer", page_url);
 				List<Bean_socket_requestProperty> properties = new ArrayList<Bean_socket_requestProperty>();

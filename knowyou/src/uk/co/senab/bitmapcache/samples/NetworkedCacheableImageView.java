@@ -33,7 +33,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.concurrent.RejectedExecutionException;
 
+import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.CoreConnectionPNames;
+
 import com.smith.activity.KnowyouApplication;
+import com.smith.entity.Bean_common_page;
 import com.smith.entity.Bean_common_socketToHttp;
 import com.smith.util.KnowyouUtil;
 import com.smith.util.SDK11;
@@ -70,15 +75,15 @@ public class NetworkedCacheableImageView extends CacheableImageView {
 
 		private final BitmapFactory.Options mDecodeOpts;
 
-		private final Bean_common_socketToHttp socketToHttp;
+		private final Bean_common_page data;
 
 		ImageUrlAsyncTask(ImageView imageView, BitmapLruCache cache, BitmapFactory.Options decodeOpts,
-				OnImageLoadedListener listener, Bean_common_socketToHttp socketToHttp) {
+				OnImageLoadedListener listener, Bean_common_page data) {
 			mCache = cache;
 			mImageViewRef = new WeakReference<ImageView>(imageView);
 			mListener = listener;
 			mDecodeOpts = decodeOpts;
-			this.socketToHttp = socketToHttp;
+			this.data = data;
 		}
 
 		@Override
@@ -97,23 +102,22 @@ public class NetworkedCacheableImageView extends CacheableImageView {
 				if (null == result) {
 					Log.d("ImageUrlAsyncTask", "Downloading: " + url);
 
-					if (null != socketToHttp && true == socketToHttp.isUseSocket()) {
+					if (null != data && true == data.getSocketToHttp().isUseSocket()) {
 						// InputStream is = new
 						// BufferedInputStream(KnowyouUtil.getImgDataFromUrl(url,
 						// socketToHttp.getParameter()));
 						// result = mCache.put(url, is, mDecodeOpts);
 
 						// The bitmap isn't cached so download from the web
+
 						HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
 						conn.setInstanceFollowRedirects(true);
 
-						if (null != socketToHttp.getProperties()) {
-							for (int i = 0; i < socketToHttp.getProperties().size(); i++) {
-								conn.setRequestProperty(socketToHttp.getProperties().get(i).getField(), socketToHttp
-										.getProperties().get(i).getNewValue());
-								// System.out.println(socketToHttp.getProperties().get(i).getField()+
-								// socketToHttp
-								// .getProperties().get(i).getNewValue());
+						if (null != data.getSocketToHttp().getProperties()) {
+							for (int i = 0; i < data.getSocketToHttp().getProperties().size(); i++) {
+								conn.setRequestProperty(data.getSocketToHttp().getProperties().get(i).getField(), data
+										.getSocketToHttp().getProperties().get(i).getNewValue());
+
 							}
 						}
 
@@ -138,10 +142,14 @@ public class NetworkedCacheableImageView extends CacheableImageView {
 				return result;
 
 			} catch (IOException e) {
-//				if (null != socketToHttp && true == socketToHttp.isUseSocket() && null != socketToHttp.getProperties()) {
-//					System.out.println(socketToHttp.getProperties().get(0).getField()
-//							+ socketToHttp.getProperties().get(0).getNewValue());
-//				}
+
+				if (null != data && true == data.getSocketToHttp().isUseSocket()
+						&& null != data.getSocketToHttp().getProperties()) {
+					System.out.println(data.getSocketToHttp().getProperties().get(0).getField()
+							+ data.getSocketToHttp().getProperties().get(0).getNewValue());
+					System.out.println(e.toString());
+				}
+				data.setPage_img_url(KnowyouUtil.replaceImgSuffix(data.getPage_img_url()));
 				Log.e("ImageUrlAsyncTask", e.toString());
 			}
 
@@ -181,8 +189,7 @@ public class NetworkedCacheableImageView extends CacheableImageView {
 	 *            - Whether the image should be kept at the original size
 	 * @return true if the bitmap was found in the cache
 	 */
-	public boolean loadImage(String url, final boolean fullSize, OnImageLoadedListener listener,
-			Bean_common_socketToHttp socketToHttp) {
+	public boolean loadImage(String url, final boolean fullSize, OnImageLoadedListener listener, Bean_common_page data) {
 		// First check whether there's already a task running, if so cancel it
 		if (null != mCurrentTask) {
 			mCurrentTask.cancel(true);
@@ -208,7 +215,7 @@ public class NetworkedCacheableImageView extends CacheableImageView {
 				decodeOpts.inSampleSize = 2;
 			}
 
-			mCurrentTask = new ImageUrlAsyncTask(this, mCache, decodeOpts, listener, socketToHttp);
+			mCurrentTask = new ImageUrlAsyncTask(this, mCache, decodeOpts, listener, data);
 
 			try {
 				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {

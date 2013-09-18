@@ -3,6 +3,7 @@ package com.smith.util;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -69,6 +70,14 @@ public class KnowyouUtil {
 	 * @param view
 	 *            需要加载数据的控件
 	 */
+	public static void removeLoadingWin(final ViewGroup viewGroup) {
+
+		PopupWindow popupWindow = loadingViews.get(viewGroup.getId());
+		popupWindow.dismiss();
+		loadingViews.remove(viewGroup.getId());
+		pgvViews.remove(viewGroup.getId());
+	}
+
 	public static void removeLoadingWin(final ViewGroup viewGroup, final Runnable runnable) {
 
 		Runnable r = new Runnable() {
@@ -128,7 +137,7 @@ public class KnowyouUtil {
 	 * @param context
 	 * @return
 	 */
-	public static boolean ConnectivityIsAvailable(Context context) {
+	public static boolean connectivityIsAvailable(Context context) {
 		// 判断网络是否可用
 		NetworkInfo info = null;
 		ConnectivityManager cManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -173,6 +182,28 @@ public class KnowyouUtil {
 		return false;
 	}
 
+	public static String replaceImgSuffix(String imgUrl) {
+		String frontPartUrl = imgUrl.substring(0, imgUrl.lastIndexOf(".") + 1);
+		String preSuffix = imgUrl.substring(imgUrl.lastIndexOf(".") + 1);
+		String hindSuffix = "jpg";
+		if (preSuffix.toLowerCase().equals("jpg")) {
+			hindSuffix = "png";
+		} else if (preSuffix.toLowerCase().equals("png")) {
+			hindSuffix = "jpg";
+		}
+		String newImgUrl = frontPartUrl + hindSuffix;
 
+		return newImgUrl;
+	}
+
+	public static boolean pingIP(String ip) {
+		boolean isReachable = false;
+		try {
+			InetAddress address = InetAddress.getByName(ip);
+			isReachable = address.isReachable(3000);
+		} catch (Exception e) {
+		}
+		return isReachable;
+	}
 
 }
