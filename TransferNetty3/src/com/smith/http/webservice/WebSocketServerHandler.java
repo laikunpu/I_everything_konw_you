@@ -44,7 +44,7 @@ import org.jboss.netty.util.CharsetUtil;
 import com.google.gson.Gson;
 import com.smith.http.webservice.action.ActionTop;
 import com.smith.http.webservice.entity.Bean_Result;
-import com.smith.http.webservice.entity.heard.Bean_Heard;
+import com.smith.http.webservice.entity.heard.Bean_Response_Heard;
 import com.smith.http.webservice.global.TN_Constant;
 import com.smith.http.webservice.util.TNUtil;
 
@@ -114,9 +114,9 @@ public class WebSocketServerHandler extends SimpleChannelUpstreamHandler {
 					String json=URLDecoder.decode(new String(req.getContent().array()), "utf-8");
 					System.out.println("json=" + json);
 					Bean_Result result = ActionTop.distributeAction(s,json);
-
+					Gson gson=new Gson();
 					if (null != result) {
-						ChannelBuffer content = ChannelBuffers.copiedBuffer(TNUtil.gson.toJson(result.getT()),
+						ChannelBuffer content = ChannelBuffers.copiedBuffer(gson.toJson(result.getT()),
 								CharsetUtil.UTF_8);
 						sendHttpResponsePre(ctx, req, content, result.getContent_type());
 						return;

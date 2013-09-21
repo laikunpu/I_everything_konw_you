@@ -22,12 +22,14 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.google.gson.Gson;
-import com.smith.http.webservice.entity.Normal_Html;
+import com.smith.http.webservice.entity.HtmlLevelOne;
+import com.smith.http.webservice.entity.HtmlLevelThree;
+import com.smith.http.webservice.entity.HtmlLevelTwo;
 import com.smith.http.webservice.entity.Selenium_info;
 import com.smith.http.webservice.inter.IDao;
 
 public class TNUtil {
-	public static final Gson gson = new Gson();
+//	public static final Gson gson = new Gson();
 
 	public static IDao dao;;
 
@@ -102,39 +104,60 @@ public class TNUtil {
 		return false;
 	}
 
-	public static String htmlToPath(String htmlname) {
-		String path = htmlname.replaceAll("/", "-");
-		path = path.replaceAll("[.]", "=");
-		path = path.replace(":", ";");
-		return path;
+	// public static String htmlToPath(String htmlname) {
+	// String path = htmlname.replaceAll("/", "-");
+	// path = path.replaceAll("[.]", "=");
+	// path = path.replace(":", ";");
+	// return path;
+	//
+	// }
+	//
+	// public static String pathToHtml(String pathname) {
+	// String html = pathname.replaceAll("[-]", "/");
+	// html = html.replaceAll("[=]", ".");
+	// html = html.replaceAll("[;]", ":");
+	// return html;
+	//
+	// }
 
-	}
-
-	public static String pathToHtml(String pathname) {
-		String html = pathname.replaceAll("[-]", "/");
-		html = html.replaceAll("[=]", ".");
-		html = html.replaceAll("[;]", ":");
-		return html;
-
-	}
-
-	public static Document loadUrl(final String url, final IDao<Normal_Html> dao, final Selenium_info selenium_info)
+	public static Document loadUrl(final String url, final Selenium_info selenium_info, final int level)
 			throws IOException {
 		final Document doc;
 		// String htnl_cache = fileToContent(TN_Constant.NORMAL_HTML_CACHE +
 		// TNUtil.htmlToPath(url) + ".html");
-		Normal_Html htnl_cache = dao.findT(TNUtil.htmlToPath(url) + ".html", Normal_Html.class);
+		String htnl_cache = null;
+		switch (level) {
+		case 1:
+			HtmlLevelOne htmlLevelOne = (HtmlLevelOne) dao.findT(url, HtmlLevelOne.class);
+			if (null != htmlLevelOne) {
+				htnl_cache = new String(htmlLevelOne.getContent(), "utf-8");
+			}
+			break;
+		case 2:
+			HtmlLevelTwo htmlLevelTwo = (HtmlLevelTwo) dao.findT(url, HtmlLevelTwo.class);
+			if (null != htmlLevelTwo) {
+				htnl_cache = new String(htmlLevelTwo.getContent(), "utf-8");
+			}
+			break;
+		case 3:
+			HtmlLevelThree htmlLevelThree = (HtmlLevelThree) dao.findT(url, HtmlLevelThree.class);
+			if (null != htmlLevelThree) {
+				htnl_cache = new String(htmlLevelThree.getContent(), "utf-8");
+			}
+			break;
+		}
+
 		if (null != htnl_cache) {
-			doc = Jsoup.parse(new String(htnl_cache.getContent(), "utf-8"));
+			doc = Jsoup.parse(htnl_cache);
 			System.out.println(url + "  从本地读取!!!");
 		} else {
 
 			if (null != selenium_info && selenium_info.isUseSelenium()) {
 				WebDriver driver = new FirefoxDriver();
-				//设置10秒  
+				// 设置10秒
 				driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 				driver.get(url);
-				driver.findElement(By.id(selenium_info.getTag())).click();  
+				driver.findElement(By.id(selenium_info.getTag())).click();
 				String normal_html = driver.getPageSource();
 				doc = Jsoup.parse(normal_html);
 				driver.quit();
@@ -150,9 +173,23 @@ public class TNUtil {
 					// writeToFile(TN_Constant.NORMAL_HTML_CACHE,
 					// TNUtil.htmlToPath(url) + ".html", doc.toString());
 					try {
-						if (dao.findT(TNUtil.htmlToPath(url) + ".html", Normal_Html.class) == null) {
-							dao.addT(new Normal_Html(TNUtil.htmlToPath(url) + ".html", 1, doc.toString().trim()
-									.getBytes("utf-8")));
+
+						switch (level) {
+						case 1:
+							if (dao.findT(url, HtmlLevelOne.class) == null) {
+								dao.addT(new HtmlLevelOne(url, 1, doc.toString().trim().getBytes("utf-8")));
+							}
+							break;
+						case 2:
+							if (dao.findT(url, HtmlLevelTwo.class) == null) {
+								dao.addT(new HtmlLevelTwo(url, 1, doc.toString().trim().getBytes("utf-8")));
+							}
+							break;
+						case 3:
+							if (dao.findT(url, HtmlLevelThree.class) == null) {
+								dao.addT(new HtmlLevelThree(url, 1, doc.toString().trim().getBytes("utf-8")));
+							}
+							break;
 						}
 
 					} catch (Exception e) {

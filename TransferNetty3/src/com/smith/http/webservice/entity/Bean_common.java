@@ -10,6 +10,7 @@ public class Bean_common {
 	private String download_url; // 下载url
 	private String size; // 大小
 
+
 	public String getName() {
 		return name;
 	}
@@ -73,6 +74,7 @@ public class Bean_common {
 	public void setSize(String size) {
 		this.size = size;
 	}
+
 
 	public Bean_common(String name, int type, String detail_action, String summary, String cover_url,
 			String detail_url, String download_url, String size) {

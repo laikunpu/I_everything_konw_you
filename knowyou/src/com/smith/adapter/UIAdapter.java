@@ -55,7 +55,7 @@ public class UIAdapter extends BaseAdapter {
 		final Bean_UI ui = uis.get(position);
 
 		if (convertView == null) {
-			convertView = LayoutInflater.from(context).inflate(R.layout.module_item, null);
+			convertView = LayoutInflater.from(context).inflate(R.layout.ui_item, null);
 
 		}
 		viewHolder.txt_module_name = (TextView) convertView.findViewById(R.id.txt_module_name);

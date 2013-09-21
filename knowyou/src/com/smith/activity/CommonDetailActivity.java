@@ -3,12 +3,15 @@ package com.smith.activity;
 import uk.co.senab.bitmapcache.samples.NetworkedCacheableImageView;
 
 import com.smith.adapter.DetailContentsAdapter;
+import com.smith.entity.Bean_common_Req;
 import com.smith.entity.Bean_common_detail;
 import com.smith.entity.Bean_common_page_Res;
+import com.smith.entity.Bean_common_url;
+import com.smith.entity.heard.Bean_Request_Head;
 import com.smith.inter.DataCallback;
 import com.smith.util.AsyncDataLoader;
-import com.smith.util.KYHttpClient;
-import com.smith.util.KnowyouUtil;
+import com.smith.util.KyHttpClient;
+import com.smith.util.KyUtil;
 import com.smith.util.ProgressStatus;
 import com.smith.util.ServiceApi;
 import com.smith.util.ToastUtils;
@@ -18,6 +21,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.CompoundButton;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -33,6 +39,7 @@ public class CommonDetailActivity extends BaseActivity {
 	private TextView txt_bookAuthor;
 	private TextView txt_modifiedTime;
 	private TextView txt_summary;
+	private CheckBox cbx_summary;
 	private TextView txt_related;
 	private TextView txt_comment;
 
@@ -48,6 +55,7 @@ public class CommonDetailActivity extends BaseActivity {
 	private Bean_common_page_Res common_page_Res;
 
 	private int currentData = 0;
+	private int line;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +78,7 @@ public class CommonDetailActivity extends BaseActivity {
 		txt_bookAuthor = (TextView) findViewById(R.id.txt_bookAuthor);
 		txt_modifiedTime = (TextView) findViewById(R.id.txt_modifiedTime);
 		txt_summary = (TextView) findViewById(R.id.txt_summary);
+		cbx_summary = (CheckBox) findViewById(R.id.cbx_summary);
 		txt_related = (TextView) findViewById(R.id.txt_related);
 		txt_comment = (TextView) findViewById(R.id.txt_comment);
 		btn_online = (Button) findViewById(R.id.btn_online);
@@ -81,13 +90,24 @@ public class CommonDetailActivity extends BaseActivity {
 
 	private void initData() {
 		// TODO Auto-generated method stub
-		data = KnowyouApplication.getApplication().common_detail;
+		data = KyApplication.getApplication().common_detail;
 
 		img_cover.loadImage(data.getCover_url(), true, null, null);
 		txt_bookName.setText(data.getName());
 		txt_bookAuthor.setText(data.getAuthor());
 		txt_modifiedTime.setText(data.getModify());
 		txt_summary.setText(data.getSummary());
+		txt_summary.post(new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				if (txt_summary.getLineCount() > 3) {
+					txt_summary.setLines(3);
+				}
+
+			}
+		});
 
 		txt_bookName.setText(data.getName());
 
@@ -118,6 +138,9 @@ public class CommonDetailActivity extends BaseActivity {
 		if (null != data.getDownload()) {
 
 		}
+
+		txt_summary.setOnClickListener(clickListener);
+		cbx_summary.setOnCheckedChangeListener(checkedChangeListener);
 	}
 
 	OnClickListener clickListener = new OnClickListener() {
@@ -128,18 +151,41 @@ public class CommonDetailActivity extends BaseActivity {
 			switch (v.getId()) {
 			case R.id.btn_content:
 				currentData = Integer.parseInt(v.getTag().toString());
-				KnowyouApplication.getApplication().content = data.getContents().get(currentData);
+				KyApplication.getApplication().content = data.getContents().get(currentData);
 				new AsyncDataLoader(callback).execute();
 				break;
 			case R.id.btn_online:
 				switch (data.getOnline().getOnlineType()) {
 				case 1:
-					KnowyouApplication.getApplication().content = data.getContents().get(0);
+					KyApplication.getApplication().content = data.getContents().get(0);
 					new AsyncDataLoader(callback).execute();
 					break;
 				}
 				break;
+			case R.id.txt_summary:
+				cbx_summary.setChecked(!cbx_summary.isChecked());
+				break;
 			default:
+				break;
+			}
+		}
+	};
+
+	OnCheckedChangeListener checkedChangeListener = new OnCheckedChangeListener() {
+
+		@Override
+		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+			// TODO Auto-generated method stub
+			switch (buttonView.getId()) {
+			case R.id.cbx_summary:
+				if (isChecked) {
+					txt_summary.setLines(txt_summary.getLineCount());
+				} else {
+					if (txt_summary.getLineCount() > 3) {
+						txt_summary.setLines(3);
+					}
+
+				}
 				break;
 			}
 		}
@@ -155,25 +201,32 @@ public class CommonDetailActivity extends BaseActivity {
 			// TODO Auto-generated method stub
 			times = 3;
 			preStatus = new ProgressStatus();
-			KnowyouUtil.addLoadingWin(CommonDetailActivity.this, view_parent, preStatus);
+			KyUtil.addLoadingWin(CommonDetailActivity.this, view_parent, preStatus);
 		}
 
 		@Override
 		public void onStart() {
 			// TODO Auto-generated method stub
 
-			if (!KnowyouUtil.connectivityIsAvailable(CommonDetailActivity.this)) {
+			if (!KyUtil.connectivityIsAvailable(CommonDetailActivity.this)) {
 				netStatus = -1;
 				return;
 			}
-			if (!KnowyouUtil.pingIP(ServiceApi.IP)) {
+			if (!KyUtil.pingIP(ServiceApi.IP)) {
 				netStatus = 0;
 				return;
 			}
 			try {
-				String json = KYHttpClient.post(data.getContents().get(currentData).getAction(), data.getContents()
-						.get(currentData).getContet_url());
-				common_page_Res = KnowyouApplication.getApplication().gson.fromJson(json, Bean_common_page_Res.class);
+
+				Bean_common_Req request = new Bean_common_Req(
+						new Bean_Request_Head(0), null);
+				Bean_common_url common_request = new Bean_common_url(data.getContents().get(currentData)
+						.getContet_url());
+				request.setUrl(common_request);
+				String requestJson = KyApplication.getApplication().gson.toJson(request);
+
+				String json = KyHttpClient.post(data.getContents().get(currentData).getAction(), requestJson);
+				common_page_Res = KyApplication.getApplication().gson.fromJson(json, Bean_common_page_Res.class);
 				netStatus = 1;
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -203,33 +256,33 @@ public class CommonDetailActivity extends BaseActivity {
 
 			switch (netStatus) {
 			case -1:
-				KnowyouUtil.removeLoadingWin(view_parent);
-				ToastUtils.showToast(CommonDetailActivity.this, "无法连接网络,请确认手机处于联网状态!!!");
+				KyUtil.removeLoadingWin(view_parent, null, false);
+				ToastUtils.showToast(CommonDetailActivity.this, R.string.network_status_toast);
 				break;
 			case 0:
-				KnowyouUtil.removeLoadingWin(view_parent);
-				ToastUtils.showToast(CommonDetailActivity.this, "服务器尚未开启!!!");
+				KyUtil.removeLoadingWin(view_parent, null, false);
+				ToastUtils.showToast(CommonDetailActivity.this, R.string.service_status_toast);
 				break;
 			case 1:
-				KnowyouUtil.removeLoadingWin(view_parent, new Runnable() {
+				KyUtil.removeLoadingWin(view_parent, new Runnable() {
 
 					@Override
 					public void run() {
 						// TODO Auto-generated method stub
 						if (null != common_page_Res) {
-							KnowyouApplication.getApplication().common_page_Res = common_page_Res;
+							KyApplication.getApplication().common_page_Res = common_page_Res;
 							Intent intent = new Intent(CommonDetailActivity.this, CommonDetailNextActivity.class);
 							startActivity(intent);
 						} else {
-							ToastUtils.showToast(CommonDetailActivity.this, "网络异常!!!");
+							ToastUtils.showToast(CommonDetailActivity.this, R.string.request_null_toast);
 						}
 					}
-				});
+				}, true);
 
 				break;
 			case 2:
-				KnowyouUtil.removeLoadingWin(view_parent);
-				ToastUtils.showToast(CommonDetailActivity.this, "服务器正在收集该内容，请稍后尝试!!!");
+				KyUtil.removeLoadingWin(view_parent, null, false);
+				ToastUtils.showToast(CommonDetailActivity.this, R.string.request_long_toast);
 				break;
 			}
 

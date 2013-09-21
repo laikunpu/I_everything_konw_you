@@ -127,7 +127,7 @@ public class MySurfaceView extends SurfaceView implements Callback, Runnable {
 		/***
 		 * 将图片缩放到屏幕的3/2倍.
 		 */
-		bitmap_bg = BitmapUtil.ReadBitmapById(mContext, R.drawable.bg_1, (int) mWindth, (int) mSurfaceHeight);
+		bitmap_bg = BitmapUtil.ReadBitmapById(mContext, R.drawable.main_bg, (int) mWindth, (int) mSurfaceHeight);
 
 		thread = new Thread(this);
 		flag = true;

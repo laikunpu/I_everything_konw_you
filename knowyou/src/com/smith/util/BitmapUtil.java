@@ -6,13 +6,15 @@ import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 
 public class BitmapUtil {
-	public static Bitmap ReadBitmapById(Context mContext, int resId,
-			int mWindth, int mSurfaceHeight) {
+	public static Bitmap ReadBitmapById(Context mContext, int resId, int mWindth, int mSurfaceHeight) {
 		Options opts = new Options();
 		opts.outWidth = mWindth;
 		opts.outHeight = mSurfaceHeight;
-		Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(),
-				resId, opts);
+		Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), resId, opts);
 		return bitmap;
+	}
+
+	public static void downloadImage(String url,String name) {
+
 	}
 }

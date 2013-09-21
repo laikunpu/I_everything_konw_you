@@ -7,6 +7,7 @@ import uk.co.senab.bitmapcache.CacheableBitmapDrawable;
 import uk.co.senab.bitmapcache.samples.NetworkedCacheableImageView.OnImageLoadedListener;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnLastItemVisibleListener;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshExpandableListView;
@@ -24,12 +25,16 @@ import android.net.http.SslError;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class CommonDetailNextActivity extends Activity {
@@ -39,11 +44,13 @@ public class CommonDetailNextActivity extends Activity {
 
 	private List<Bean_common_page> pages;
 	private List<Bean_common_page> show_pages;
-	private TextView txt_FootRefreshTip;
+	private RelativeLayout rly_FootRefreshTip;
+	private ImageView img_update;
 	private int refreshStart = 0;
 	private int refreshEnd = 5;
 	private int loadImageResult = 0;
 	private boolean isFootRefreshing = false;
+	 private Animation rotateAnimation = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,12 +69,13 @@ public class CommonDetailNextActivity extends Activity {
 	private void initView() {
 		// TODO Auto-generated method stub
 		pullToRefreshListView = (PullToRefreshListView) findViewById(R.id.pull_refresh_list);
-		txt_FootRefreshTip = (TextView) findViewById(R.id.txt_FootRefreshTip);
+		rly_FootRefreshTip = (RelativeLayout) findViewById(R.id.rly_FootRefreshTip);
+		img_update = (ImageView) findViewById(R.id.img_update);
 	}
 
 	private void initData() {
 		// TODO Auto-generated method stub
-		pages = KnowyouApplication.getApplication().common_page_Res.getBean_common_pages();
+		pages = KyApplication.getApplication().common_page_Res.getBean_common_pages();
 		show_pages = new ArrayList<Bean_common_page>();
 		for (int i = refreshStart; i < (refreshEnd < pages.size() ? refreshEnd : pages.size()); i++) {
 			show_pages.add(pages.get(i));
@@ -76,17 +84,13 @@ public class CommonDetailNextActivity extends Activity {
 		commonDetailNextAdapter = new CommonDetailNextAdapter(CommonDetailNextActivity.this, show_pages);
 		commonDetailNextAdapter.setOnImageLoadedListener(loadedListener);
 		pullToRefreshListView.setAdapter(commonDetailNextAdapter);
+		pullToRefreshListView.setMode(Mode.DISABLED);
+		rotateAnimation= AnimationUtils.loadAnimation(CommonDetailNextActivity.this, R.anim.rotate_anim);
 	}
 
 	private void initOnClickListener() {
 		// TODO Auto-generated method stub
 
-//		pullToRefreshListView.setOnRefreshListener(new OnRefreshListener<ListView>() {
-//			@Override
-//			public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-//				
-//			}
-//		});
 		pullToRefreshListView.setOnLastItemVisibleListener(new OnLastItemVisibleListener() {
 
 			@Override
@@ -96,8 +100,9 @@ public class CommonDetailNextActivity extends Activity {
 					isFootRefreshing = true;
 					refreshStart = refreshEnd;
 					refreshEnd = refreshEnd + 3 < pages.size() ? refreshEnd + 3 : pages.size();
-					txt_FootRefreshTip.setVisibility(View.VISIBLE);
-					KnowyouApplication.getApplication().handler.postDelayed(new Runnable() {
+					img_update.startAnimation(rotateAnimation);
+					rly_FootRefreshTip.setVisibility(View.VISIBLE);
+					KyApplication.getApplication().handler.postDelayed(new Runnable() {
 
 						@Override
 						public void run() {
@@ -109,7 +114,8 @@ public class CommonDetailNextActivity extends Activity {
 
 							isFootRefreshing = false;
 							commonDetailNextAdapter.notifyDataSetChanged();
-							txt_FootRefreshTip.setVisibility(View.GONE);
+							rly_FootRefreshTip.setVisibility(View.GONE);
+							img_update.clearAnimation();
 
 						}
 					}, 3000);

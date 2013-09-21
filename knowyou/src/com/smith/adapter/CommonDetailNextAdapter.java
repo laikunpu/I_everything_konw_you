@@ -74,14 +74,14 @@ public class CommonDetailNextAdapter extends BaseAdapter {
 
 		final ViewHolder viewHolder = new ViewHolder();
 		final Bean_common_page data = datas.get(position);
-
-		convertView = LayoutInflater.from(context).inflate(R.layout.common_detail_next_item, null);
-
+		if (convertView == null) {
+			convertView = LayoutInflater.from(context).inflate(R.layout.common_detail_next_item, null);
+		}
 		viewHolder.img_content = (NetworkedCacheableImageView) convertView.findViewById(R.id.img_content);
 		String img_url = data.getPage_img_url();
 
 		if (null != img_url && !"".equals(img_url.trim())) {
-			viewHolder.img_content.loadImage(img_url, true, loadedListener, data);
+			viewHolder.img_content.loadImage(img_url, false, loadedListener, data);
 		}
 		return convertView;
 	}

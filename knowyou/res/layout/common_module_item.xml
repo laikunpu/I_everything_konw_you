@@ -7,21 +7,30 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:orientation="vertical" >
 
-        <uk.co.senab.bitmapcache.samples.NetworkedCacheableImageView
-            android:id="@+id/img_cover"
-            android:layout_width="160dp"
-            android:layout_height="100dp"
-            android:background="#FF9966" />
-
-        
-        <TextView
-            android:id="@+id/txt_data_name"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/img_light"
+            android:gravity="center" >
+
+            <uk.co.senab.bitmapcache.samples.NetworkedCacheableImageView
+                android:id="@+id/img_cover"
+                android:layout_width="135dp"
+                android:layout_height="80dp"
+                android:scaleType="fitXY" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txt_data_name"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:layout_marginLeft="5dp"
             android:text="测试信息"
-            android:textSize="18sp" />
+            android:textSize="10sp" />
     </LinearLayout>
 
 </LinearLayout>

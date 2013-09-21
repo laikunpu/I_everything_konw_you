@@ -18,21 +18,41 @@ package com.smith.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.smith.entity.Bean_common_Req;
 import com.smith.entity.Bean_common_Res;
-import com.smith.entity.Bean_second_module;
+import com.smith.entity.Bean_common_detail;
+import com.smith.entity.Bean_common_search_Res;
+import com.smith.entity.Bean_common_sou;
+import com.smith.entity.Bean_common_sou_Req;
+import com.smith.entity.Bean_common_url;
+import com.smith.entity.heard.Bean_Request_Head;
+import com.smith.inter.DataCallback;
+import com.smith.util.AsyncDataLoader;
+import com.smith.util.KyHttpClient;
+import com.smith.util.KyUtil;
+import com.smith.util.ProgressStatus;
+import com.smith.util.ServiceApi;
+import com.smith.util.ToastUtils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TabWidget;
+import android.widget.TextView;
 
 /**
  * Demonstrates combining a TabHost with a ViewPager to implement a tab UI that
@@ -44,8 +64,14 @@ public class FragmentTabsPager extends FragmentActivity {
 	ViewPager mViewPager;
 	TabsAdapter mTabsAdapter;
 
-	KnowyouApplication application;
+	KyApplication application;
 
+	private LinearLayout lly_search;
+	private EditText etx_search;
+	private ImageView img_search;
+	
+	private Bean_common_search_Res search_Res;
+	private Bean_common_Res common_Res;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -58,18 +84,43 @@ public class FragmentTabsPager extends FragmentActivity {
 
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 
-		mTabsAdapter = new TabsAdapter(this, mTabHost, mViewPager);
+		List<TextView> textViews = new ArrayList<TextView>();
 
-		application = KnowyouApplication.getApplication();
+		mTabsAdapter = new TabsAdapter(this, mTabHost, mViewPager, textViews);
 
-		Bean_common_Res common_Res = application.common_Res;
+		application = KyApplication.getApplication();
+
+		 common_Res = application.common_Res;
+		
+		lly_search = (LinearLayout) findViewById(R.id.lly_search);
+		etx_search = (EditText) findViewById(R.id.etx_search);
+		img_search = (ImageView) findViewById(R.id.img_search);
+		if(common_Res.isSearch()){
+			lly_search.setVisibility(View.VISIBLE);
+			img_search.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+					if(etx_search.getText().toString().trim().equals("")){
+						ToastUtils.showToast(FragmentTabsPager.this, "搜索词不能为空");
+					}else{
+						new AsyncDataLoader(callback).execute();
+					}
+				}
+			});
+		}
 
 		for (int i = 0; i < common_Res.getBean_second_modules().size(); i++) {
 			Bundle bundle = new Bundle();
 			bundle.putInt("classify", i);
+			View view = LayoutInflater.from(FragmentTabsPager.this).inflate(R.layout.tab_item, null);
+			TextView textView = (TextView) view.findViewById(R.id.txt_tab);
+			textView.setText(common_Res.getBean_second_modules().get(i).getSecond_module_name());
+			textView.setPressed(true);
+			textViews.add(textView);
 			mTabsAdapter.addTab(mTabHost.newTabSpec(common_Res.getBean_second_modules().get(i).getSecond_module_name())
-					.setIndicator(common_Res.getBean_second_modules().get(i).getSecond_module_name()),
-					CommonModuleFragment.class, bundle);
+					.setIndicator(view), CommonModuleFragment.class, bundle);
 		}
 		if (savedInstanceState != null) {
 			mTabHost.setCurrentTabByTag(savedInstanceState.getString("tab"));
@@ -99,6 +150,7 @@ public class FragmentTabsPager extends FragmentActivity {
 		private final TabHost mTabHost;
 		private final ViewPager mViewPager;
 		private final ArrayList<TabInfo> mTabs = new ArrayList<TabInfo>();
+		private List<TextView> textViews;
 
 		static final class TabInfo {
 			private final String tag;
@@ -128,7 +180,7 @@ public class FragmentTabsPager extends FragmentActivity {
 			}
 		}
 
-		public TabsAdapter(FragmentActivity activity, TabHost tabHost, ViewPager pager) {
+		public TabsAdapter(FragmentActivity activity, TabHost tabHost, ViewPager pager, List<TextView> textViews) {
 			super(activity.getSupportFragmentManager());
 			mContext = activity;
 			mTabHost = tabHost;
@@ -136,6 +188,7 @@ public class FragmentTabsPager extends FragmentActivity {
 			mTabHost.setOnTabChangedListener(this);
 			mViewPager.setAdapter(this);
 			mViewPager.setOnPageChangeListener(this);
+			this.textViews = textViews;
 		}
 
 		public void addTab(TabHost.TabSpec tabSpec, Class<?> clss, Bundle args) {
@@ -163,6 +216,17 @@ public class FragmentTabsPager extends FragmentActivity {
 		public void onTabChanged(String tabId) {
 			int position = mTabHost.getCurrentTab();
 			mViewPager.setCurrentItem(position);
+			System.out.println("position=" + position);
+			System.out.println("textViews.size()=" + textViews.size());
+			for (int i = 0; i < textViews.size(); i++) {
+				if (i == position) {
+
+					textViews.get(i).setPressed(false);
+				} else {
+					textViews.get(i).setPressed(true);
+				}
+			}
+
 		}
 
 		@Override
@@ -187,4 +251,105 @@ public class FragmentTabsPager extends FragmentActivity {
 		public void onPageScrollStateChanged(int state) {
 		}
 	}
+	
+	
+	
+	DataCallback callback = new DataCallback() {
+		private int times;
+		private ProgressStatus preStatus;
+		private int netStatus = 0;
+
+		@Override
+		public void onPrepare() {
+			// TODO Auto-generated method stub
+			times = 3;
+			preStatus = new ProgressStatus();
+			KyUtil.addLoadingWin(FragmentTabsPager.this, mTabHost, preStatus);
+		}
+
+		@Override
+		public void onStart() {
+			// TODO Auto-generated method stub
+			if (!KyUtil.connectivityIsAvailable(FragmentTabsPager.this)) {
+				netStatus = -1;
+				return;
+			}
+			if (!KyUtil.pingIP(ServiceApi.IP)) {
+				netStatus = 0;
+				return;
+			}
+			try {
+				Bean_common_sou_Req req = new Bean_common_sou_Req(
+						new Bean_Request_Head(0), null);
+				Bean_common_sou sou = new Bean_common_sou(etx_search.getText().toString().trim());
+				req.setCommon_sou(sou);
+				String requestJson = KyApplication.getApplication().gson.toJson(req);
+				search_Res = KyApplication.getApplication().gson.fromJson(
+						KyHttpClient.post(common_Res.getSearchAction(), requestJson),
+						Bean_common_search_Res.class);
+				netStatus = 1;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+
+				netStatus = 2;
+				times--;
+				search_Res = null;
+				try {
+					Thread.sleep(3000);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				if (times > 0) {
+					onStart();
+				}
+			}
+		}
+
+		@Override
+		public void onFinish() {
+			// TODO Auto-generated method stub
+			preStatus.cancel = true;
+
+			switch (netStatus) {
+			case -1:
+				KyUtil.removeLoadingWin(mTabHost, null, false);
+				ToastUtils.showToast(FragmentTabsPager.this, R.string.network_status_toast);
+				break;
+			case 0:
+				KyUtil.removeLoadingWin(mTabHost, null, false);
+				ToastUtils.showToast(FragmentTabsPager.this, R.string.service_status_toast);
+				break;
+			case 1:
+				KyUtil.removeLoadingWin(mTabHost, new Runnable() {
+
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						if (null != search_Res&&null!=search_Res.getBean_common_searchs()&&search_Res.getBean_common_searchs().size()>0) {
+							KyApplication.getApplication().search_Res = search_Res;
+							Intent intent = new Intent(FragmentTabsPager.this, SearchActivity.class);
+							startActivity(intent);
+						} else {
+							ToastUtils.showToast(FragmentTabsPager.this, R.string.request_null_toast);
+						}
+					}
+				}, true);
+
+				break;
+			case 2:
+				KyUtil.removeLoadingWin(mTabHost, null, false);
+				ToastUtils.showToast(FragmentTabsPager.this, R.string.request_long_toast);
+				break;
+			}
+
+		}
+	};
+	
+	
+	
+	
+	
+	
 }

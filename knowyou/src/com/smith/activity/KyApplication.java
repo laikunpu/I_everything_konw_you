@@ -12,17 +12,20 @@ import com.smith.entity.Bean_common_Res;
 import com.smith.entity.Bean_common_detail;
 import com.smith.entity.Bean_common_detail_content;
 import com.smith.entity.Bean_common_page_Res;
+import com.smith.entity.Bean_common_search_Res;
 import com.smith.entity.Bean_second_module;
 
 import android.app.Application;
 import android.os.Environment;
 import android.os.Handler;
 
-public class KnowyouApplication extends Application {
+public class KyApplication extends Application {
 
-	private static KnowyouApplication instance;
+	private static KyApplication instance;
 
 	private BitmapLruCache mCache;
+
+	public static String programDir = "";
 
 	public final Gson gson = new Gson();
 	public final static Handler handler = new Handler();
@@ -32,12 +35,14 @@ public class KnowyouApplication extends Application {
 	Bean_common_Res common_Res = null;
 
 	Bean_common_detail common_detail = null;
+	
+	Bean_common_search_Res search_Res = null;
 
 	Bean_common_detail_content content = null;
 
 	Bean_common_page_Res common_page_Res = null;
 
-	public static KnowyouApplication getApplication() {
+	public static KyApplication getApplication() {
 		return instance;
 	}
 
@@ -46,6 +51,8 @@ public class KnowyouApplication extends Application {
 		// TODO Auto-generated method stub
 		super.onCreate();
 		instance = this;
+
+		programDir = getApplicationContext().getFilesDir().getAbsolutePath();
 
 		File cacheLocation;
 

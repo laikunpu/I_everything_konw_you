@@ -24,33 +24,55 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+
+import com.google.gson.JsonSyntaxException;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.OnLastItemVisibleListener;
+import com.handmark.pulltorefresh.library.PullToRefreshGridView;
 import com.smith.adapter.CommonAdapter;
+import com.smith.entity.Bean_common_Req;
 import com.smith.entity.Bean_common;
+import com.smith.entity.Bean_common_Res;
 import com.smith.entity.Bean_common_detail;
+import com.smith.entity.Bean_common_moreData;
+import com.smith.entity.Bean_common_moreData_Req;
+import com.smith.entity.Bean_common_url;
+import com.smith.entity.Bean_second_module;
+import com.smith.entity.heard.Bean_Request_Head;
 import com.smith.inter.DataCallback;
 import com.smith.util.AsyncDataLoader;
-import com.smith.util.KYHttpClient;
-import com.smith.util.KnowyouUtil;
+import com.smith.util.KyHttpClient;
+import com.smith.util.KyUtil;
 import com.smith.util.ProgressStatus;
 import com.smith.util.ServiceApi;
 import com.smith.util.ToastUtils;
 
 public class CommonModuleFragment extends Fragment {
 	private int classify;
-	private LinearLayout view_parent;
+	private RelativeLayout view_parent;
 	private WebView wb_advert;
 	private String adUrl;
-	private GridView gd_list;
+	private PullToRefreshGridView pull_refresh_grid;
 
-	private List<Bean_common> datas;
 	private int currentData;
 	private CommonAdapter comicAdapter;
 
 	private Bean_common_detail detail;
+	private Bean_second_module second_module;
+
+	private RelativeLayout rly_FootRefreshTip;
+	private ImageView img_update;
+	private boolean isFootRefreshing = false;
+	private Animation rotateAnimation = null;
+	private Bean_common_Res common_Res;
 
 	/**
 	 * When creating, retrieve this instance's number from its arguments.
@@ -84,16 +106,94 @@ public class CommonModuleFragment extends Fragment {
 	private void initView(View v) {
 		// TODO Auto-generated method stub
 		wb_advert = (WebView) v.findViewById(R.id.wb_advert);
-		gd_list = (GridView) v.findViewById(R.id.gd_list);
-		view_parent = (LinearLayout) v.findViewById(R.id.view_parent);
+		pull_refresh_grid = (PullToRefreshGridView) v.findViewById(R.id.pull_refresh_grid);
+		view_parent = (RelativeLayout) v.findViewById(R.id.view_parent);
+
+		rly_FootRefreshTip = (RelativeLayout) v.findViewById(R.id.rly_FootRefreshTip);
+		img_update = (ImageView) v.findViewById(R.id.img_update);
 	}
 
 	private void initData() {
 		// TODO Auto-generated method stub
-		datas = KnowyouApplication.getApplication().common_Res.getBean_second_modules().get(classify).getCommons();
-		adUrl = KnowyouApplication.getApplication().common_Res.getBean_second_modules().get(classify).getAdUrl();
-		comicAdapter = new CommonAdapter(getActivity(), datas);
-		gd_list.setAdapter(comicAdapter);
+
+		rotateAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.rotate_anim);
+		second_module = KyApplication.getApplication().common_Res.getBean_second_modules().get(classify);
+		
+		
+		adUrl = KyApplication.getApplication().common_Res.getBean_second_modules().get(classify).getAdUrl();
+		comicAdapter = new CommonAdapter(getActivity(), second_module.getCommons());
+		pull_refresh_grid.setAdapter(comicAdapter);
+		pull_refresh_grid.setMode(Mode.DISABLED);
+		pull_refresh_grid.setOnLastItemVisibleListener(new OnLastItemVisibleListener() {
+
+			@Override
+			public void onLastItemVisible() {
+				// TODO Auto-generated method stub
+				if (second_module.isMoreData()&&!isFootRefreshing) {
+					isFootRefreshing = true;
+					
+					if (second_module.getDataNum() < second_module.getDataNumMax()) {
+						System.out.println("num"+second_module.getDataNum());
+						img_update.startAnimation(rotateAnimation);
+						rly_FootRefreshTip.setVisibility(View.VISIBLE);
+						new Thread(new Runnable() {
+
+							@Override
+							public void run() {
+								// TODO Auto-generated method stub
+								try {
+									Bean_common_moreData_Req<Bean_common_moreData> request = new Bean_common_moreData_Req<Bean_common_moreData>(
+											new Bean_Request_Head(0), null);
+									Bean_common_moreData common_moreData = new Bean_common_moreData(second_module
+											.getDataNum());
+									request.setMoreData(common_moreData);
+									String requestJson = KyApplication.getApplication().gson.toJson(request);
+									common_Res = KyApplication.getApplication().gson.fromJson(
+											KyHttpClient.post(second_module.getMoreData_action(), requestJson),
+											Bean_common_Res.class);
+								} catch (Exception e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								} finally {
+									KyApplication.getApplication().handler.postDelayed(new Runnable() {
+
+										@Override
+										public void run() {
+											// TODO Auto-generated method stub
+
+											if (null != common_Res
+													&& common_Res.getBean_second_modules().get(0).getCommons().size() > 0) {
+
+												for (int i = 0; i < common_Res.getBean_second_modules().get(0)
+														.getCommons().size(); i++) {
+													second_module.getCommons().add(
+															common_Res.getBean_second_modules().get(0).getCommons()
+																	.get(i));
+												}
+												comicAdapter.notifyDataSetChanged();
+												second_module.setDataNum(second_module.getDataNum() + 1);
+												ToastUtils.showToast(getActivity(), "加载成功");
+											}else{
+												ToastUtils.showToast(getActivity(), "加载失败");
+											}
+											isFootRefreshing = false;
+											rly_FootRefreshTip.setVisibility(View.GONE);
+											img_update.clearAnimation();
+											
+
+										}
+									},1000);
+								}
+							}
+						}).start();
+					} else {
+						ToastUtils.showToast(getActivity(), "已无更多数据");
+						isFootRefreshing = false;
+					}
+				}
+			}
+		});
+
 	}
 
 	private void initOnClickListener() {
@@ -133,23 +233,30 @@ public class CommonModuleFragment extends Fragment {
 			// TODO Auto-generated method stub
 			times = 3;
 			preStatus = new ProgressStatus();
-			KnowyouUtil.addLoadingWin(getActivity(), view_parent, preStatus);
+			KyUtil.addLoadingWin(getActivity(), view_parent, preStatus);
 		}
 
 		@Override
 		public void onStart() {
 			// TODO Auto-generated method stub
-			if (!KnowyouUtil.connectivityIsAvailable(getActivity())) {
+			if (!KyUtil.connectivityIsAvailable(getActivity())) {
 				netStatus = -1;
 				return;
 			}
-			if (!KnowyouUtil.pingIP(ServiceApi.IP)) {
+			if (!KyUtil.pingIP(ServiceApi.IP)) {
 				netStatus = 0;
 				return;
 			}
 			try {
-				detail = KnowyouApplication.getApplication().gson.fromJson(KYHttpClient.post(datas.get(currentData)
-						.getDetail_action(), datas.get(currentData).getDetail_url()), Bean_common_detail.class);
+				Bean_common_Req request = new Bean_common_Req(
+						new Bean_Request_Head(0), null);
+				Bean_common_url common_request = new Bean_common_url(second_module.getCommons().get(currentData)
+						.getDetail_url());
+				request.setUrl(common_request);
+				String requestJson = KyApplication.getApplication().gson.toJson(request);
+				detail = KyApplication.getApplication().gson.fromJson(
+						KyHttpClient.post(second_module.getCommons().get(currentData).getDetail_action(), requestJson),
+						Bean_common_detail.class);
 				netStatus = 1;
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -177,33 +284,33 @@ public class CommonModuleFragment extends Fragment {
 
 			switch (netStatus) {
 			case -1:
-				KnowyouUtil.removeLoadingWin(view_parent);
-				ToastUtils.showToast(getActivity(), "无法连接网络,请确认手机处于联网状态!!!");
+				KyUtil.removeLoadingWin(view_parent, null, false);
+				ToastUtils.showToast(getActivity(), R.string.network_status_toast);
 				break;
 			case 0:
-				KnowyouUtil.removeLoadingWin(view_parent);
-				ToastUtils.showToast(getActivity(), "服务器尚未开启!!!");
+				KyUtil.removeLoadingWin(view_parent, null, false);
+				ToastUtils.showToast(getActivity(), R.string.service_status_toast);
 				break;
 			case 1:
-				KnowyouUtil.removeLoadingWin(view_parent, new Runnable() {
+				KyUtil.removeLoadingWin(view_parent, new Runnable() {
 
 					@Override
 					public void run() {
 						// TODO Auto-generated method stub
 						if (null != detail) {
-							KnowyouApplication.getApplication().common_detail = detail;
+							KyApplication.getApplication().common_detail = detail;
 							Intent intent = new Intent(getActivity(), CommonDetailActivity.class);
 							startActivity(intent);
 						} else {
-							ToastUtils.showToast(getActivity(), "网络异常!!!");
+							ToastUtils.showToast(getActivity(), R.string.request_null_toast);
 						}
 					}
-				});
+				}, true);
 
 				break;
 			case 2:
-				KnowyouUtil.removeLoadingWin(view_parent);
-				ToastUtils.showToast(getActivity(), "服务器正在收集该内容，请稍后尝试!!!");
+				KyUtil.removeLoadingWin(view_parent, null, false);
+				ToastUtils.showToast(getActivity(), R.string.request_long_toast);
 				break;
 			}
 

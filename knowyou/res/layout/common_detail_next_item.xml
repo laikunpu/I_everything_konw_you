@@ -7,7 +7,7 @@
     <uk.co.senab.bitmapcache.samples.NetworkedCacheableImageView
         android:id="@+id/img_content"
         android:layout_width="fill_parent"
-        android:layout_height="350dp"
+        android:layout_height="500dp"
         android:background="#CCCCCC"
         android:scaleType="fitXY" />
 

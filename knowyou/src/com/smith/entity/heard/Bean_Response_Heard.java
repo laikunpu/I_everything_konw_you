@@ -1,6 +1,6 @@
 package com.smith.entity.heard;
 
-public class Bean_Heard {
+public class Bean_Response_Heard {
 	private int type_code;
 
 
@@ -12,11 +12,11 @@ public class Bean_Heard {
 		this.type_code = type_code;
 	}
 
-	public Bean_Heard(int type_code) {
+	public Bean_Response_Heard(int type_code) {
 		this.type_code = type_code;
 	}
 
-	public Bean_Heard() {
+	public Bean_Response_Heard() {
 	}
 
 }

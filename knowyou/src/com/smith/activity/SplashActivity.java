@@ -10,7 +10,7 @@ import com.smith.entity.Bean_UI;
 import com.smith.entity.Bean_UI_Res;
 import com.smith.inter.DataCallback;
 import com.smith.util.HandleResp;
-import com.smith.util.KYHttpClient;
+import com.smith.util.KyHttpClient;
 import com.smith.util.ServiceApi;
 import com.smith.util.ThreadDataLoader;
 
@@ -28,21 +28,8 @@ public class SplashActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.splash);
 
-		dao = new DaoImpl(this);
-		KnowyouApplication.getApplication().uis = dao.get_ui();
-		if (null == KnowyouApplication.getApplication().uis || KnowyouApplication.getApplication().uis.size() == 0) {
-			KnowyouApplication.getApplication().uis = new ArrayList<Bean_UI>();
-			Bean_UI ui1 = new Bean_UI("漫画", "", "", "", "");
-			Bean_UI ui2 = new Bean_UI("动画", "", "", "", "");
-			Bean_UI ui3 = new Bean_UI("电影", "", "", "", "");
-			KnowyouApplication.getApplication().uis.add(ui1);
-			KnowyouApplication.getApplication().uis.add(ui2);
-			KnowyouApplication.getApplication().uis.add(ui3);
-		}
-		DisplayMetrics dm = new DisplayMetrics();
-		getWindowManager().getDefaultDisplay().getMetrics(dm);
-		// System.out.println("dm.widthPixels=" + dm.widthPixels);
-		// System.out.println("dm.heightPixels=" + dm.heightPixels);
+		initData();
+
 		findViewById(R.id.lly_parent).postDelayed(new Runnable() {
 
 			@Override
@@ -52,10 +39,33 @@ public class SplashActivity extends BaseActivity {
 				startActivity(intent);
 				finish();
 			}
-		}, 2000);
+		}, 3000);
 
 		new ThreadDataLoader(new Handler(), mCallback).excute();
 
+	}
+
+	private void initData() {
+		// TODO Auto-generated method stub
+		
+		
+//		System.out.println("programDir="+KyApplication.programDir);
+		
+		dao = new DaoImpl(this);
+		KyApplication.getApplication().uis = dao.get_ui();
+		if (null == KyApplication.getApplication().uis || KyApplication.getApplication().uis.size() == 0) {
+			KyApplication.getApplication().uis = new ArrayList<Bean_UI>();
+			Bean_UI ui1 = new Bean_UI("漫画", "", "", "", "");
+			Bean_UI ui2 = new Bean_UI("动画", "", "", "", "");
+			Bean_UI ui3 = new Bean_UI("电影", "", "", "", "");
+			KyApplication.getApplication().uis.add(ui1);
+			KyApplication.getApplication().uis.add(ui2);
+			KyApplication.getApplication().uis.add(ui3);
+		}
+		DisplayMetrics dm = new DisplayMetrics();
+		getWindowManager().getDefaultDisplay().getMetrics(dm);
+		// System.out.println("dm.widthPixels=" + dm.widthPixels);
+		// System.out.println("dm.heightPixels=" + dm.heightPixels);
 	}
 
 	DataCallback mCallback = new DataCallback() {
@@ -71,8 +81,8 @@ public class SplashActivity extends BaseActivity {
 			// TODO Auto-generated method stub
 			List<Bean_UI> uis = null;
 			try {
-				Bean_UI_Res bean_UI_Res = KnowyouApplication.getApplication().gson.fromJson(
-						KYHttpClient.get(ServiceApi.MODULE), Bean_UI_Res.class);
+				Bean_UI_Res bean_UI_Res = KyApplication.getApplication().gson.fromJson(
+						KyHttpClient.get(ServiceApi.MODULE), Bean_UI_Res.class);
 				uis = bean_UI_Res.getUis();
 				if (null != uis) {
 					dao.delete_table(DBHelper.TABLE_BEAN_UI);

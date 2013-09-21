@@ -12,8 +12,8 @@ import com.smith.entity.Bean_common_Res;
 import com.smith.entity.Bean_second_module;
 import com.smith.inter.DataCallback;
 import com.smith.util.AsyncDataLoader;
-import com.smith.util.KYHttpClient;
-import com.smith.util.KnowyouUtil;
+import com.smith.util.KyHttpClient;
+import com.smith.util.KyUtil;
 import com.smith.util.ProgressStatus;
 import com.smith.util.ServiceApi;
 import com.smith.util.ToastUtils;
@@ -82,7 +82,7 @@ public class MainActivity extends BaseActivity {
 	private void initData() {
 		setResult(-1);
 		mViews = new ArrayList<View>();
-		uis = KnowyouApplication.getApplication().uis;
+		uis = KyApplication.getApplication().uis;
 		setGridView();
 		setViewPager();
 	}
@@ -98,8 +98,8 @@ public class MainActivity extends BaseActivity {
 		mGridView.setGravity(Gravity.CENTER);
 		mGridView.setNumColumns(2);
 		mGridView.setScrollBarStyle(-1);
-		mGridView.setVerticalSpacing(20);
-		mGridView.setHorizontalSpacing(20);
+		mGridView.setVerticalSpacing(5);
+		mGridView.setHorizontalSpacing(5);
 		UIAdapter moduleAdapter = new UIAdapter(this, uis);
 		mGridView.setAdapter(moduleAdapter);
 		moduleAdapter.setOnClickListener(clickListener);
@@ -159,26 +159,26 @@ public class MainActivity extends BaseActivity {
 			// TODO Auto-generated method stub
 			times = 3;
 			preStatus = new ProgressStatus();
-			KnowyouUtil.addLoadingWin(MainActivity.this, view_parent, preStatus);
+			KyUtil.addLoadingWin(MainActivity.this, view_parent, preStatus);
 		}
 
 		@Override
 		public void onStart() {
 			// TODO Auto-generated method stub
-			if (!KnowyouUtil.connectivityIsAvailable(MainActivity.this)) {
+			if (!KyUtil.connectivityIsAvailable(MainActivity.this)) {
 				netStatus = -1;
 				return;
 			}
-			if (!KnowyouUtil.pingIP(ServiceApi.IP)) {
+			if (!KyUtil.pingIP(ServiceApi.IP)) {
 				netStatus = 0;
 				return;
 			}
 			try {
 				if (null == common_Res || common_Res.getBean_second_modules().size() == 0) {
-					common_Res = KnowyouApplication.getApplication().gson.fromJson(
-							KYHttpClient.get(uis.get(clickUI).getModule_action()), Bean_common_Res.class);
-					netStatus = 1;
+					common_Res = KyApplication.getApplication().gson.fromJson(
+							KyHttpClient.get(uis.get(clickUI).getModule_action()), Bean_common_Res.class);
 				}
+				netStatus = 1;
 
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -208,33 +208,33 @@ public class MainActivity extends BaseActivity {
 
 			switch (netStatus) {
 			case -1:
-				KnowyouUtil.removeLoadingWin(view_parent);
-				ToastUtils.showToast(MainActivity.this, "无法连接网络,请确认手机处于联网状态!!!");
+				KyUtil.removeLoadingWin(view_parent,null,false);
+				ToastUtils.showToast(MainActivity.this, R.string.network_status_toast);
 				break;
 			case 0:
-				KnowyouUtil.removeLoadingWin(view_parent);
-				ToastUtils.showToast(MainActivity.this, "服务器尚未开启!!!");
+				KyUtil.removeLoadingWin(view_parent,null,false);
+				ToastUtils.showToast(MainActivity.this, R.string.service_status_toast);
 				break;
 			case 1:
-				KnowyouUtil.removeLoadingWin(view_parent, new Runnable() {
+				KyUtil.removeLoadingWin(view_parent, new Runnable() {
 
 					@Override
 					public void run() {
 						// TODO Auto-generated method stub
 						if (null != common_Res && common_Res.getBean_second_modules().size() > 0) {
-							KnowyouApplication.getApplication().common_Res = common_Res;
+							KyApplication.getApplication().common_Res = common_Res;
 							Intent intent = new Intent(MainActivity.this, FragmentTabsPager.class);
 							startActivity(intent);
 						} else {
-							ToastUtils.showToast(MainActivity.this, "服务器无数据返回!!!");
+							ToastUtils.showToast(MainActivity.this, R.string.request_null_toast);
 						}
 					}
-				});
+				},true);
 
 				break;
 			case 2:
-				KnowyouUtil.removeLoadingWin(view_parent);
-				ToastUtils.showToast(MainActivity.this, "服务器正在收集该内容，请稍后尝试!!!");
+				KyUtil.removeLoadingWin(view_parent,null,false);
+				ToastUtils.showToast(MainActivity.this, R.string.request_long_toast);
 				break;
 			}
 

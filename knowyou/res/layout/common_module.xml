@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/view_parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,9 +8,9 @@
     <WebView
         android:id="@+id/wb_advert"
         android:layout_width="match_parent"
-        android:layout_height="80dp" 
-        android:visibility="gone"/>
-
+        android:layout_height="80dp"
+        android:visibility="gone" />
+    <!--
     <GridView
         android:id="@+id/gd_list"
         android:layout_width="match_parent"
@@ -19,6 +19,48 @@
         android:numColumns="2"
         android:scrollbars="none"
         android:verticalSpacing="10dp" >
-    </GridView>
+</GridView>
+    -->
 
-</LinearLayout>
+    <com.handmark.pulltorefresh.library.PullToRefreshGridView
+        xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/pull_refresh_grid"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:columnWidth="100dp"
+        android:gravity="fill"
+        android:horizontalSpacing="5dp"
+        android:numColumns="2"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="5dp"
+        ptr:ptrMode="both" />
+
+    <RelativeLayout
+        android:id="@+id/rly_FootRefreshTip"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_alignBottom="@id/pull_refresh_grid"
+        android:background="#000000"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone" >
+
+        <ImageView
+            android:id="@+id/img_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/update_m" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="正在加载..."
+            android:textColor="#FFFFFF" />
+    </RelativeLayout>
+
+</RelativeLayout>

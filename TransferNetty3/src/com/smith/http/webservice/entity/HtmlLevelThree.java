@@ -11,8 +11,8 @@ import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "normal_html")
-public class Normal_Html {
+@Table(name = "htmllevelthree")
+public class HtmlLevelThree {
 	private int id;
 	private String name;
 	private int weight;
@@ -57,12 +57,12 @@ public class Normal_Html {
 		this.content = content;
 	}
 
-	public Normal_Html(String name, int weight, byte[] content) {
+	public HtmlLevelThree(String name, int weight, byte[] content) {
 		this.name = name;
 		this.weight = weight;
 		this.content = content;
 	}
 
-	public Normal_Html() {
+	public HtmlLevelThree() {
 	}
 }

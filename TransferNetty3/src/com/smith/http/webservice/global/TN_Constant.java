@@ -9,4 +9,10 @@ public class TN_Constant {
 	
 	public static String TYPE_JSON="text/json";
 	public static String TYPE_HTML="text/html";
+	
+	
+	public final static int HTML_LEVEL_ONE=1;
+	public final static int HTML_LEVEL_TWO=2;
+	public final static int HTML_LEVEL_THREE=3;
+
 }

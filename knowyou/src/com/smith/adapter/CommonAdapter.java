@@ -54,10 +54,12 @@ public class CommonAdapter extends BaseAdapter {
 
 		final ViewHolder viewHolder = new ViewHolder();
 		final Bean_common data = datas.get(position);
-
-		convertView = LayoutInflater.from(context).inflate(R.layout.common_module_item, null);
+		if (convertView == null) {
+			convertView = LayoutInflater.from(context).inflate(R.layout.common_module_item, null);
+		}
 		viewHolder.img_cover = (NetworkedCacheableImageView) convertView.findViewById(R.id.img_cover);
 		viewHolder.txt_data_name = (TextView) convertView.findViewById(R.id.txt_data_name);
+		viewHolder.txt_data_name.setText(data.getName());
 		viewHolder.img_cover.loadImage(data.getCover_url(), true, null, null);
 		viewHolder.img_cover.setTag(position);
 		viewHolder.img_cover.setOnClickListener(onClickListener);

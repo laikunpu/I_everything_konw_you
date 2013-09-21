@@ -10,5 +10,10 @@
     <string name="pull_to_refresh_footer_release_label">松开后加载</string>
     <string name="pull_to_refresh_footer_pull_label">上拉加载更多</string>
     <string name="pull_to_refresh_footer_refreshing_label">加载中\u2026</string>
+    
+    <string name="network_status_toast">无法连接网络</string>
+    <string name="service_status_toast">无法连接服务器</string>
+    <string name="request_null_toast">服务器无数据返回</string>
+    <string name="request_long_toast">服务器正在收集该内容,请稍后尝试!</string>
 
 </resources>

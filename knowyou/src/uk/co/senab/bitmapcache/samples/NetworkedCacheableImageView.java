@@ -37,10 +37,10 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreConnectionPNames;
 
-import com.smith.activity.KnowyouApplication;
+import com.smith.activity.KyApplication;
 import com.smith.entity.Bean_common_page;
 import com.smith.entity.Bean_common_socketToHttp;
-import com.smith.util.KnowyouUtil;
+import com.smith.util.KyUtil;
 import com.smith.util.SDK11;
 
 import uk.co.senab.bitmapcache.BitmapLruCache;
@@ -149,7 +149,7 @@ public class NetworkedCacheableImageView extends CacheableImageView {
 							+ data.getSocketToHttp().getProperties().get(0).getNewValue());
 					System.out.println(e.toString());
 				}
-				data.setPage_img_url(KnowyouUtil.replaceImgSuffix(data.getPage_img_url()));
+				data.setPage_img_url(KyUtil.replaceImgSuffix(data.getPage_img_url()));
 				Log.e("ImageUrlAsyncTask", e.toString());
 			}
 
@@ -177,7 +177,7 @@ public class NetworkedCacheableImageView extends CacheableImageView {
 
 	public NetworkedCacheableImageView(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		mCache = KnowyouApplication.getApplication().getBitmapCache();
+		mCache = KyApplication.getApplication().getBitmapCache();
 	}
 
 	/**
