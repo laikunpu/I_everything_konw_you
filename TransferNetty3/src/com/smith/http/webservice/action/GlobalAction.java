@@ -13,9 +13,11 @@ public class GlobalAction {
 
 	public Bean_Result getUI_Module(String s) {
 		Bean_Response_Heard type = new Bean_Response_Heard(Msg_Type.UI_CODE);
-		Bean_UI module = new Bean_UI("在线漫画", "http://www.xxx.jpg/", "#000000", "http://imanhua.com", TNUrl.ACTION_UI);
+		Bean_UI module1 = new Bean_UI("在线漫画", "http://www.xxx.jpg/", "#000000", "http://imanhua.com", TNUrl.ACTION_UI);
+		Bean_UI module2 = new Bean_UI("哲学漫画", "http://www.xxx.jpg/", "#000000", "http://www.hhcomic.com/", TNUrl.PHILOSOPHY_ACTION_UI);
 		List<Bean_UI> modules = new ArrayList<Bean_UI>();
-		modules.add(module);
+		modules.add(module1);
+		modules.add(module2);
 		Bean_UI_Res ui = new Bean_UI_Res(type, modules);
 		Bean_Result<Bean_UI_Res> result = new Bean_Result<Bean_UI_Res>("text/json", ui);
 		return result;

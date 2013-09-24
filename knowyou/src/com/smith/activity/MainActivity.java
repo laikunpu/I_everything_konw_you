@@ -47,6 +47,7 @@ public class MainActivity extends BaseActivity {
 
 	private Bean_common_Res common_Res = null;
 
+
 	private class MyHandler extends Handler {
 		@Override
 		public void handleMessage(Message msg) {

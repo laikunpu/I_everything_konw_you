@@ -40,7 +40,8 @@ public class CommonAction {
 		second_modules.add(recommend_module);
 		second_modules.add(toplist_module);
 		second_modules.add(booklist_module);
-		Bean_common_Res res = new Bean_common_Res(new Bean_Response_Heard(Msg_Type.CARTOON_CODE), true,TNUrl.ACTION_SEARCH, second_modules);
+		Bean_common_Res res = new Bean_common_Res(new Bean_Response_Heard(Msg_Type.CARTOON_CODE), true,
+				TNUrl.ACTION_SEARCH, second_modules);
 		Bean_Result<Bean_common_Res> result = new Bean_Result<Bean_common_Res>(TN_Constant.TYPE_JSON, res);
 		return result;
 	}
@@ -59,7 +60,8 @@ public class CommonAction {
 
 		List<Bean_second_module> second_modules = new ArrayList<Bean_second_module>();
 		second_modules.add(booklist_module);
-		Bean_common_Res res = new Bean_common_Res(new Bean_Response_Heard(Msg_Type.CARTOON_CODE), false, null,second_modules);
+		Bean_common_Res res = new Bean_common_Res(new Bean_Response_Heard(Msg_Type.CARTOON_CODE), false, null,
+				second_modules);
 		Bean_Result<Bean_common_Res> result = new Bean_Result<Bean_common_Res>(TN_Constant.TYPE_JSON, res);
 		return result;
 	}
@@ -101,6 +103,45 @@ public class CommonAction {
 		List<Bean_common_search> bean_common_searchs = service.getOnline_Comic_search(req.getCommon_sou().getWords());
 		common_search_Res.setBean_common_searchs(bean_common_searchs);
 		result.setT(common_search_Res);
+		return result;
+	}
+
+	
+	
+	public Bean_Result getPhilosophy_manhua(String json) {
+
+		// 哲学推荐
+		Bean_second_module recommend_module = service.getPhilosophy_Recommend(json);
+
+		List<Bean_second_module> second_modules = new ArrayList<Bean_second_module>();
+		second_modules.add(recommend_module);
+		Bean_common_Res res = new Bean_common_Res(new Bean_Response_Heard(Msg_Type.CARTOON_CODE), true,
+				TNUrl.ACTION_SEARCH, second_modules);
+		Bean_Result<Bean_common_Res> result = new Bean_Result<Bean_common_Res>(TN_Constant.TYPE_JSON, res);
+		return result;
+	}
+
+	public Bean_Result getPhilosophy_manhua_detail(String json) {
+
+		Bean_common_Req req = gson.fromJson(json, Bean_common_Req.class);
+		if (null == req)
+			return null;
+		Bean_Result<Bean_common_detail> result = new Bean_Result<Bean_common_detail>(TN_Constant.TYPE_JSON, null);
+		Bean_common_detail detail = service.getPhilosophy_Detail(req.getUrl().getUrl());
+		result.setT(detail);
+		return result;
+	}
+	public Bean_Result getPhilosophy_manhua_detail_next(String json) {
+
+		Bean_common_Req req = gson.fromJson(json, Bean_common_Req.class);
+		if (null == req)
+			return null;
+		Bean_Result<Bean_common_page_Res> result = new Bean_Result<Bean_common_page_Res>(TN_Constant.TYPE_JSON, null);
+		Bean_common_page_Res common_page_Res = new Bean_common_page_Res(new Bean_Response_Heard(Msg_Type.CARTOON_CODE),
+				null);
+		List<Bean_common_page> bean_common_pages = service.getPhilosophy_Page(req.getUrl().getUrl());
+		common_page_Res.setBean_common_pages(bean_common_pages);
+		result.setT(common_page_Res);
 		return result;
 	}
 }
