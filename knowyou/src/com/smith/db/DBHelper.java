@@ -21,21 +21,23 @@ public class DBHelper extends SQLiteOpenHelper {
 	private static final int DB_VERSION = 1;
 
 	// 模块数据表
-	public static final String TABLE_BEAN_UI = "bean_ui";
+	public static final String TABLE_BEAN_MODULE = "bean_module";
 	public static final String _ID = "_id";
-	public static final String MODULE_NAME = "name";
-	public static final String MODULE_BACKGROUND_URL = "background_url";
-	public static final String MODULE_BACKGROUND_COLOR = "background_color";
-	public static final String MODULE_URL = "module_url";
-	public static final String MODULE_ACTION = "module_action";
+	public static final String MODULE_NAME = "module_name";
+	public static final String MODULE_NUM = "module_num";
+	public static final String ADURL = "adUrl";
+	public static final String ISMOREDATA = "isMoreData";
+	public static final String DATANUM = "dataNum";
+	public static final String DATANUMMAX = "dataNumMax";
+	public static final String MOREDATA_ACTION = "moreData_action";
 
 	/**
 	 * 创建模块表
 	 */
-	private static String SQL_CREATE_MODULE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_BEAN_UI + " (" + _ID
-			+ " INTEGER PRIMARY KEY AUTOINCREMENT," + MODULE_NAME + " VARCHAR(200)," + MODULE_BACKGROUND_URL
-			+ " VARCHAR(200)," + MODULE_BACKGROUND_COLOR + " VARCHAR(200)," + MODULE_URL + " VARCHAR(200),"
-			+ MODULE_ACTION + " VARCHAR(200))";
+	private static String SQL_CREATE_MODULE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_BEAN_MODULE + " (" + _ID
+			+ " INTEGER PRIMARY KEY AUTOINCREMENT," + MODULE_NAME + " VARCHAR(200)," + MODULE_NUM + " VARCHAR(200),"
+			+ ADURL + " VARCHAR(200)," + ISMOREDATA + " VARCHAR(200)," + DATANUM + " VARCHAR(200)," + DATANUMMAX
+			+ " VARCHAR(200)," + MOREDATA_ACTION + " VARCHAR(200))";
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
@@ -44,7 +46,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		db.execSQL("DROP TABLE IF EXISTS bean_ui");
+		db.execSQL("DROP TABLE IF EXISTS bean_module");
 		onCreate(db);
 	}
 

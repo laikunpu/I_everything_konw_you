@@ -15,7 +15,7 @@ import com.smith.http.webservice.entity.Bean_common_search;
 import com.smith.http.webservice.entity.Bean_common_search_Res;
 import com.smith.http.webservice.entity.Bean_common_sou_Req;
 import com.smith.http.webservice.entity.Bean_common_url;
-import com.smith.http.webservice.entity.Bean_second_module;
+import com.smith.http.webservice.entity.Bean_module;
 import com.smith.http.webservice.entity.heard.Bean_Response_Heard;
 import com.smith.http.webservice.global.Msg_Type;
 import com.smith.http.webservice.global.TN_Constant;
@@ -30,13 +30,13 @@ public class CommonAction {
 	public Bean_Result getOnline_manhua(String json) {
 
 		// 推荐漫画
-		Bean_second_module recommend_module = service.getComic_Recommend(json);
+		Bean_module recommend_module = service.getComic_Recommend(json);
 		// 漫画排行
-		Bean_second_module toplist_module = service.getComic_Toplist(json);
+		Bean_module toplist_module = service.getComic_Toplist(json);
 
-		Bean_second_module booklist_module = service.getOnline_Comic_list(0);
+		Bean_module booklist_module = service.getOnline_Comic_list(0);
 
-		List<Bean_second_module> second_modules = new ArrayList<Bean_second_module>();
+		List<Bean_module> second_modules = new ArrayList<Bean_module>();
 		second_modules.add(recommend_module);
 		second_modules.add(toplist_module);
 		second_modules.add(booklist_module);
@@ -56,9 +56,9 @@ public class CommonAction {
 			num = req.getMoreData().getNum();
 		}
 
-		Bean_second_module booklist_module = service.getOnline_Comic_list(num);
+		Bean_module booklist_module = service.getOnline_Comic_list(num);
 
-		List<Bean_second_module> second_modules = new ArrayList<Bean_second_module>();
+		List<Bean_module> second_modules = new ArrayList<Bean_module>();
 		second_modules.add(booklist_module);
 		Bean_common_Res res = new Bean_common_Res(new Bean_Response_Heard(Msg_Type.CARTOON_CODE), false, null,
 				second_modules);
@@ -111,9 +111,9 @@ public class CommonAction {
 	public Bean_Result getPhilosophy_manhua(String json) {
 
 		// 哲学推荐
-		Bean_second_module recommend_module = service.getPhilosophy_Recommend(json);
+		Bean_module recommend_module = service.getPhilosophy_Recommend(json);
 
-		List<Bean_second_module> second_modules = new ArrayList<Bean_second_module>();
+		List<Bean_module> second_modules = new ArrayList<Bean_module>();
 		second_modules.add(recommend_module);
 		Bean_common_Res res = new Bean_common_Res(new Bean_Response_Heard(Msg_Type.CARTOON_CODE), true,
 				TNUrl.ACTION_SEARCH, second_modules);
@@ -144,4 +144,9 @@ public class CommonAction {
 		result.setT(common_page_Res);
 		return result;
 	}
+	
+	
+	
+	
+	
 }

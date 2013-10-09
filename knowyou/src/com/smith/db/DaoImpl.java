@@ -3,7 +3,8 @@ package com.smith.db;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.smith.entity.Bean_UI;
+import com.smith.entity.Bean_module;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -53,21 +54,25 @@ public class DaoImpl implements IDao {
 	}
 
 	@Override
-	public boolean add_ui(Bean_UI ui) {
+	public boolean add_module(Bean_module module) {
 		// TODO Auto-generated method stub
 		open();
-		if (exist(ui.getName(), DBHelper.TABLE_BEAN_UI, DBHelper.MODULE_NAME)) {
+		if (exist(module.getModule_name(), DBHelper.TABLE_BEAN_MODULE, DBHelper.MODULE_NAME)) {
 			return false;
 		}
 
 		try {
-			StringBuffer sql = new StringBuffer("INSERT INTO " + DBHelper.TABLE_BEAN_UI + " (" + DBHelper.MODULE_NAME + ","
-					+ DBHelper.MODULE_BACKGROUND_URL + "," + DBHelper.MODULE_BACKGROUND_COLOR + ","
-					+ DBHelper.MODULE_URL+ "," +  DBHelper.MODULE_ACTION +")");
+			StringBuffer sql = new StringBuffer("INSERT INTO " + DBHelper.TABLE_BEAN_MODULE + " ("
+					+ DBHelper.MODULE_NAME + "," + DBHelper.MODULE_NUM + "," + DBHelper.ADURL + ","
+					+ DBHelper.ISMOREDATA + "," + DBHelper.DATANUM + "," + DBHelper.DATANUMMAX + ","
+					+ DBHelper.MOREDATA_ACTION + ")");
 
-			sql.append(" values(?,?,?,?,?)");
-			mdb.execSQL(sql.toString(), new String[] { ui.getName(), ui.getBackground_url(), ui.getBackground_color(),
-					ui.getModule_url() ,ui.getModule_action()});
+			sql.append(" values(?,?,?,?,?,?,?)");
+			mdb.execSQL(
+					sql.toString(),
+					new String[] { module.getModule_name() + "", module.getModule_num() + "", module.getAdUrl(),
+							module.isMoreData() + "", module.getDataNum() + "", module.getDataNumMax() + "",
+							module.getMoreData_action() });
 
 			return true;
 		} catch (Exception e) {
@@ -95,26 +100,30 @@ public class DaoImpl implements IDao {
 	}
 
 	@Override
-	public List<Bean_UI> get_ui() {
+	public List<Bean_module> get_modules() {
 		// TODO Auto-generated method stub
-		List<Bean_UI> uis = null;
+		List<Bean_module> modulesuis = null;
 		try {
 			open();
-			String sql = "Select * From " + DBHelper.TABLE_BEAN_UI;
+			String sql = "Select * From " + DBHelper.TABLE_BEAN_MODULE;
 
 			cursor = mdb.rawQuery(sql, null);
 			cursor.moveToFirst();
 
-			uis = new ArrayList<Bean_UI>();
+			modulesuis = new ArrayList<Bean_module>();
 
 			for (; !cursor.isAfterLast(); cursor.moveToNext()) {
-				Bean_UI ui = new Bean_UI();
-				ui.setName(cursor.getString(cursor.getColumnIndex(DBHelper.MODULE_NAME)));
-				ui.setBackground_color(cursor.getString(cursor.getColumnIndex(DBHelper.MODULE_BACKGROUND_COLOR)));
-				ui.setBackground_url(cursor.getString(cursor.getColumnIndex(DBHelper.MODULE_BACKGROUND_URL)));
-				ui.setModule_url(cursor.getString(cursor.getColumnIndex(DBHelper.MODULE_URL)));
-				ui.setModule_action(cursor.getString(cursor.getColumnIndex(DBHelper.MODULE_ACTION)));
-				uis.add(ui);
+				Bean_module module = new Bean_module();
+
+				module.setModule_name(cursor.getString(cursor.getColumnIndex(DBHelper.MODULE_NAME)));
+				module.setModule_num(Integer.parseInt(cursor.getString(cursor.getColumnIndex(DBHelper.MODULE_NUM))));
+				module.setAdUrl(cursor.getString(cursor.getColumnIndex(DBHelper.ADURL)));
+				module.setMoreData(Boolean.parseBoolean(cursor.getString(cursor.getColumnIndex(DBHelper.ISMOREDATA))));
+				module.setDataNum(Integer.parseInt(cursor.getString(cursor.getColumnIndex(DBHelper.DATANUM))));
+				module.setDataNumMax(Integer.parseInt(cursor.getString(cursor.getColumnIndex(DBHelper.DATANUMMAX))));
+				module.setMoreData_action(cursor.getString(cursor.getColumnIndex(DBHelper.MOREDATA_ACTION)));
+
+				modulesuis.add(module);
 			}
 
 		} catch (Exception e) {
@@ -122,17 +131,9 @@ public class DaoImpl implements IDao {
 		} finally {
 			close();
 		}
-		return uis;
+		return modulesuis;
 	}
 
-	@Override
-	public boolean add_uis(List<Bean_UI> uis) {
-		// TODO Auto-generated method stub
-		for (int i = 0; i < uis.size(); i++) {
-			add_ui(uis.get(i));
-		}
-		return true;
-	}
 
 	// @Override
 	// public boolean saveBook(Book book) {

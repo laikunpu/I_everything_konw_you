@@ -20,7 +20,7 @@ import com.smith.http.webservice.entity.Bean_common_search;
 import com.smith.http.webservice.entity.Bean_common_socketToHttp;
 import com.smith.http.webservice.entity.Bean_commonshowlist;
 import com.smith.http.webservice.entity.Bean_commonshowlist_Res;
-import com.smith.http.webservice.entity.Bean_second_module;
+import com.smith.http.webservice.entity.Bean_module;
 import com.smith.http.webservice.entity.Bean_socket_requestProperty;
 import com.smith.http.webservice.entity.Selenium_info;
 import com.smith.http.webservice.global.TN_Constant;
@@ -29,9 +29,9 @@ import com.smith.http.webservice.util.TNUtil;
 
 public class CommonService {
 
-	public Bean_second_module getComic_Recommend(String s) {
+	public Bean_module getComic_Recommend(String s) {
 
-		Bean_second_module second_module = new Bean_second_module("推荐漫画", 0, null, new ArrayList<Bean_common>(), false,
+		Bean_module second_module = new Bean_module("推荐漫画", 0, null, new ArrayList<Bean_common>(), false,
 				-1, -1, null);
 		try {
 			Document doc = null;
@@ -85,9 +85,9 @@ public class CommonService {
 		return second_module;
 	}
 
-	public Bean_second_module getComic_Toplist(String s) {
+	public Bean_module getComic_Toplist(String s) {
 
-		Bean_second_module second_module = new Bean_second_module("漫画排行", 1, null, new ArrayList<Bean_common>(), false,
+		Bean_module second_module = new Bean_module("漫画排行", 1, null, new ArrayList<Bean_common>(), false,
 				-1, -1, null);
 		try {
 			Document doc = null;
@@ -240,7 +240,7 @@ public class CommonService {
 		return common_pages;
 	}
 
-	public Bean_second_module getOnline_Comic_list(int num) {
+	public Bean_module getOnline_Comic_list(int num) {
 		String url = TNUrl.ONLINE_COMIC_LIST;
 		if (num > 1) {
 			String preUrl = url.substring(0, url.lastIndexOf("."));
@@ -248,7 +248,7 @@ public class CommonService {
 			String postUrl = url.substring(url.lastIndexOf("."), url.length());
 			url = preUrl + midUrl + postUrl;
 		}
-		Bean_second_module second_module = new Bean_second_module("全部漫画", 0, null, new ArrayList<Bean_common>(), true,
+		Bean_module second_module = new Bean_module("全部漫画", 0, null, new ArrayList<Bean_common>(), true,
 				2, -1, TNUrl.ACTION_MOREDATA);
 		try {
 			Document doc = null;
@@ -365,9 +365,9 @@ public class CommonService {
 		return searchs;
 	}
 
-	public Bean_second_module getPhilosophy_Recommend(String s) {
+	public Bean_module getPhilosophy_Recommend(String s) {
 
-		Bean_second_module second_module = new Bean_second_module("哲学推荐", 0, null, new ArrayList<Bean_common>(), false,
+		Bean_module second_module = new Bean_module("哲学推荐", 0, null, new ArrayList<Bean_common>(), false,
 				-1, -1, null);
 		try {
 			Document doc = null;

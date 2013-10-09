@@ -7,13 +7,12 @@ import java.util.List;
 import uk.co.senab.bitmapcache.BitmapLruCache;
 
 import com.google.gson.Gson;
-import com.smith.entity.Bean_UI;
 import com.smith.entity.Bean_common_Res;
 import com.smith.entity.Bean_common_detail;
 import com.smith.entity.Bean_common_detail_content;
 import com.smith.entity.Bean_common_page_Res;
 import com.smith.entity.Bean_common_search_Res;
-import com.smith.entity.Bean_second_module;
+import com.smith.entity.Bean_module;
 
 import android.app.Application;
 import android.os.Environment;
@@ -30,17 +29,20 @@ public class KyApplication extends Application {
 	public final Gson gson = new Gson();
 	public final static Handler handler = new Handler();
 
-	public List<Bean_UI> uis = new ArrayList<Bean_UI>();
 
-	Bean_common_Res common_Res = null;
+	public Bean_common_Res common_Res = null;
 
-	Bean_common_detail common_detail = null;
+	public Bean_common_detail common_detail = null;
+
+	public Bean_common_search_Res search_Res = null;
+
+	public Bean_common_detail_content content = null;
+
+	public Bean_common_page_Res common_page_Res = null;
 	
-	Bean_common_search_Res search_Res = null;
-
-	Bean_common_detail_content content = null;
-
-	Bean_common_page_Res common_page_Res = null;
+	
+	public List<Bean_module> modules=new ArrayList<Bean_module>();
+	
 
 	public static KyApplication getApplication() {
 		return instance;
@@ -73,7 +75,10 @@ public class KyApplication extends Application {
 		mCache = builder.build();
 	}
 
-	public BitmapLruCache getBitmapCache() {
-		return mCache;
-	}
+
+    public BitmapLruCache getBitmapCache() {
+        return mCache;
+    }
+
+
 }

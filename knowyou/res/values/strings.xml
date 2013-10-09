@@ -15,5 +15,5 @@
     <string name="service_status_toast">无法连接服务器</string>
     <string name="request_null_toast">服务器无数据返回</string>
     <string name="request_long_toast">服务器正在收集该内容,请稍后尝试!</string>
-
+    <string name="left_and_right">Left and Right</string>
 </resources>
