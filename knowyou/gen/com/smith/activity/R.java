@@ -1380,20 +1380,21 @@ containing a value of this type.
         public static final int loading=0x7f030024;
         public static final int menu_frame=0x7f030025;
         public static final int menu_frame_two=0x7f030026;
-        public static final int midlist=0x7f030027;
-        public static final int pull_to_refresh_header_horizontal=0x7f030028;
-        public static final int pull_to_refresh_header_vertical=0x7f030029;
-        public static final int refresh_footer=0x7f03002a;
-        public static final int refresh_header=0x7f03002b;
-        public static final int row=0x7f03002c;
-        public static final int search=0x7f03002d;
-        public static final int search_item=0x7f03002e;
-        public static final int sherlock_spinner_dropdown_item=0x7f03002f;
-        public static final int sherlock_spinner_item=0x7f030030;
-        public static final int slidingmenumain=0x7f030031;
-        public static final int splash=0x7f030032;
-        public static final int tab_item=0x7f030033;
-        public static final int ui_item=0x7f030034;
+        public static final int mid_item=0x7f030027;
+        public static final int midlist=0x7f030028;
+        public static final int pull_to_refresh_header_horizontal=0x7f030029;
+        public static final int pull_to_refresh_header_vertical=0x7f03002a;
+        public static final int refresh_footer=0x7f03002b;
+        public static final int refresh_header=0x7f03002c;
+        public static final int row=0x7f03002d;
+        public static final int search=0x7f03002e;
+        public static final int search_item=0x7f03002f;
+        public static final int sherlock_spinner_dropdown_item=0x7f030030;
+        public static final int sherlock_spinner_item=0x7f030031;
+        public static final int slidingmenumain=0x7f030032;
+        public static final int splash=0x7f030033;
+        public static final int tab_item=0x7f030034;
+        public static final int ui_item=0x7f030035;
     }
     public static final class menu {
         public static final int main=0x7f0c0000;

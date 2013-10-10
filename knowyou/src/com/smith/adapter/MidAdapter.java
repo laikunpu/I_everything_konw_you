@@ -2,6 +2,7 @@ package com.smith.adapter;
 
 import java.util.List;
 
+import uk.co.senab.bitmapcache.samples.NetworkedCacheableImageView;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -55,17 +56,18 @@ public class MidAdapter extends BaseAdapter {
 		if (convertView == null) {
 			convertView = LayoutInflater.from(context).inflate(R.layout.left_item, null);
 		}
-		viewHolder.img_leftItem = (ImageView) convertView.findViewById(R.id.img_leftItem);
-		viewHolder.txt_leftItem = (TextView) convertView.findViewById(R.id.txt_leftItem);
-		
-		viewHolder.txt_leftItem.setText(data.getModule_name());
-		viewHolder.img_leftItem.setTag(position);
-		viewHolder.img_leftItem.setOnClickListener(onClickListener);
+		viewHolder.img_cover = (NetworkedCacheableImageView) convertView.findViewById(R.id.img_cover);
+		viewHolder.txt_bookName = (TextView) convertView.findViewById(R.id.txt_bookName);
+		viewHolder.txt_bookAuthor = (TextView) convertView.findViewById(R.id.txt_bookAuthor);
+		viewHolder.txt_modifiedTime = (TextView) convertView.findViewById(R.id.txt_modifiedTime);
+
 		return convertView;
 	}
 
 	public class ViewHolder {
-		ImageView img_leftItem;
-		TextView txt_leftItem;
+		NetworkedCacheableImageView img_cover;
+		TextView txt_bookName;
+		TextView txt_bookAuthor;
+		TextView txt_modifiedTime;
 	}
 }
