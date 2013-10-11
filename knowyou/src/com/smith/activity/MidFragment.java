@@ -1,5 +1,6 @@
 package com.smith.activity;
 
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.smith.adapter.LeftAdapter;
 
 import android.annotation.SuppressLint;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 public class MidFragment extends Fragment {
 
 	private KyApplication application;
+	private PullToRefreshListView pullToRefreshListView;
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.midlist, null);
@@ -29,7 +31,7 @@ public class MidFragment extends Fragment {
 
 	private void initView(View v) {
 		// TODO Auto-generated method stub
-		
+		pullToRefreshListView = (PullToRefreshListView) v.findViewById(R.id.pull_refresh_list);
 	}
 
 	private void initOnClickListener() {
@@ -44,6 +46,7 @@ public class MidFragment extends Fragment {
 	private void initData() {
 		// TODO Auto-generated method stub
 		application = KyApplication.getApplication();
+		
 	}
 
 }

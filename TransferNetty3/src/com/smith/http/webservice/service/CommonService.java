@@ -31,8 +31,7 @@ public class CommonService {
 
 	public Bean_module getComic_Recommend(String s) {
 
-		Bean_module second_module = new Bean_module("推荐漫画", 0, null, new ArrayList<Bean_common>(), false,
-				-1, -1, null);
+		Bean_module second_module = new Bean_module("推荐漫画", 0, null, new ArrayList<Bean_common>(), false, -1, -1, null);
 		try {
 			Document doc = null;
 			doc = TNUtil.loadUrl(TNUrl.ONLINE_COMIC, null, TN_Constant.HTML_LEVEL_ONE);
@@ -87,8 +86,7 @@ public class CommonService {
 
 	public Bean_module getComic_Toplist(String s) {
 
-		Bean_module second_module = new Bean_module("漫画排行", 1, null, new ArrayList<Bean_common>(), false,
-				-1, -1, null);
+		Bean_module second_module = new Bean_module("漫画排行", 1, null, new ArrayList<Bean_common>(), false, -1, -1, null);
 		try {
 			Document doc = null;
 			doc = TNUtil.loadUrl(TNUrl.ONLINE_COMIC, null, TN_Constant.HTML_LEVEL_ONE);
@@ -248,8 +246,8 @@ public class CommonService {
 			String postUrl = url.substring(url.lastIndexOf("."), url.length());
 			url = preUrl + midUrl + postUrl;
 		}
-		Bean_module second_module = new Bean_module("全部漫画", 0, null, new ArrayList<Bean_common>(), true,
-				2, -1, TNUrl.ACTION_MOREDATA);
+		Bean_module second_module = new Bean_module("全部漫画", 0, null, new ArrayList<Bean_common>(), true, 2, -1,
+				TNUrl.ACTION_MOREDATA);
 		try {
 			Document doc = null;
 			doc = TNUtil.loadUrl(url, null, TN_Constant.HTML_LEVEL_ONE);
@@ -367,8 +365,7 @@ public class CommonService {
 
 	public Bean_module getPhilosophy_Recommend(String s) {
 
-		Bean_module second_module = new Bean_module("哲学推荐", 0, null, new ArrayList<Bean_common>(), false,
-				-1, -1, null);
+		Bean_module second_module = new Bean_module("哲学推荐", 0, null, new ArrayList<Bean_common>(), false, -1, -1, null);
 		try {
 			Document doc = null;
 			doc = TNUtil.loadUrl(TNUrl.PHILOSOPHY_COMIC, null, TN_Constant.HTML_LEVEL_ONE);
@@ -517,5 +514,47 @@ public class CommonService {
 
 		return common_pages;
 	}
+
+	public List<Bean_common> getMedule(String url) {
+		List<Bean_common> commons = null;
+
+		try {
+			Document doc = TNUtil.loadUrl(url, null, TN_Constant.HTML_LEVEL_ONE);
+			commons = new ArrayList<Bean_common>();
+			String name; // 动漫名字
+			int type; // 动漫类型 0：漫画 1：动画
+			String detail_action;
+			String summary; // 简介
+			String cover_url; // 封面url
+			String detail_url; // 详情url
+			String download_url; // 下载url
+			String size; // 大小
+			
+			Elements lis=doc.select("#contList").first().select("li");
+			for (int i = 0; i < lis.size(); i++) {
+
+				Element li=lis.get(i);
+				name=li.select("a.bcover").attr("title");
+				type=0;
+				detail_action="";
+				summary="";
+				cover_url=TNUrl.SEEMH_COMIC+li.select("a.bcover").select("img").first().attr("data-src");
+				detail_url=TNUrl.SEEMH_COMIC+li.select("a.bcover").attr("href");
+				download_url="";
+				size="";
+				Bean_common common=new Bean_common(name, type, detail_action, summary, cover_url, detail_url, download_url, size);
+				commons.add(common);
+			}
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return commons;
+	}
+	
+
+
 
 }

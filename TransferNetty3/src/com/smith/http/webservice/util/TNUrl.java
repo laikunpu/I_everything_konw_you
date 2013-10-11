@@ -2,7 +2,7 @@ package com.smith.http.webservice.util;
 
 public class TNUrl {
 	// public final static String IP = "192.168.0.134";
-	public final static String IP = "192.168.1.104";
+	public final static String IP = "192.168.137.189";
 	public final static int PORT = 8080;
 
 	public final static String ONLINE_COMIC = "http://www.imanhua.com";
@@ -31,6 +31,10 @@ public class TNUrl {
 	public final static String PHILOSOPHY_ACTION_DEATIL_NEXT = "http://" + TNUrl.IP + ":" + TNUrl.PORT
 			+ "/tn/CommonAction/getPhilosophy_manhua_detail_next";
 
+	
+	
+	
+	
 	public final static String SEEMH_COMIC = "http://www.seemh.com";
 	public final static String ACTION_SEEMH_MODULE = "http://" + TNUrl.IP + ":" + TNUrl.PORT
 			+ "/tn/CommonAction/getSeemhmodule_manhua";
