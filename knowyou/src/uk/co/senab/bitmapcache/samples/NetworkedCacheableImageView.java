@@ -148,8 +148,12 @@ public class NetworkedCacheableImageView extends CacheableImageView {
 					System.out.println(data.getSocketToHttp().getProperties().get(0).getField()
 							+ data.getSocketToHttp().getProperties().get(0).getNewValue());
 					System.out.println(e.toString());
+					
 				}
-				data.setPage_img_url(KyUtil.replaceImgSuffix(data.getPage_img_url()));
+				if(null != data){
+					data.setPage_img_url(KyUtil.replaceImgSuffix(data.getPage_img_url()));
+				}
+
 				Log.e("ImageUrlAsyncTask", e.toString());
 			}
 

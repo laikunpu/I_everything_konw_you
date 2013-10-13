@@ -18,4 +18,8 @@
     </style>
 
 
+    
+    <style name="ExampleTheme" parent="Theme.Sherlock.Light.DarkActionBar">
+    </style>
+    
 </resources>

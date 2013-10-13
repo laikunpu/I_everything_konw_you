@@ -38,4 +38,8 @@ public class TNUrl {
 	public final static String SEEMH_COMIC = "http://www.seemh.com";
 	public final static String ACTION_SEEMH_MODULE = "http://" + TNUrl.IP + ":" + TNUrl.PORT
 			+ "/tn/CommonAction/getSeemhmodule_manhua";
+	public final static String ACTION_SEEMH_DETAIL = "http://" + TNUrl.IP + ":" + TNUrl.PORT
+			+ "/tn/CommonAction/getDetail";
+	public final static String ACTION_SEEMH_DETAI_NEXT = "http://" + TNUrl.IP + ":" + TNUrl.PORT
+			+ "/tn/CommonAction/getDetail_next";
 }

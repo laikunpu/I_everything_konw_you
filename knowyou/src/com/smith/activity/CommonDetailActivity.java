@@ -1,13 +1,13 @@
-package com.smith.activity.abandon;
+package com.smith.activity;
 
 import uk.co.senab.bitmapcache.samples.NetworkedCacheableImageView;
 
-import com.smith.activity.KyApplication;
 import com.smith.activity.R;
 import com.smith.activity.R.id;
 import com.smith.activity.R.layout;
 import com.smith.activity.R.string;
-import com.smith.adapter.abandon.DetailContentsAdapter;
+import com.smith.activity.abandon.BaseActivity;
+import com.smith.adapter.DetailContentsAdapter;
 import com.smith.entity.Bean_common_Req;
 import com.smith.entity.Bean_common_detail;
 import com.smith.entity.Bean_common_page_Res;

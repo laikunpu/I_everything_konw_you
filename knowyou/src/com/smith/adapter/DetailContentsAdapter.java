@@ -1,4 +1,4 @@
-package com.smith.adapter.abandon;
+package com.smith.adapter;
 
 import java.util.List;
 

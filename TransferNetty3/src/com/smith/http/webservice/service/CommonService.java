@@ -529,23 +529,24 @@ public class CommonService {
 			String detail_url; // 详情url
 			String download_url; // 下载url
 			String size; // 大小
-			
-			Elements lis=doc.select("#contList").first().select("li");
+
+			Elements lis = doc.select("#contList").first().select("li");
 			for (int i = 0; i < lis.size(); i++) {
 
-				Element li=lis.get(i);
-				name=li.select("a.bcover").attr("title");
-				type=0;
-				detail_action="";
-				summary="";
-				cover_url=TNUrl.SEEMH_COMIC+li.select("a.bcover").select("img").first().attr("data-src");
-				detail_url=TNUrl.SEEMH_COMIC+li.select("a.bcover").attr("href");
-				download_url="";
-				size="";
-				Bean_common common=new Bean_common(name, type, detail_action, summary, cover_url, detail_url, download_url, size);
+				Element li = lis.get(i);
+				name = li.select("a.bcover").attr("title");
+				type = 0;
+				detail_action =TNUrl.ACTION_SEEMH_DETAIL;
+				summary = "";
+				cover_url = TNUrl.SEEMH_COMIC + li.select("a.bcover").select("img").first().attr("data-src");
+				detail_url = TNUrl.SEEMH_COMIC + li.select("a.bcover").attr("href");
+				download_url = "";
+				size = "";
+				Bean_common common = new Bean_common(name, type, detail_action, summary, cover_url, detail_url,
+						download_url, size);
 				commons.add(common);
 			}
-			
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -553,8 +554,115 @@ public class CommonService {
 
 		return commons;
 	}
-	
+
+	public Bean_common_detail getDetail(String url) {
+
+		Bean_common_detail detail = null;
+		try {
+			Document doc = null;
+			doc = TNUtil.loadUrl(url, null, TN_Constant.HTML_LEVEL_TWO);
+
+			int type = 0;
+			String cover_url;
+			String status;
+			String name;
+			String author;
+			String modify;
+			String action;
+			String collection;
+			String summary;
+			String related;
+			String comment;
+			List<Bean_common_detail_content> contents = null;
+
+			Element bookInfo = doc.select("div.book-cont.cf").first();
+
+			cover_url =  doc.select("p.hcover").select("img").attr("src");
+			status = bookInfo.select("li.status").first().select("span.red").first().text();
+			name = bookInfo.select("div.book-title").first().child(0).text();
+			author = "";
+			modify = "";
+			action = TNUrl.ACTION_SEEMH_DETAI_NEXT;
+			collection = "";
+			summary = "";
+			related = "";
+			comment = "";
+			contents = new ArrayList<Bean_common_detail_content>();
+
+			Elements chapters = doc.select("div.chapter.cf.mt16").first().select("div.chapter-list.cf.mt10");
+			for (int i = 0; i < chapters.size(); i++) {
+				Elements li = chapters.get(i).select("li");
+				for (int j = 0; j < li.size(); j++) {
+					String contet_name = li.get(j).select("a").first().attr("title");
+					String contet_url = TNUrl.SEEMH_COMIC + li.get(j).select("a").first().attr("href");
+					Bean_common_detail_content detail_content = new Bean_common_detail_content(contet_name, contet_url,
+							action);
+					contents.add(detail_content);
+				}
+			}
+
+			Bean_common_detail_online online = new Bean_common_detail_online("在线观看", 1, null);
+			detail = new Bean_common_detail(type, cover_url, status, name, author, modify, action, collection, summary,
+					related, comment, online, null, contents);
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return detail;
+	}
+	public List<Bean_common_page> getPage(String url) {
+
+		List<Bean_common_page> common_pages = null;
+		try {
+			Document doc = null;
+			doc = TNUtil.loadUrl(url, new Selenium_info(true, "mangaFile"), TN_Constant.HTML_LEVEL_THREE);
+			int maximum = doc.select("#pageSelect").select("option").size();
+			common_pages = new ArrayList<Bean_common_page>();
+
+			String page_img_url = doc.select("#mangaFile").first().attr("src");
+
+			String pre = page_img_url.substring(0, page_img_url.lastIndexOf("."));
+			String after = page_img_url.substring(page_img_url.lastIndexOf("."));
+
+			for (int i = 1; i < maximum + 1; i++) {
+
+				String name = "";
+				String page_url = url + "?p=" + i;
+				String action = "";
+
+				pre = pre.substring(0, (pre.length() - 6));
+
+				String j=(i-1)+"";
+				while(j.length()<3){
+					j="0"+j;
+				}
+				String k=i+"";
+				while(k.length()<3){
+					k="0"+k;
+				}
+				pre=pre+j+k;
 
 
+				page_img_url = pre + after;
+				// page_img_url.replace("_", "%2");
+				System.out.println("page_img_url="+page_img_url);
+				
+				Bean_socket_requestProperty property = new Bean_socket_requestProperty("Referer", page_url);
+				List<Bean_socket_requestProperty> properties = new ArrayList<Bean_socket_requestProperty>();
+				properties.add(property);
+				Bean_common_socketToHttp socketToHttp = new Bean_common_socketToHttp(true, properties);
+				Bean_common_page common_page = new Bean_common_page(page_url, maximum, name, action, socketToHttp,
+						page_img_url);
+				common_pages.add(common_page);
+			}
 
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return common_pages;
+	}
 }

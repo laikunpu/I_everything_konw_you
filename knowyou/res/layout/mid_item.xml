@@ -8,6 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:background="@drawable/img_light"
         android:gravity="center" >
 
         <uk.co.senab.bitmapcache.samples.NetworkedCacheableImageView
@@ -64,7 +65,6 @@
                     android:layout_height="wrap_content"
                     android:text="XX年XX月XX日" />
             </LinearLayout>
-
         </LinearLayout>
     </LinearLayout>
 

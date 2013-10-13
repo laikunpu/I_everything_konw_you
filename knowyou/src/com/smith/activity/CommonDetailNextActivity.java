@@ -1,4 +1,4 @@
-package com.smith.activity.abandon;
+package com.smith.activity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,12 +12,11 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.OnLastItemVisibleLis
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshExpandableListView;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.smith.activity.KyApplication;
 import com.smith.activity.R;
 import com.smith.activity.R.anim;
 import com.smith.activity.R.id;
 import com.smith.activity.R.layout;
-import com.smith.adapter.abandon.CommonDetailNextAdapter;
+import com.smith.adapter.CommonDetailNextAdapter;
 import com.smith.entity.Bean_common_detail_content;
 import com.smith.entity.Bean_common_page;
 import com.smith.entity.Bean_common_page_Res;

@@ -1,5 +1,6 @@
 package com.smith.activity.abandon;
 
+import com.smith.activity.CommonDetailActivity;
 import com.smith.activity.KyApplication;
 import com.smith.activity.R;
 import com.smith.activity.R.id;

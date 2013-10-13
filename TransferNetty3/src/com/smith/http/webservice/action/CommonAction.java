@@ -149,4 +149,29 @@ public class CommonAction {
 	
 	
 	
+	
+	public Bean_Result getDetail(String json) {
+
+		Bean_common_Req req = gson.fromJson(json, Bean_common_Req.class);
+		if (null == req)
+			return null;
+		Bean_Result<Bean_common_detail> result = new Bean_Result<Bean_common_detail>(TN_Constant.TYPE_JSON, null);
+		Bean_common_detail detail = service.getDetail(req.getUrl().getUrl());
+		result.setT(detail);
+		return result;
+	}
+	public Bean_Result getDetail_next(String json) {
+
+		Bean_common_Req req = gson.fromJson(json, Bean_common_Req.class);
+		if (null == req)
+			return null;
+		Bean_Result<Bean_common_page_Res> result = new Bean_Result<Bean_common_page_Res>(TN_Constant.TYPE_JSON, null);
+		Bean_common_page_Res common_page_Res = new Bean_common_page_Res(new Bean_Response_Heard(Msg_Type.CARTOON_CODE),
+				null);
+		List<Bean_common_page> bean_common_pages = service.getPage(req.getUrl().getUrl());
+		common_page_Res.setBean_common_pages(bean_common_pages);
+		result.setT(common_page_Res);
+		return result;
+	}
+	
 }
