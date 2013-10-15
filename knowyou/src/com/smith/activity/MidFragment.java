@@ -73,7 +73,7 @@ public class MidFragment extends Fragment implements MidDataCallback {
 	private void initData() {
 		// TODO Auto-generated method stub
 		application = KyApplication.getApplication();
-		if (null != application.modules && application.modules.size() > 0) {
+		if (null != application.modules && application.modules.size() > 0&&null!=application.modules.get(0).getCommons()) {
 			commons = new ArrayList<Bean_common>();
 			commons.addAll(application.modules.get(0).getCommons());
 			midAdapter = new MidAdapter(getActivity(), commons);
@@ -85,10 +85,12 @@ public class MidFragment extends Fragment implements MidDataCallback {
 	@Override
 	public void dataChanged(int postion) {
 		// TODO Auto-generated method stub
+		if (null != application.modules && application.modules.size() > 0&&null!=application.modules.get(postion).getCommons()) {
 		commons.clear();
 		System.out.println(application.modules.get(postion).getCommons().size());
 		commons.addAll(application.modules.get(postion).getCommons());
 		midAdapter.notifyDataSetChanged();
+		}
 	}
 
 	OnItemClickListener itemClickListener = new OnItemClickListener() {

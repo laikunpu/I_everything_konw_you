@@ -64,6 +64,7 @@ public class SplashActivity extends BaseActivity {
 				if (null != modules) {
 					application.modules=modules;
 					dao.delete_table(DBHelper.TABLE_BEAN_MODULE);
+					dao.delete_table(DBHelper.TABLE_BEAN_COMMON);
 					for (int i = 0; i < modules.size(); i++) {
 						dao.add_module(modules.get(i));
 					}
@@ -88,8 +89,9 @@ public class SplashActivity extends BaseActivity {
 		@Override
 		public void onFinish() {
 			// TODO Auto-generated method stub
-			if (null == application.modules) {
+			if (null == application.modules||application.modules.size()==0) {
 				application.modules=dao.get_modules();
+				
 			}
 			Intent intent = new Intent(SplashActivity.this, MainActivity.class);
 			startActivity(intent);

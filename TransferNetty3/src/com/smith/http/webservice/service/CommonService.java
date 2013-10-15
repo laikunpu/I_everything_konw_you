@@ -538,7 +538,7 @@ public class CommonService {
 				type = 0;
 				detail_action =TNUrl.ACTION_SEEMH_DETAIL;
 				summary = "";
-				cover_url = TNUrl.SEEMH_COMIC + li.select("a.bcover").select("img").first().attr("data-src");
+				cover_url =li.select("a.bcover").select("img").first().attr("data-src");
 				detail_url = TNUrl.SEEMH_COMIC + li.select("a.bcover").attr("href");
 				download_url = "";
 				size = "";
@@ -647,6 +647,8 @@ public class CommonService {
 
 				page_img_url = pre + after;
 				// page_img_url.replace("_", "%2");
+				
+				
 				System.out.println("page_img_url="+page_img_url);
 				
 				Bean_socket_requestProperty property = new Bean_socket_requestProperty("Referer", page_url);

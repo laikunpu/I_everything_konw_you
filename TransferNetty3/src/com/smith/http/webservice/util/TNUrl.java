@@ -2,7 +2,7 @@ package com.smith.http.webservice.util;
 
 public class TNUrl {
 	// public final static String IP = "192.168.0.134";
-	public final static String IP = "192.168.137.189";
+	public final static String IP = "192.168.137.206";
 	public final static int PORT = 8080;
 
 	public final static String ONLINE_COMIC = "http://www.imanhua.com";

@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.nio.charset.Charset;
 import java.util.concurrent.TimeUnit;
 
 import org.jsoup.Jsoup;
@@ -32,15 +33,15 @@ public class TNUtil {
 //	public static final Gson gson = new Gson();
 
 	public static IDao dao;;
+	static String charset = "utf-8";
 
 	public static String fileToContent(String path) {
-		String encoded = "UTF-8";
 		InputStreamReader reader = null;
 		try {
 			File file = new File(path);
 			if (!file.exists())
 				return null;
-			reader = new InputStreamReader(new FileInputStream(path), encoded);
+			reader = new InputStreamReader(new FileInputStream(path), Charset.forName(charset));
 			BufferedReader fileReader = new BufferedReader(reader);
 			String s;
 			StringBuffer buffer = new StringBuffer();
@@ -130,19 +131,19 @@ public class TNUtil {
 		case 1:
 			HtmlLevelOne htmlLevelOne = (HtmlLevelOne) dao.findT(url, HtmlLevelOne.class);
 			if (null != htmlLevelOne) {
-				htnl_cache = new String(htmlLevelOne.getContent(), "utf-8");
+				htnl_cache = new String(htmlLevelOne.getContent(), charset);
 			}
 			break;
 		case 2:
 			HtmlLevelTwo htmlLevelTwo = (HtmlLevelTwo) dao.findT(url, HtmlLevelTwo.class);
 			if (null != htmlLevelTwo) {
-				htnl_cache = new String(htmlLevelTwo.getContent(), "utf-8");
+				htnl_cache = new String(htmlLevelTwo.getContent(), charset);
 			}
 			break;
 		case 3:
 			HtmlLevelThree htmlLevelThree = (HtmlLevelThree) dao.findT(url, HtmlLevelThree.class);
 			if (null != htmlLevelThree) {
-				htnl_cache = new String(htmlLevelThree.getContent(), "utf-8");
+				htnl_cache = new String(htmlLevelThree.getContent(), charset);
 			}
 			break;
 		}
@@ -177,17 +178,18 @@ public class TNUtil {
 						switch (level) {
 						case 1:
 							if (dao.findT(url, HtmlLevelOne.class) == null) {
-								dao.addT(new HtmlLevelOne(url, 1, doc.toString().trim().getBytes("utf-8")));
+								System.out.println(doc.toString().trim());
+								dao.addT(new HtmlLevelOne(url, 1, doc.toString().trim().getBytes(charset)));
 							}
 							break;
 						case 2:
 							if (dao.findT(url, HtmlLevelTwo.class) == null) {
-								dao.addT(new HtmlLevelTwo(url, 1, doc.toString().trim().getBytes("utf-8")));
+								dao.addT(new HtmlLevelTwo(url, 1, doc.toString().trim().getBytes(charset)));
 							}
 							break;
 						case 3:
 							if (dao.findT(url, HtmlLevelThree.class) == null) {
-								dao.addT(new HtmlLevelThree(url, 1, doc.toString().trim().getBytes("utf-8")));
+								dao.addT(new HtmlLevelThree(url, 1, doc.toString().trim().getBytes(charset)));
 							}
 							break;
 						}

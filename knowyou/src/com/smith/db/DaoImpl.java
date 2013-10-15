@@ -3,6 +3,7 @@ package com.smith.db;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.smith.entity.Bean_common;
 import com.smith.entity.Bean_module;
 
 import android.content.Context;
@@ -73,12 +74,42 @@ public class DaoImpl implements IDao {
 					new String[] { module.getModule_name() + "", module.getModule_num() + "", module.getAdUrl(),
 							module.isMoreData() + "", module.getDataNum() + "", module.getDataNumMax() + "",
 							module.getMoreData_action() });
+			for (int i = 0; i < module.getCommons().size(); i++) {
+				add_common(module.getCommons().get(i), module.getModule_name());
+			}
 
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			close();
+		}
+		return false;
+	}
+	
+	public boolean add_common(Bean_common common,String module_name) {
+		// TODO Auto-generated method stub
+		if (exist(common.getName(), DBHelper.TABLE_BEAN_COMMON, DBHelper.COMMON_NAME)) {
+			return false;
+		}
+		System.out.println("add_common  module_name="+module_name);
+		try {
+			StringBuffer sql = new StringBuffer("INSERT INTO " + DBHelper.TABLE_BEAN_COMMON + " ("
+					+ DBHelper.MODULE_NAME + "," + DBHelper.COMMON_NAME + "," + DBHelper.COMMON_TYPE + ","
+					+ DBHelper.COMMON_DETAIL_ACTION + "," + DBHelper.COMMON_SUMMARY + "," + DBHelper.COMMON_COVER_URL + ","
+					+ DBHelper.COMMON_DETAIL_URL+ "," +DBHelper.COMMON_DOWNLOAD_URL+ "," +DBHelper.COMMON_SIZE + ")");
+
+			sql.append(" values(?,?,?,?,?,?,?,?,?)");
+			mdb.execSQL(
+					sql.toString(),
+					new String[] { module_name , common.getName(), common.getType()+"",
+						common.getDetail_action() , common.getSummary() , common.getCover_url() ,
+						common.getDetail_url(),common.getDownload_url(),common.getSize() });
+
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
 		}
 		return false;
 	}
@@ -123,6 +154,9 @@ public class DaoImpl implements IDao {
 				module.setDataNumMax(Integer.parseInt(cursor.getString(cursor.getColumnIndex(DBHelper.DATANUMMAX))));
 				module.setMoreData_action(cursor.getString(cursor.getColumnIndex(DBHelper.MOREDATA_ACTION)));
 
+				
+				module.setCommons(get_commons(module.getModule_name()));
+				
 				modulesuis.add(module);
 			}
 
@@ -132,6 +166,39 @@ public class DaoImpl implements IDao {
 			close();
 		}
 		return modulesuis;
+	}
+	
+	public List<Bean_common> get_commons(String module_name) {
+		// TODO Auto-generated method stub
+		List<Bean_common> commons = null;
+		Cursor mCursor = null;
+		try {
+			String sql = "Select * From " + DBHelper.TABLE_BEAN_COMMON+" where "+DBHelper.MODULE_NAME+" = ?";
+		    mCursor  = mdb.rawQuery(sql, new String[] {module_name });
+			mCursor.moveToFirst();
+
+			commons = new ArrayList<Bean_common>();
+
+			for (; !mCursor.isAfterLast(); mCursor.moveToNext()) {
+				Bean_common common = new Bean_common();
+
+				common.setName(mCursor.getString(mCursor.getColumnIndex(DBHelper.COMMON_NAME)));
+				common.setType(Integer.parseInt(mCursor.getString(mCursor.getColumnIndex(DBHelper.COMMON_TYPE))));
+				common.setDetail_action(mCursor.getString(mCursor.getColumnIndex(DBHelper.COMMON_DETAIL_ACTION)));
+				common.setSummary(mCursor.getString(mCursor.getColumnIndex(DBHelper.COMMON_SUMMARY)));
+				common.setCover_url(mCursor.getString(mCursor.getColumnIndex(DBHelper.COMMON_COVER_URL)));
+				common.setDetail_url(mCursor.getString(mCursor.getColumnIndex(DBHelper.COMMON_DETAIL_URL)));
+				common.setDownload_url(mCursor.getString(mCursor.getColumnIndex(DBHelper.COMMON_DOWNLOAD_URL)));
+				common.setSize(mCursor.getString(mCursor.getColumnIndex(DBHelper.COMMON_SIZE)));
+				commons.add(common);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			mCursor.close();
+		}
+		return commons;
 	}
 
 

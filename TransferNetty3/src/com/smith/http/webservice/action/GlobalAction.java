@@ -18,8 +18,8 @@ public class GlobalAction {
 
 	public Bean_Result getModule(String s) {
 		Bean_Response_Heard type = new Bean_Response_Heard(Msg_Type.UI_CODE);
-		Bean_module module1 = new Bean_module("全部", 0, null, service.getMedule("http://www.seemh.com/list/"), true, 1, 249, "");
-		Bean_module module2 = new Bean_module("热血", 0, null, service.getMedule("http://www.seemh.com/list/rexue/"), true, 1, 249, "");
+		Bean_module module1 = new Bean_module("全部", 0, null, service.getMedule("http://www.seemh.com/list/view.html"), true, 1, 249, "");
+		Bean_module module2 = new Bean_module("热血", 0, null, service.getMedule("http://www.seemh.com/list/rexue/view.html"), true, 1, 249, "");
 		List<Bean_module> modules = new ArrayList<Bean_module>();
 		modules.add(module1);
 		modules.add(module2);
