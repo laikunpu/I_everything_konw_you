@@ -27,7 +27,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 	public static final String MODULE_NAME = "module_name";
 	public static final String MODULE_NUM = "module_num";
-	public static final String ADURL = "adUrl";
+	public static final String URL = "url";
 	public static final String ISMOREDATA = "isMoreData";
 	public static final String DATANUM = "dataNum";
 	public static final String DATANUMMAX = "dataNumMax";
@@ -40,26 +40,26 @@ public class DBHelper extends SQLiteOpenHelper {
 	public static final String COMMON_DETAIL_ACTION = "detail_action";
 	public static final String COMMON_SUMMARY = "summary"; // 简介
 	public static final String COMMON_COVER_URL = "cover_url"; // 封面url
-	public static final String COMMON_DETAIL_URL = "detail_url"; // 详情url
-	public static final String COMMON_DOWNLOAD_URL = "download_url"; // 下载url
-	public static final String COMMON_SIZE = "size"; // 大小
+	public static final String COMMON_UPDATE_TITLE = "update_title";
+	public static final String COMMON_UPDATE_TIME = "update_time";
+	public static final String COMMON_DETAIL_URL = "detail_url";
 
 	/**
 	 * 创建模块表
 	 */
 	private static String SQL_CREATE_MODULE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_BEAN_MODULE + " (" + _ID
 			+ " INTEGER PRIMARY KEY AUTOINCREMENT," + MODULE_NAME + " VARCHAR(200)," + MODULE_NUM + " VARCHAR(200),"
-			+ ADURL + " VARCHAR(200)," + ISMOREDATA + " VARCHAR(200)," + DATANUM + " VARCHAR(200)," + DATANUMMAX
+			+ URL + " VARCHAR(200)," + ISMOREDATA + " VARCHAR(200)," + DATANUM + " VARCHAR(200)," + DATANUMMAX
 			+ " VARCHAR(200)," + MOREDATA_ACTION + " VARCHAR(200))";
 
 	/**
 	 * 创建模块子数据表
 	 */
 	private static String SQL_CREATE_COMMON_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_BEAN_COMMON + " (" + _ID
-			+ " INTEGER PRIMARY KEY AUTOINCREMENT," + MODULE_NAME + " VARCHAR(200)," +COMMON_NAME + " VARCHAR(200)," + COMMON_TYPE + " VARCHAR(200),"
-			+ COMMON_DETAIL_ACTION + " VARCHAR(200)," + COMMON_SUMMARY + " VARCHAR(200)," + COMMON_COVER_URL
-			+ " VARCHAR(200)," + COMMON_DETAIL_URL + " VARCHAR(200)," + COMMON_DOWNLOAD_URL + " VARCHAR(200),"
-			+ COMMON_SIZE + " VARCHAR(200))";
+			+ " INTEGER PRIMARY KEY AUTOINCREMENT," + MODULE_NAME + " VARCHAR(200)," + COMMON_NAME + " VARCHAR(200),"
+			+ COMMON_TYPE + " VARCHAR(200)," + COMMON_DETAIL_ACTION + " VARCHAR(200)," + COMMON_SUMMARY
+			+ " VARCHAR(200)," + COMMON_COVER_URL + " VARCHAR(200)," + COMMON_UPDATE_TITLE + " VARCHAR(200),"
+			+ COMMON_UPDATE_TIME + " VARCHAR(200)," + COMMON_DETAIL_URL + " VARCHAR(200))";
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {

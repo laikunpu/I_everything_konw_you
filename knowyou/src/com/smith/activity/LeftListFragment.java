@@ -1,19 +1,12 @@
 package com.smith.activity;
 
 import com.smith.adapter.LeftAdapter;
-import com.smith.util.ToastUtils;
-
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 public class LeftListFragment extends ListFragment {
 
@@ -26,7 +19,7 @@ public class LeftListFragment extends ListFragment {
 	}
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.list, null);
+		return inflater.inflate(R.layout.left, null);
 	}
 
 	public void onActivityCreated(Bundle savedInstanceState) {

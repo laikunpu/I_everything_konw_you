@@ -2,11 +2,8 @@ package com.smith.activity;
 
 import uk.co.senab.bitmapcache.samples.NetworkedCacheableImageView;
 
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.smith.activity.R;
-import com.smith.activity.R.id;
-import com.smith.activity.R.layout;
-import com.smith.activity.R.string;
-import com.smith.activity.abandon.BaseActivity;
 import com.smith.adapter.DetailContentsAdapter;
 import com.smith.entity.Bean_common_Req;
 import com.smith.entity.Bean_common_detail;
@@ -22,7 +19,10 @@ import com.smith.util.ServiceApi;
 import com.smith.util.ToastUtils;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.TextPaint;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -45,8 +45,6 @@ public class CommonDetailActivity extends BaseActivity {
 	private TextView txt_modifiedTime;
 	private TextView txt_summary;
 	private CheckBox cbx_summary;
-	private TextView txt_related;
-	private TextView txt_comment;
 
 	private Button btn_online;
 	private Button btn_download;
@@ -80,12 +78,12 @@ public class CommonDetailActivity extends BaseActivity {
 
 		img_cover = (NetworkedCacheableImageView) findViewById(R.id.img_cover);
 		txt_bookName = (TextView) findViewById(R.id.txt_bookName);
+		TextPaint tp = txt_bookName.getPaint();
+		tp.setFakeBoldText(true);
 		txt_bookAuthor = (TextView) findViewById(R.id.txt_bookAuthor);
 		txt_modifiedTime = (TextView) findViewById(R.id.txt_modifiedTime);
 		txt_summary = (TextView) findViewById(R.id.txt_summary);
 		cbx_summary = (CheckBox) findViewById(R.id.cbx_summary);
-		txt_related = (TextView) findViewById(R.id.txt_related);
-		txt_comment = (TextView) findViewById(R.id.txt_comment);
 		btn_online = (Button) findViewById(R.id.btn_online);
 		btn_download = (Button) findViewById(R.id.btn_download);
 
@@ -95,6 +93,7 @@ public class CommonDetailActivity extends BaseActivity {
 
 	private void initData() {
 		// TODO Auto-generated method stub
+
 		data = KyApplication.getApplication().common_detail;
 
 		img_cover.loadImage(data.getCover_url(), true, null, null);
@@ -146,6 +145,7 @@ public class CommonDetailActivity extends BaseActivity {
 
 		txt_summary.setOnClickListener(clickListener);
 		cbx_summary.setOnCheckedChangeListener(checkedChangeListener);
+		btn_back.setOnClickListener(clickListener);
 	}
 
 	OnClickListener clickListener = new OnClickListener() {
@@ -169,6 +169,9 @@ public class CommonDetailActivity extends BaseActivity {
 				break;
 			case R.id.txt_summary:
 				cbx_summary.setChecked(!cbx_summary.isChecked());
+				break;
+			case R.id.btn_back:
+				finish();
 				break;
 			default:
 				break;
@@ -204,7 +207,7 @@ public class CommonDetailActivity extends BaseActivity {
 		@Override
 		public void onPrepare() {
 			// TODO Auto-generated method stub
-			times = 3;
+			times = 1;
 			preStatus = new ProgressStatus();
 			KyUtil.addLoadingWin(CommonDetailActivity.this, view_parent, preStatus);
 		}
@@ -223,8 +226,7 @@ public class CommonDetailActivity extends BaseActivity {
 			}
 			try {
 
-				Bean_common_Req request = new Bean_common_Req(
-						new Bean_Request_Head(0), null);
+				Bean_common_Req request = new Bean_common_Req(new Bean_Request_Head(0), null);
 				Bean_common_url common_request = new Bean_common_url(data.getContents().get(currentData)
 						.getContet_url());
 				request.setUrl(common_request);
@@ -274,12 +276,13 @@ public class CommonDetailActivity extends BaseActivity {
 					@Override
 					public void run() {
 						// TODO Auto-generated method stub
-						if (null != common_page_Res) {
+						if (null != common_page_Res && null != common_page_Res.getBean_common_pages()
+								&& common_page_Res.getBean_common_pages().size() > 0) {
 							KyApplication.getApplication().common_page_Res = common_page_Res;
 							Intent intent = new Intent(CommonDetailActivity.this, CommonDetailNextActivity.class);
 							startActivity(intent);
 						} else {
-							ToastUtils.showToast(CommonDetailActivity.this, R.string.request_null_toast);
+							ToastUtils.showToast(CommonDetailActivity.this, "服务器已经在收集该内容,请稍后尝试!");
 						}
 					}
 				}, true);

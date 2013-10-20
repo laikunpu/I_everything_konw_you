@@ -3,13 +3,20 @@ package com.smith.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.OnLastItemVisibleListener;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.smith.adapter.LeftAdapter;
 import com.smith.adapter.MidAdapter;
 import com.smith.entity.Bean_common;
 import com.smith.entity.Bean_common_Req;
+import com.smith.entity.Bean_common_Res;
 import com.smith.entity.Bean_common_detail;
+import com.smith.entity.Bean_common_moreData;
+import com.smith.entity.Bean_common_moreData_Req;
 import com.smith.entity.Bean_common_url;
+import com.smith.entity.Bean_module;
 import com.smith.entity.heard.Bean_Request_Head;
 import com.smith.inter.DataCallback;
 import com.smith.util.AsyncDataLoader;
@@ -28,11 +35,14 @@ import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -42,10 +52,18 @@ public class MidFragment extends Fragment implements MidDataCallback {
 	private PullToRefreshListView pullToRefreshListView;
 	private MidAdapter midAdapter;
 	private List<Bean_common> commons;
+
 	private Bean_common_detail detail;
-	private LinearLayout view_parent;
+	private RelativeLayout view_parent;
 	private int pos;
-	
+
+	private Bean_module module;
+	private Bean_common_Res common_Res;
+	private RelativeLayout rly_FootRefreshTip;
+	private ImageView img_update;
+	private boolean isRefreshing = false;
+	private Animation rotateAnimation = null;
+
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.midlist, null);
 
@@ -57,40 +75,176 @@ public class MidFragment extends Fragment implements MidDataCallback {
 
 	private void initView(View v) {
 		// TODO Auto-generated method stub
+
 		pullToRefreshListView = (PullToRefreshListView) v.findViewById(R.id.pull_refresh_list);
-		view_parent = (LinearLayout) v.findViewById(R.id.view_parent);
+		view_parent = (RelativeLayout) v.findViewById(R.id.view_parent);
+
+		rly_FootRefreshTip = (RelativeLayout) v.findViewById(R.id.rly_FootRefreshTip);
+		img_update = (ImageView) v.findViewById(R.id.img_update);
+	}
+
+	private void initData() {
+		// TODO Auto-generated method stub
+		application = KyApplication.getApplication();
+		if (null != application.modules && application.modules.size() > 0
+				&& null != application.modules.get(0).getCommons()) {
+			module = application.modules.get(0);
+			commons = new ArrayList<Bean_common>();
+			commons.addAll(application.modules.get(0).getCommons());
+			midAdapter = new MidAdapter(getActivity(), commons);
+			pullToRefreshListView.setAdapter(midAdapter);
+		}
+		rotateAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.rotate_anim);
 	}
 
 	private void initOnClickListener() {
 		// TODO Auto-generated method stub
 		pullToRefreshListView.setOnItemClickListener(itemClickListener);
+
+		pullToRefreshListView.setOnRefreshListener(new OnRefreshListener<ListView>() {
+			@Override
+			public void onRefresh(PullToRefreshBase<ListView> refreshView) {
+				// TODO Auto-generated method stub
+				pullToRefreshListView.postDelayed(new Runnable() {
+
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						refreshData(true);
+					}
+				}, 1000);
+
+			};
+
+		});
+
+		// Add an end-of-list listener
+		pullToRefreshListView.setOnLastItemVisibleListener(new OnLastItemVisibleListener() {
+
+			@Override
+			public void onLastItemVisible() {
+
+				refreshData(false);
+			}
+		});
+	}
+
+	private void refreshData(final boolean isTopRefresh) {
+		if (!KyUtil.connectivityIsAvailable(getActivity())) {
+			if (isTopRefresh) {
+				pullToRefreshListView.onRefreshComplete();
+				ToastUtils.showToast(getActivity(), "无法连接网络!");
+			}
+			return;
+		}
+
+		if (null != module && module.isMoreData() && !isRefreshing) {
+			isRefreshing = true;
+
+			if (module.getDataNum() < module.getDataNumMax()) {
+				if (!isTopRefresh) {
+					img_update.startAnimation(rotateAnimation);
+					rly_FootRefreshTip.setVisibility(View.VISIBLE);
+				}
+
+				new Thread(new Runnable() {
+
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						try {
+							Bean_common_moreData_Req request = new Bean_common_moreData_Req(new Bean_Request_Head(0),
+									null);
+							Bean_common_moreData common_moreData = new Bean_common_moreData(module.getUrl(), module
+									.getDataNum());
+							request.setMoreData(common_moreData);
+							String requestJson = KyApplication.getApplication().gson.toJson(request);
+							common_Res=null;
+							common_Res = KyApplication.getApplication().gson.fromJson(
+									KyHttpClient.post(module.getMoreData_action(), requestJson), Bean_common_Res.class);
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} finally {
+							KyApplication.getApplication().handler.postDelayed(new Runnable() {
+
+								@Override
+								public void run() {
+									// TODO Auto-generated method stub
+
+									if (null != common_Res && common_Res.getBean_commons().size() > 0) {
+										if (isTopRefresh) {
+											commons.addAll(0, common_Res.getBean_commons());
+										} else {
+											commons.addAll(common_Res.getBean_commons());
+										}
+
+										midAdapter.notifyDataSetChanged();
+										module.setDataNum(module.getDataNum() + 1);
+										ToastUtils.showToast(getActivity(), "加载成功!");
+									} else {
+										ToastUtils.showToast(getActivity(), "加载失败!");
+									}
+									
+									if (isTopRefresh) {
+										pullToRefreshListView.onRefreshComplete();
+									} else {
+										rly_FootRefreshTip.setVisibility(View.GONE);
+										img_update.clearAnimation();
+									}
+									
+									isRefreshing = false;
+
+								}
+							}, 1000);
+						}
+					}
+				}).start();
+			} else {
+				ToastUtils.showToast(getActivity(), "已无更多数据!");
+				isRefreshing = false;
+				if (isTopRefresh) {
+					pullToRefreshListView.onRefreshComplete();
+				}
+
+			}
+		} else {
+			if (isTopRefresh) {
+				pullToRefreshListView.onRefreshComplete();
+			}
+		}
+
 	}
 
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 	}
 
-	private void initData() {
-		// TODO Auto-generated method stub
-		application = KyApplication.getApplication();
-		if (null != application.modules && application.modules.size() > 0&&null!=application.modules.get(0).getCommons()) {
-			commons = new ArrayList<Bean_common>();
-			commons.addAll(application.modules.get(0).getCommons());
-			midAdapter = new MidAdapter(getActivity(), commons);
-			pullToRefreshListView.setAdapter(midAdapter);
-		}
-
-	}
-
 	@Override
 	public void dataChanged(int postion) {
 		// TODO Auto-generated method stub
-		if (null != application.modules && application.modules.size() > 0&&null!=application.modules.get(postion).getCommons()) {
-		commons.clear();
-		System.out.println(application.modules.get(postion).getCommons().size());
-		commons.addAll(application.modules.get(postion).getCommons());
-		midAdapter.notifyDataSetChanged();
+		if (null != application.modules && application.modules.size() > 0
+				&& null != application.modules.get(postion).getCommons()) {
+			ListView mlist = pullToRefreshListView.getRefreshableView();
+			if (!(mlist).isStackFromBottom()) {
+				mlist.setStackFromBottom(true);
+			}
+			mlist.setStackFromBottom(false);
+			module = application.modules.get(postion);
+			commons.clear();
+			commons.addAll(application.modules.get(postion).getCommons());
+			midAdapter.notifyDataSetChanged();
+
 		}
+	}
+
+	@Override
+	public void dataForSearch(List<Bean_common> commons) {
+		// TODO Auto-generated method stub
+		module = null;
+		this.commons.clear();
+		this.commons.addAll(commons);
+		midAdapter.notifyDataSetChanged();
 	}
 
 	OnItemClickListener itemClickListener = new OnItemClickListener() {
@@ -98,7 +252,7 @@ public class MidFragment extends Fragment implements MidDataCallback {
 		@Override
 		public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
 			// TODO Auto-generated method stub
-			pos=position-1;
+			pos = position - 1;
 			new AsyncDataLoader(callback).execute();
 		}
 	};
@@ -113,6 +267,7 @@ public class MidFragment extends Fragment implements MidDataCallback {
 			times = 3;
 			preStatus = new ProgressStatus();
 			KyUtil.addLoadingWin(getActivity(), view_parent, preStatus);
+
 		}
 
 		@Override
@@ -132,8 +287,7 @@ public class MidFragment extends Fragment implements MidDataCallback {
 				request.setUrl(common_request);
 				String requestJson = KyApplication.getApplication().gson.toJson(request);
 				detail = KyApplication.getApplication().gson.fromJson(
-						KyHttpClient.post(commons.get(pos).getDetail_action(), requestJson),
-						Bean_common_detail.class);
+						KyHttpClient.post(commons.get(pos).getDetail_action(), requestJson), Bean_common_detail.class);
 				netStatus = 1;
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -198,4 +352,6 @@ public class MidFragment extends Fragment implements MidDataCallback {
 
 interface MidDataCallback {
 	public void dataChanged(int postion);
+
+	public void dataForSearch(List<Bean_common> commons);
 }

@@ -6,10 +6,9 @@ public class Bean_common {
 	private String detail_action;
 	private String summary; // 简介
 	private String cover_url; // 封面url
-	private String detail_url; // 详情url
-	private String download_url; // 下载url
-	private String size; // 大小
-
+	private String update_title;
+	private String update_time;
+	private String detail_url;
 
 	public String getName() {
 		return name;
@@ -51,6 +50,22 @@ public class Bean_common {
 		this.cover_url = cover_url;
 	}
 
+	public String getUpdate_title() {
+		return update_title;
+	}
+
+	public void setUpdate_title(String update_title) {
+		this.update_title = update_title;
+	}
+
+	public String getUpdate_time() {
+		return update_time;
+	}
+
+	public void setUpdate_time(String update_time) {
+		this.update_time = update_time;
+	}
+
 	public String getDetail_url() {
 		return detail_url;
 	}
@@ -59,33 +74,16 @@ public class Bean_common {
 		this.detail_url = detail_url;
 	}
 
-	public String getDownload_url() {
-		return download_url;
-	}
-
-	public void setDownload_url(String download_url) {
-		this.download_url = download_url;
-	}
-
-	public String getSize() {
-		return size;
-	}
-
-	public void setSize(String size) {
-		this.size = size;
-	}
-
-
 	public Bean_common(String name, int type, String detail_action, String summary, String cover_url,
-			String detail_url, String download_url, String size) {
+			String update_title, String update_time, String detail_url) {
 		this.name = name;
 		this.type = type;
 		this.detail_action = detail_action;
 		this.summary = summary;
 		this.cover_url = cover_url;
+		this.update_title = update_title;
+		this.update_time = update_time;
 		this.detail_url = detail_url;
-		this.download_url = download_url;
-		this.size = size;
 	}
 
 	public Bean_common() {

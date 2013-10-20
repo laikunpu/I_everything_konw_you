@@ -29,496 +29,34 @@ import com.smith.http.webservice.util.TNUtil;
 
 public class CommonService {
 
-	public Bean_module getComic_Recommend(String s) {
-
-		Bean_module second_module = new Bean_module("推荐漫画", 0, null, new ArrayList<Bean_common>(), false, -1, -1, null);
+	public Bean_module getMedule(String url, String module_name, int module_num) {
+		Bean_module module = null;
 		try {
-			Document doc = null;
-			doc = TNUtil.loadUrl(TNUrl.ONLINE_COMIC, null, TN_Constant.HTML_LEVEL_ONE);
-
-			Elements topHits = doc.select(".topHits");
-			Elements manhuas = topHits.get(1).select("a");
-			for (int i = 0; i < manhuas.size(); i++) {
-				try {
-					// System.out.println("漫画名字 = " +
-					// manhuas.get(i).attr("title"));
-					String name = ""; // 动漫名字
-					int type = 0; // 类型 0：漫画 1：动画
-					String summary = ""; // 简介
-					String cover_url = ""; // 封面url
-					String detail_url = ""; // 详情url
-					String download_url = ""; // 下载url
-					String size = ""; // 大小
-
-					String second_url = "";
-
-					name = manhuas.get(i).attr("title");
-
-					// 二级链接
-					second_url = TNUrl.ONLINE_COMIC + manhuas.get(i).attr("href");
-
-					Document doc_second = TNUtil.loadUrl(second_url, null, TN_Constant.HTML_LEVEL_TWO);
-					summary = doc_second.select("div.intro").first().text();
-					if (summary != null)
-						summary = summary.replaceAll(",由爱漫画收集自互联网－爱漫画，让你爱上漫画！", "");
-					cover_url = TNUrl.ONLINE_COMIC
-							+ doc_second.select("div.bookCover").first().select("img").first().attr("src");
-					detail_url = second_url;
-
-					Bean_common comic = new Bean_common(name, type, TNUrl.ACTION_DETAIL, summary, cover_url,
-							detail_url, null, null);
-
-					second_module.getCommons().add(comic);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
+			Document doc = TNUtil.loadUrl(url, null, TN_Constant.HTML_LEVEL_ONE);
+			List<Bean_common> commons = getCommons(url, 1);
+			String max = doc.select("div.result-count").first().select("strong").get(1).text();
+			int dataNumMax = Integer.parseInt(max);
+			boolean isMoreData = false;
+			if (dataNumMax > 1) {
+				isMoreData = true;
 			}
-
+			module = new Bean_module(module_name, module_num, commons, url, isMoreData, 2, dataNumMax,
+					TNUrl.ACTION_SEEMH_MOREDATA);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		return second_module;
+		return module;
 	}
 
-	public Bean_module getComic_Toplist(String s) {
-
-		Bean_module second_module = new Bean_module("漫画排行", 1, null, new ArrayList<Bean_common>(), false, -1, -1, null);
+	public List<Bean_common> getCommons(String url, int num) {
+		List<Bean_common> commons = null;
 		try {
-			Document doc = null;
-			doc = TNUtil.loadUrl(TNUrl.ONLINE_COMIC, null, TN_Constant.HTML_LEVEL_ONE);
-
-			Elements topHits = doc.select(".topHits");
-			Elements manhuas = topHits.get(0).select("a");
-			for (int i = 0; i < manhuas.size(); i++) {
-				try {
-					// System.out.println("漫画名字 = " +
-					// manhuas.get(i).attr("title"));
-					String name = ""; // 动漫名字
-					int type = 0; // 类型 0：漫画 1：动画
-					String summary = ""; // 简介
-					String cover_url = ""; // 封面url
-					String detail_url = ""; // 详情url
-					String download_url = ""; // 下载url
-					String size = ""; // 大小
-
-					String second_url = "";
-
-					name = manhuas.get(i).attr("title");
-
-					// 二级链接
-					second_url = TNUrl.ONLINE_COMIC + manhuas.get(i).attr("href");
-
-					Document doc_second = TNUtil.loadUrl(second_url, null, TN_Constant.HTML_LEVEL_TWO);
-					summary = doc_second.select("div.intro").first().text();
-					if (summary != null)
-						summary = summary.replaceAll(",由爱漫画收集自互联网－爱漫画，让你爱上漫画！", "");
-					cover_url = TNUrl.ONLINE_COMIC
-							+ doc_second.select("div.bookCover").first().select("img").first().attr("src");
-					detail_url = second_url;
-
-					Bean_common comic = new Bean_common(name, type, TNUrl.ACTION_DETAIL, summary, cover_url,
-							detail_url, null, null);
-
-					second_module.getCommons().add(comic);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-			}
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return second_module;
-	}
-
-	public Bean_common_detail getComic_Detail(String url) {
-
-		Bean_common_detail detail = null;
-		try {
-			Document doc = null;
-			doc = TNUtil.loadUrl(url, null, TN_Constant.HTML_LEVEL_TWO);
-
-			int type = 0;
-			String cover_url;
-			String status;
-			String name;
-			String author;
-			String modify;
-			String action;
-			String collection;
-			String summary;
-			String related;
-			String comment;
-			List<Bean_common_detail_content> contents = null;
-
-			Element bookInfo = doc.select(".bookBG1").get(0).child(1);
-
-			cover_url = TNUrl.ONLINE_COMIC + doc.select("div.bookCover").select("img").attr("src");
-			status = bookInfo.child(3).child(0).text();
-			name = bookInfo.child(2).text();
-			author = bookInfo.child(3).childNode(1).toString().split(" ")[0];
-			modify = bookInfo.child(3).childNode(3).toString();
-			action = TNUrl.ACTION_DEATIL_NEXT;
-			collection = "";
-			summary = doc.select("div.intro").first().text();
-			related = "";
-			comment = "";
-			contents = new ArrayList<Bean_common_detail_content>();
-
-			Element element_content = doc.select("#subBookList").first();
-
-			for (int i = 0; i < element_content.children().size(); i++) {
-				String contet_name = element_content.children().get(i).select("a").first().attr("title");
-				String contet_url = TNUrl.ONLINE_COMIC
-						+ element_content.children().get(i).select("a").first().attr("href");
-				Bean_common_detail_content detail_content = new Bean_common_detail_content(contet_name, contet_url,
-						TNUrl.ACTION_DEATIL_NEXT);
-				contents.add(detail_content);
-			}
-			Bean_common_detail_online online = new Bean_common_detail_online("在线观看", 1, null);
-			detail = new Bean_common_detail(type, cover_url, status, name, author, modify, action, collection, summary,
-					related, comment, online, null, contents);
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return detail;
-	}
-
-	public List<Bean_common_page> getComic_Page(String url) {
-
-		List<Bean_common_page> common_pages = null;
-		try {
-			Document doc = null;
-			doc = TNUtil.loadUrl(url, new Selenium_info(true, "mangaFile"), TN_Constant.HTML_LEVEL_THREE);
-			int maximum = doc.select("#pageSelect").select("option").size();
-			common_pages = new ArrayList<Bean_common_page>();
-
-			String page_img_url = doc.select("#mangaFile").first().attr("src");
-
-			String pre = page_img_url.substring(0, page_img_url.lastIndexOf("."));
-			String after = page_img_url.substring(page_img_url.lastIndexOf("."));
-
-			for (int i = 1; i < maximum + 1; i++) {
-
-				String name = "";
-				String page_url = url + "?p=" + i;
-				String action = "";
-
-				pre = pre.substring(0, (pre.length() - (i + "").length()));
-				pre = pre + i;
-
-				page_img_url = pre + after;
-				// page_img_url.replace("_", "%2");
-
-				Bean_socket_requestProperty property = new Bean_socket_requestProperty("Referer", page_url);
-				List<Bean_socket_requestProperty> properties = new ArrayList<Bean_socket_requestProperty>();
-				properties.add(property);
-				Bean_common_socketToHttp socketToHttp = new Bean_common_socketToHttp(true, properties);
-				Bean_common_page common_page = new Bean_common_page(page_url, maximum, name, action, socketToHttp,
-						page_img_url);
-				common_pages.add(common_page);
-			}
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return common_pages;
-	}
-
-	public Bean_module getOnline_Comic_list(int num) {
-		String url = TNUrl.ONLINE_COMIC_LIST;
-		if (num > 1) {
 			String preUrl = url.substring(0, url.lastIndexOf("."));
 			String midUrl = "_p" + num;
 			String postUrl = url.substring(url.lastIndexOf("."), url.length());
 			url = preUrl + midUrl + postUrl;
-		}
-		Bean_module second_module = new Bean_module("全部漫画", 0, null, new ArrayList<Bean_common>(), true, 2, -1,
-				TNUrl.ACTION_MOREDATA);
-		try {
-			Document doc = null;
-			doc = TNUtil.loadUrl(url, null, TN_Constant.HTML_LEVEL_ONE);
-
-			Elements bookList = doc.select(".bookList");
-			Elements manhuas = bookList.get(0).select("li");
-
-			String max;
-			Element pagerFoot = doc.select(".pagerFoot").get(0);
-			max = pagerFoot.select("span").get(0).select("strong").get(0).text();
-			second_module.setDataNumMax(Integer.parseInt(max));
-			for (int i = 0; i < manhuas.size(); i++) {
-				try {
-					String name = ""; // 动漫名字
-
-					// System.out.println("漫画名字 = " +
-					// manhuas.get(i).attr("title"));
-
-					int type = 0; // 类型 0：漫画 1：动画
-					String summary = ""; // 简介
-					String cover_url = ""; // 封面url
-					String detail_url = ""; // 详情url
-					String download_url = ""; // 下载url
-					String size = ""; // 大小
-
-					String second_url = "";
-
-					name = manhuas.get(i).child(0).attr("title");
-
-					// 二级链接
-					second_url = TNUrl.ONLINE_COMIC + manhuas.get(i).child(0).attr("href");
-
-					Document doc_second = TNUtil.loadUrl(second_url, null, TN_Constant.HTML_LEVEL_TWO);
-					summary = doc_second.select("div.intro").first().text();
-					if (summary != null)
-						summary = summary.replaceAll(",由爱漫画收集自互联网－爱漫画，让你爱上漫画！", "");
-					cover_url = TNUrl.ONLINE_COMIC
-							+ doc_second.select("div.bookCover").first().select("img").first().attr("src");
-					detail_url = second_url;
-
-					Bean_common comic = new Bean_common(name, type, TNUrl.ACTION_DETAIL, summary, cover_url,
-							detail_url, null, null);
-
-					second_module.getCommons().add(comic);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-			}
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return second_module;
-	}
-
-	public List<Bean_common_search> getOnline_Comic_search(String words) {
-		List<Bean_common_search> searchs = null;
-		try {
-			Document doc = null;
-			doc = Jsoup.connect(TNUrl.ONLINE_COMIC_SEARCH + URLEncoder.encode(words, "GBK")).get();
-
-			Elements bookChrList = doc.select(".bookChrList");
-			Elements manhuas = bookChrList.get(0).select("li");
-			searchs = new ArrayList<Bean_common_search>();
-			for (int i = 0; i < manhuas.size(); i++) {
-
-				// System.out.println("漫画名字 = " + manhuas.get(i).attr("title"));
-
-				try {
-					String name = "";
-					String author;
-					String modify;
-					String summary = "";
-					String cover_url = "";
-					String detail_url = "";
-
-					String second_url = "";
-
-					name = manhuas.get(i).select("div.intro").get(0).select("a").get(0).attr("title");
-					author = manhuas.get(i).select("div.intro").get(0).select("em").get(2).text();
-					modify = manhuas.get(i).select("div.intro").get(0).select("em").get(1).text();
-					// 二级链接
-					second_url = TNUrl.ONLINE_COMIC
-							+ manhuas.get(i).select("div.intro").get(0).select("a").get(0).attr("href");
-
-					Document doc_second = TNUtil.loadUrl(second_url, null, TN_Constant.HTML_LEVEL_TWO);
-					summary = doc_second.select("div.intro").first().text();
-					if (summary != null)
-						summary = summary.replaceAll("爱漫画", "漫画我们的哲学");
-					cover_url = TNUrl.ONLINE_COMIC
-							+ doc_second.select("div.bookCover").first().select("img").first().attr("src");
-					detail_url = second_url;
-
-					Bean_common_search search = new Bean_common_search(cover_url, null, name, author, modify,
-							TNUrl.ACTION_DETAIL, summary, detail_url);
-					searchs.add(search);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-			}
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return searchs;
-	}
-
-	public Bean_module getPhilosophy_Recommend(String s) {
-
-		Bean_module second_module = new Bean_module("哲学推荐", 0, null, new ArrayList<Bean_common>(), false, -1, -1, null);
-		try {
-			Document doc = null;
-			doc = TNUtil.loadUrl(TNUrl.PHILOSOPHY_COMIC, null, TN_Constant.HTML_LEVEL_ONE);
-
-			Elements sib = doc.select(".sib");
-			Elements manhuas = sib.get(2).select(".tb1");
-			for (int i = 0; i < manhuas.size(); i++) {
-				try {
-					// System.out.println("漫画名字 = " +
-					// manhuas.get(i).attr("title"));
-					String name = ""; // 动漫名字
-					int type = 0; // 类型 0：漫画 1：动画
-					String summary = ""; // 简介
-					String cover_url = ""; // 封面url
-					String detail_url = ""; // 详情url
-					String download_url = ""; // 下载url
-					String size = ""; // 大小
-
-					String second_url = "";
-
-					name = manhuas.get(i).select("a").text();
-
-					// 二级链接
-					second_url = TNUrl.PHILOSOPHY_COMIC + manhuas.get(i).select("a").attr("href");
-
-					Document doc_second = TNUtil.loadUrl(second_url, null, TN_Constant.HTML_LEVEL_TWO);
-					summary = doc_second.select("div.2replh").first().text();
-					if (summary != null)
-						summary = summary.replaceAll("汗汗漫画", "漫画我们的哲学");
-					cover_url = doc_second.select("div.replc").first().select("img").first().attr("src");
-					detail_url = second_url;
-
-					Bean_common comic = new Bean_common(name, type, TNUrl.PHILOSOPHY_ACTION_DETAIL, summary, cover_url,
-							detail_url, null, null);
-
-					second_module.getCommons().add(comic);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-			}
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return second_module;
-	}
-
-	public Bean_common_detail getPhilosophy_Detail(String url) {
-
-		Bean_common_detail detail = null;
-		try {
-			Document doc = null;
-			doc = TNUtil.loadUrl(url, null, TN_Constant.HTML_LEVEL_TWO);
-
-			int type = 0;
-			String cover_url;
-			String status;
-			String name;
-			String author;
-			String modify;
-			String action;
-			String collection;
-			String summary;
-			String related;
-			String comment;
-			List<Bean_common_detail_content> contents = null;
-
-			Element bookInfo = doc.select("#content").get(0);
-
-			cover_url = doc.select("div.replc").first().select("img").first().attr("src");
-			status = bookInfo.select(".replo").get(0).select("font").text();
-			name = bookInfo.child(1).text();
-			author = "某大神";
-			modify = "某年某日";
-			action = TNUrl.ACTION_DEATIL_NEXT;
-			collection = "";
-			summary = doc.select("div.2replh").first().text();
-			related = "";
-			comment = "";
-			contents = new ArrayList<Bean_common_detail_content>();
-
-			Elements element_content = bookInfo.select("div.vol").first().select("ul.bi").first().select("li");
-
-			for (int i = 0; i < element_content.size(); i++) {
-				String contet_name = element_content.get(i).select("a").first().text();
-				String contet_url = TNUrl.PHILOSOPHY_COMIC + element_content.get(i).select("a").first().attr("href");
-				Bean_common_detail_content detail_content = new Bean_common_detail_content(contet_name, contet_url,
-						TNUrl.PHILOSOPHY_ACTION_DEATIL_NEXT);
-				contents.add(detail_content);
-			}
-			Bean_common_detail_online online = new Bean_common_detail_online("在线观看", 1, null);
-			detail = new Bean_common_detail(type, cover_url, status, name, author, modify, action, collection, summary,
-					related, comment, online, null, contents);
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return detail;
-	}
-
-	public List<Bean_common_page> getPhilosophy_Page(String url) {
-
-		List<Bean_common_page> common_pages = null;
-		try {
-			Document doc = null;
-			doc = TNUtil.loadUrl(url, new Selenium_info(true, "ComicPic"), TN_Constant.HTML_LEVEL_THREE);
-			int maximum = doc.select("div.c").first().select("select").first().select("option").size();
-			common_pages = new ArrayList<Bean_common_page>();
-
-			String page_img_url = doc.select("#ComicPic").first().attr("src");
-
-			String pre = page_img_url.substring(0, page_img_url.lastIndexOf("."));
-			String after = page_img_url.substring(page_img_url.lastIndexOf("."));
-
-			for (int i = 1; i < maximum + 1; i++) {
-
-				String name = "";
-				String page_url = url + "?p=" + i;
-				String action = "";
-
-				pre = pre.substring(0, (pre.length() - (i + "").length()));
-				pre = pre + i;
-
-				page_img_url = pre + after;
-				// page_img_url.replace("_", "%2");
-
-				Bean_socket_requestProperty property = new Bean_socket_requestProperty("Referer", page_url);
-				List<Bean_socket_requestProperty> properties = new ArrayList<Bean_socket_requestProperty>();
-				properties.add(property);
-				Bean_common_socketToHttp socketToHttp = new Bean_common_socketToHttp(true, properties);
-				Bean_common_page common_page = new Bean_common_page(page_url, maximum, name, action, socketToHttp,
-						page_img_url);
-				common_pages.add(common_page);
-			}
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return common_pages;
-	}
-
-	public List<Bean_common> getMedule(String url) {
-		List<Bean_common> commons = null;
-
-		try {
 			Document doc = TNUtil.loadUrl(url, null, TN_Constant.HTML_LEVEL_ONE);
 			commons = new ArrayList<Bean_common>();
 			String name; // 动漫名字
@@ -526,9 +64,9 @@ public class CommonService {
 			String detail_action;
 			String summary; // 简介
 			String cover_url; // 封面url
-			String detail_url; // 详情url
-			String download_url; // 下载url
-			String size; // 大小
+			String update_title;
+			String update_time;
+			String detail_url;
 
 			Elements lis = doc.select("#contList").first().select("li");
 			for (int i = 0; i < lis.size(); i++) {
@@ -536,14 +74,14 @@ public class CommonService {
 				Element li = lis.get(i);
 				name = li.select("a.bcover").attr("title");
 				type = 0;
-				detail_action =TNUrl.ACTION_SEEMH_DETAIL;
+				detail_action = TNUrl.ACTION_SEEMH_DETAIL;
 				summary = "";
-				cover_url =li.select("a.bcover").select("img").first().attr("data-src");
-				detail_url = TNUrl.SEEMH_COMIC + li.select("a.bcover").attr("href");
-				download_url = "";
-				size = "";
-				Bean_common common = new Bean_common(name, type, detail_action, summary, cover_url, detail_url,
-						download_url, size);
+				cover_url = li.select("a.bcover").select("img").first().attr("data-src");
+				update_title = li.select("span.tt").first().text();
+				update_time = li.select("span.updateon").first().childNode(0).toString();
+				detail_url = TNUrl.SEEMH_COMIC + li.select("a.bcover").first().attr("href");
+				Bean_common common = new Bean_common(name, type, detail_action, summary, cover_url, update_title,
+						update_time, detail_url);
 				commons.add(common);
 			}
 
@@ -577,28 +115,32 @@ public class CommonService {
 
 			Element bookInfo = doc.select("div.book-cont.cf").first();
 
-			cover_url =  doc.select("p.hcover").select("img").attr("src");
+			cover_url = doc.select("p.hcover").select("img").attr("src");
 			status = bookInfo.select("li.status").first().select("span.red").first().text();
 			name = bookInfo.select("div.book-title").first().child(0).text();
-			author = "";
-			modify = "";
+			author = bookInfo.select("ul.detail-list.cf").select("li").get(1).select("span").get(1).text();
+			modify = "最近更新  :  " + bookInfo.select("li.status").first().select("span.red").get(1).text();
 			action = TNUrl.ACTION_SEEMH_DETAI_NEXT;
 			collection = "";
-			summary = "";
+			summary = bookInfo.select("#intro-cut").first().text();
 			related = "";
 			comment = "";
 			contents = new ArrayList<Bean_common_detail_content>();
 
 			Elements chapters = doc.select("div.chapter.cf.mt16").first().select("div.chapter-list.cf.mt10");
 			for (int i = 0; i < chapters.size(); i++) {
-				Elements li = chapters.get(i).select("li");
-				for (int j = 0; j < li.size(); j++) {
-					String contet_name = li.get(j).select("a").first().attr("title");
-					String contet_url = TNUrl.SEEMH_COMIC + li.get(j).select("a").first().attr("href");
-					Bean_common_detail_content detail_content = new Bean_common_detail_content(contet_name, contet_url,
-							action);
-					contents.add(detail_content);
+				Elements uls = chapters.get(i).select("ul");
+				for (int j = uls.size() - 1; j >= 0; j--) {
+					Elements lis = uls.get(j).select("li");
+					for (int k = 0; k < lis.size(); k++) {
+						String contet_name = lis.get(k).select("a").first().attr("title");
+						String contet_url = TNUrl.SEEMH_COMIC + lis.get(k).select("a").first().attr("href");
+						Bean_common_detail_content detail_content = new Bean_common_detail_content(contet_name,
+								contet_url, action);
+						contents.add(detail_content);
+					}
 				}
+
 			}
 
 			Bean_common_detail_online online = new Bean_common_detail_online("在线观看", 1, null);
@@ -612,19 +154,29 @@ public class CommonService {
 
 		return detail;
 	}
+
 	public List<Bean_common_page> getPage(String url) {
 
+		boolean isCollect = false;
 		List<Bean_common_page> common_pages = null;
 		try {
+			if (TNUtil.urltable.size() > 1000) {
+				System.err.println("收集列表已大于1000           列表大小：" + TNUtil.urltable.size());
+				return null;
+			}
+			if (null != TNUtil.urltable.get(url)) {
+				System.err.println("列表大小：" + TNUtil.urltable.size());
+				System.err.println("正在收集：" + url);
+				return null;
+			}
+			isCollect = true;
+			TNUtil.urltable.put(url, url);
 			Document doc = null;
-			doc = TNUtil.loadUrl(url, new Selenium_info(true, "mangaFile"), TN_Constant.HTML_LEVEL_THREE);
+			doc = TNUtil.loadUrl(url, null, TN_Constant.HTML_LEVEL_THREE);
 			int maximum = doc.select("#pageSelect").select("option").size();
 			common_pages = new ArrayList<Bean_common_page>();
 
-			String page_img_url = doc.select("#mangaFile").first().attr("src");
-
-			String pre = page_img_url.substring(0, page_img_url.lastIndexOf("."));
-			String after = page_img_url.substring(page_img_url.lastIndexOf("."));
+			String page_img_url = "";
 
 			for (int i = 1; i < maximum + 1; i++) {
 
@@ -632,25 +184,14 @@ public class CommonService {
 				String page_url = url + "?p=" + i;
 				String action = "";
 
-				pre = pre.substring(0, (pre.length() - 6));
+				Document docForPage = TNUtil.loadUrl(page_url, new Selenium_info(true, "mangaFile"),
+						TN_Constant.HTML_LEVEL_THREE);
 
-				String j=(i-1)+"";
-				while(j.length()<3){
-					j="0"+j;
-				}
-				String k=i+"";
-				while(k.length()<3){
-					k="0"+k;
-				}
-				pre=pre+j+k;
+				page_img_url = docForPage.select("#mangaFile").first().attr("src");
 
+				System.out.println("page_url=" + page_url);
+				System.out.println("page_img_url=" + page_img_url);
 
-				page_img_url = pre + after;
-				// page_img_url.replace("_", "%2");
-				
-				
-				System.out.println("page_img_url="+page_img_url);
-				
 				Bean_socket_requestProperty property = new Bean_socket_requestProperty("Referer", page_url);
 				List<Bean_socket_requestProperty> properties = new ArrayList<Bean_socket_requestProperty>();
 				properties.add(property);
@@ -658,6 +199,56 @@ public class CommonService {
 				Bean_common_page common_page = new Bean_common_page(page_url, maximum, name, action, socketToHttp,
 						page_img_url);
 				common_pages.add(common_page);
+
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (isCollect) {
+				System.err.println("已经收集：" + url);
+				TNUtil.urltable.remove(url);
+				System.err.println("还剩任务：" + TNUtil.urltable.size());
+			}
+		}
+
+		return common_pages;
+	}
+
+	public List<Bean_common> getSearch(String words) {
+		List<Bean_common> commons = null;
+		try {
+			Document doc = null;
+			doc = Jsoup.connect(TNUrl.SEEMH_SEARCH + URLEncoder.encode(words, "GBK") + ".html").get();
+			System.out.println("搜索请求" + TNUrl.SEEMH_SEARCH + URLEncoder.encode(words, "GBK") + ".html");
+			Element bookList = doc.select("div.book-result").first();
+			Elements bookSearchs = bookList.select("li");
+			commons = new ArrayList<Bean_common>();
+
+			String name; // 动漫名字
+			int type; // 动漫类型 0：漫画 1：动画
+			String detail_action;
+			String summary; // 简介
+			String cover_url; // 封面url
+			String update_title;
+			String update_time;
+			String detail_url;
+
+			Elements lis = bookSearchs.select("li");
+			for (int i = 0; i < lis.size(); i++) {
+
+				Element li = lis.get(i);
+				name = li.select("a.bcover").attr("title");
+				type = 0;
+				detail_action = TNUrl.ACTION_SEEMH_DETAIL;
+				summary = "";
+				cover_url = li.select("a.bcover").select("img").first().attr("src");
+				update_title = li.select("span.tt").first().text();
+				update_time = li.select("span.updateon").first().childNode(0).toString();
+				detail_url = TNUrl.SEEMH_COMIC + li.select("a.bcover").first().attr("href");
+				Bean_common common = new Bean_common(name, type, detail_action, summary, cover_url, update_title,
+						update_time, detail_url);
+				commons.add(common);
 			}
 
 		} catch (IOException e) {
@@ -665,6 +256,6 @@ public class CommonService {
 			e.printStackTrace();
 		}
 
-		return common_pages;
+		return commons;
 	}
 }

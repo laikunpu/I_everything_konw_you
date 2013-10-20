@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
+import java.util.Hashtable;
 import java.util.concurrent.TimeUnit;
 
 import org.jsoup.Jsoup;
@@ -32,8 +33,11 @@ import com.smith.http.webservice.inter.IDao;
 public class TNUtil {
 //	public static final Gson gson = new Gson();
 
+	
+	
 	public static IDao dao;;
 	static String charset = "utf-8";
+	public static Hashtable<String, String> urltable=new Hashtable<String, String>();
 
 	public static String fileToContent(String path) {
 		InputStreamReader reader = null;
@@ -178,7 +182,6 @@ public class TNUtil {
 						switch (level) {
 						case 1:
 							if (dao.findT(url, HtmlLevelOne.class) == null) {
-								System.out.println(doc.toString().trim());
 								dao.addT(new HtmlLevelOne(url, 1, doc.toString().trim().getBytes(charset)));
 							}
 							break;

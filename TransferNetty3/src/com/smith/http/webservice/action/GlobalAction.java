@@ -18,12 +18,12 @@ public class GlobalAction {
 
 	public Bean_Result getModule(String s) {
 		Bean_Response_Heard type = new Bean_Response_Heard(Msg_Type.UI_CODE);
-		Bean_module module1 = new Bean_module("全部", 0, null, service.getMedule("http://www.seemh.com/list/view.html"), true, 1, 249, "");
-		Bean_module module2 = new Bean_module("热血", 0, null, service.getMedule("http://www.seemh.com/list/rexue/view.html"), true, 1, 249, "");
+		Bean_module module1 =  service.getMedule("http://www.seemh.com/list/view.html","全部",1);
+		Bean_module module2 = service.getMedule("http://www.seemh.com/list/rexue/view.html","热血",2);
 		List<Bean_module> modules = new ArrayList<Bean_module>();
 		modules.add(module1);
 		modules.add(module2);
-		Bean_module_Res module_Res = new Bean_module_Res(type, modules);
+		Bean_module_Res module_Res = new Bean_module_Res(type, modules,TNUrl.ACTION_SEEMH_SEARCH);
 		Bean_Result<Bean_module_Res> result = new Bean_Result<Bean_module_Res>("text/json", module_Res);
 		return result;
 	}

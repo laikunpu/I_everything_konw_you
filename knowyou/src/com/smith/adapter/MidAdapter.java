@@ -5,6 +5,7 @@ import java.util.List;
 import uk.co.senab.bitmapcache.samples.NetworkedCacheableImageView;
 
 import android.content.Context;
+import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -59,13 +60,16 @@ public class MidAdapter extends BaseAdapter {
 		}
 		viewHolder.img_cover = (NetworkedCacheableImageView) convertView.findViewById(R.id.img_cover);
 		viewHolder.txt_bookName = (TextView) convertView.findViewById(R.id.txt_bookName);
-		viewHolder.txt_bookAuthor = (TextView) convertView.findViewById(R.id.txt_bookAuthor);
+		viewHolder.txt_modifiedTitle = (TextView) convertView.findViewById(R.id.txt_modifiedTitle);
 		viewHolder.txt_modifiedTime = (TextView) convertView.findViewById(R.id.txt_modifiedTime);
 		
 		
 		viewHolder.img_cover.loadImage(data.getCover_url(), true, null, null);
 		viewHolder.txt_bookName.setText(data.getName());
-		
+		TextPaint tp = viewHolder.txt_bookName.getPaint(); 
+		tp.setFakeBoldText(true);
+		viewHolder.txt_modifiedTitle.setText(data.getUpdate_title());
+		viewHolder.txt_modifiedTime.setText(data.getUpdate_time());
 		
 		
 		return convertView;
@@ -74,7 +78,7 @@ public class MidAdapter extends BaseAdapter {
 	public class ViewHolder {
 		NetworkedCacheableImageView img_cover;
 		TextView txt_bookName;
-		TextView txt_bookAuthor;
+		TextView txt_modifiedTitle;
 		TextView txt_modifiedTime;
 	}
 }

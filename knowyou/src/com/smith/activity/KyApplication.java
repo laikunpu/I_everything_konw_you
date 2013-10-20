@@ -13,6 +13,7 @@ import com.smith.entity.Bean_common_detail_content;
 import com.smith.entity.Bean_common_page_Res;
 import com.smith.entity.Bean_common_search_Res;
 import com.smith.entity.Bean_module;
+import com.smith.entity.Bean_module_Res;
 
 import android.app.Application;
 import android.os.Environment;
@@ -42,6 +43,8 @@ public class KyApplication extends Application {
 	
 	
 	public List<Bean_module> modules=new ArrayList<Bean_module>();
+	
+	public Bean_module_Res module_Res=null;
 	
 
 	public static KyApplication getApplication() {

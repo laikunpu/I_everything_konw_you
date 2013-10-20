@@ -1,7 +1,6 @@
 package com.smith.activity;
 
 import java.util.List;
-import com.smith.activity.abandon.BaseActivity;
 import com.smith.db.DBHelper;
 import com.smith.db.DaoImpl;
 import com.smith.db.IDao;
@@ -11,12 +10,16 @@ import com.smith.inter.DataCallback;
 import com.smith.util.KyHttpClient;
 import com.smith.util.ServiceApi;
 import com.smith.util.ThreadDataLoader;
+
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
+import android.view.Window;
 
-public class SplashActivity extends BaseActivity {
+public class SplashActivity extends Activity {
 	private IDao dao;
 	private KyApplication application;
 
@@ -25,6 +28,10 @@ public class SplashActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
+		
 		setContentView(R.layout.splash);
 		initData();
 		new ThreadDataLoader(new Handler(), mCallback).excute();
@@ -60,6 +67,7 @@ public class SplashActivity extends BaseActivity {
 			try {
 				Bean_module_Res module_Res = KyApplication.getApplication().gson.fromJson(
 						KyHttpClient.get(ServiceApi.MODULE), Bean_module_Res.class);
+				KyApplication.getApplication().module_Res=module_Res;
 				modules = module_Res.getModules();
 				if (null != modules) {
 					application.modules=modules;

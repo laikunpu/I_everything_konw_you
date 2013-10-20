@@ -6,6 +6,8 @@ import java.util.List;
 import uk.co.senab.bitmapcache.CacheableBitmapDrawable;
 import uk.co.senab.bitmapcache.samples.NetworkedCacheableImageView.OnImageLoadedListener;
 
+import com.actionbarsherlock.ActionBarSherlock;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnLastItemVisibleListener;
@@ -29,6 +31,7 @@ import android.net.http.SslError;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.webkit.SslErrorHandler;
@@ -41,7 +44,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class CommonDetailNextActivity extends Activity {
+public class CommonDetailNextActivity extends SherlockFragmentActivity {
 
 	private PullToRefreshListView pullToRefreshListView;
 	private CommonDetailNextAdapter commonDetailNextAdapter;
@@ -54,15 +57,17 @@ public class CommonDetailNextActivity extends Activity {
 	private int refreshEnd = 5;
 	private int loadImageResult = 0;
 	private boolean isFootRefreshing = false;
-	 private Animation rotateAnimation = null;
+	private Animation rotateAnimation = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		// this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		// this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
 
+		/* set it to be full screen */
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+		getSupportActionBar().hide();
 		setContentView(R.layout.common_detail_next);
 
 		initView();
@@ -89,7 +94,7 @@ public class CommonDetailNextActivity extends Activity {
 		commonDetailNextAdapter.setOnImageLoadedListener(loadedListener);
 		pullToRefreshListView.setAdapter(commonDetailNextAdapter);
 		pullToRefreshListView.setMode(Mode.DISABLED);
-		rotateAnimation= AnimationUtils.loadAnimation(CommonDetailNextActivity.this, R.anim.rotate_anim);
+		rotateAnimation = AnimationUtils.loadAnimation(CommonDetailNextActivity.this, R.anim.rotate_anim);
 	}
 
 	private void initOnClickListener() {

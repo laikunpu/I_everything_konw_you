@@ -22,7 +22,7 @@ public class SampleListFragment extends ListFragment {
 	}
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.list, null);
+		return inflater.inflate(R.layout.left, null);
 	}
 
 	public void onActivityCreated(Bundle savedInstanceState) {

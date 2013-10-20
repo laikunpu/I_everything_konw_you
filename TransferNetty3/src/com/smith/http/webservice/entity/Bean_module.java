@@ -5,8 +5,8 @@ import java.util.List;
 public class Bean_module {
 	private String module_name;
 	private int module_num;
-	private String adUrl;
 	private List<Bean_common> commons;
+	private String url;
 	private boolean isMoreData;
 	private int dataNum;
 	private int dataNumMax;
@@ -28,20 +28,20 @@ public class Bean_module {
 		this.module_num = module_num;
 	}
 
-	public String getAdUrl() {
-		return adUrl;
-	}
-
-	public void setAdUrl(String adUrl) {
-		this.adUrl = adUrl;
-	}
-
 	public List<Bean_common> getCommons() {
 		return commons;
 	}
 
 	public void setCommons(List<Bean_common> commons) {
 		this.commons = commons;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	public boolean isMoreData() {
@@ -76,12 +76,12 @@ public class Bean_module {
 		this.moreData_action = moreData_action;
 	}
 
-	public Bean_module(String module_name, int module_num, String adUrl, List<Bean_common> commons, boolean isMoreData,
+	public Bean_module(String module_name, int module_num, List<Bean_common> commons, String url, boolean isMoreData,
 			int dataNum, int dataNumMax, String moreData_action) {
 		this.module_name = module_name;
 		this.module_num = module_num;
-		this.adUrl = adUrl;
 		this.commons = commons;
+		this.url = url;
 		this.isMoreData = isMoreData;
 		this.dataNum = dataNum;
 		this.dataNumMax = dataNumMax;

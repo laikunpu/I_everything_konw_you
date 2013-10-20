@@ -3,7 +3,7 @@ package com.smith.entity;
 import com.smith.entity.heard.Bean_Request_Head;
 
 
-public class Bean_common_moreData_Req<T> {
+public class Bean_common_moreData_Req {
 	private Bean_Request_Head request_Head;
 	private Bean_common_moreData moreData;
 

@@ -1,71 +1,26 @@
 package com.smith.activity;
 
-
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
+import android.widget.Button;
 
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
-import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
-import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 
-public class BaseActivity extends SlidingFragmentActivity {
-
-	private int mTitleRes;
-	protected LeftListFragment mFrag;
-
-
-	public BaseActivity(int titleRes) {
-		mTitleRes = titleRes;
-	}
+public class BaseActivity extends SherlockFragmentActivity{
+	protected Button btn_back;
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-
-		setTitle(null);
-
-		// set the Behind View
-		setBehindContentView(R.layout.menu_frame);
-		if (savedInstanceState == null) {
-			FragmentTransaction t = this.getSupportFragmentManager().beginTransaction();
-//			mFrag = new SampleListFragment("left");
-			mFrag = new LeftListFragment();
-			t.replace(R.id.menu_frame, mFrag);
-			t.commit();
-		} else {
-			mFrag = (LeftListFragment)this.getSupportFragmentManager().findFragmentById(R.id.menu_frame);
-		}
-
-
+	protected void onCreate(Bundle arg0) {
+		// TODO Auto-generated method stub
+		super.onCreate(arg0);
+		getSupportActionBar().setCustomView(R.layout.titlebar);
+		getSupportActionBar().setDisplayShowCustomEnabled(true);
+		getSupportActionBar().setDisplayShowHomeEnabled(false);
+		getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0099FF")));
 		
-		// customize the SlidingMenu
-		SlidingMenu sm = getSlidingMenu();
-		sm.setShadowWidthRes(R.dimen.shadow_width);
-		sm.setShadowDrawable(R.drawable.shadow);
-		sm.setBehindOffsetRes(R.dimen.slidingmenu_offset);
-		sm.setFadeDegree(0.35f);
-		sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+		btn_back=(Button)findViewById(R.id.btn_back);
 
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case android.R.id.home:
-			toggle();
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getSupportMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
-
 
 }

@@ -16,7 +16,7 @@ import org.apache.http.protocol.HTTP;
 
 public class KyHttpClient {
 	private static final String APPLICATION_JSON = "application/json";
-	private static final int CONNECTION_TIMEOUT = 30000;
+	private static final int CONNECTION_TIMEOUT = 12000;
 	private static final String CONTENT_TYPE_TEXT_JSON = "text/json";
 	private static final String HTTP_ENCODING = "UTF-8";
 

@@ -20,8 +20,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="center" >
+                android:layout_marginTop="10dp" >
 
                 <uk.co.senab.bitmapcache.samples.NetworkedCacheableImageView
                     android:id="@+id/img_cover"
@@ -30,17 +29,17 @@
                     android:layout_marginLeft="10dp"
                     android:scaleType="fitXY" />
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="120dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:orientation="vertical" >
 
                     <LinearLayout
+                        android:id="@+id/lly_bookName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
                         android:orientation="horizontal" >
 
                         <TextView
@@ -48,13 +47,16 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:singleLine="true"
+                            android:textSize="18sp"
                             android:text="名字" />
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/lly_bookAuthor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
+                        android:layout_below="@id/lly_bookName"
+                        android:layout_marginTop="10dp"
                         android:orientation="horizontal" >
 
                         <TextView
@@ -68,28 +70,31 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
+                        android:layout_below="@id/lly_bookAuthor"
+                        android:layout_marginTop="10dp"
                         android:orientation="horizontal" >
 
                         <TextView
                             android:id="@+id/txt_modifiedTime"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:singleLine="true"
                             android:text="XX年XX月XX日" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
                         android:gravity="bottom" >
 
                         <Button
                             android:id="@+id/btn_online"
                             android:layout_width="fill_parent"
                             android:layout_height="35dp"
+                            android:layout_marginRight="1dp"
                             android:layout_weight="1"
                             android:background="@drawable/btn_normal"
-                            android:layout_marginRight="1dp"
                             android:enabled="false"
                             android:text="无在线" />
 
@@ -97,13 +102,13 @@
                             android:id="@+id/btn_download"
                             android:layout_width="fill_parent"
                             android:layout_height="35dp"
-                            android:layout_weight="1"
                             android:layout_marginLeft="1dp"
+                            android:layout_weight="1"
                             android:background="@drawable/btn_normal"
                             android:enabled="false"
                             android:text="无下载" />
                     </LinearLayout>
-                </LinearLayout>
+                </RelativeLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -147,37 +152,6 @@
                     android:layout_width="fill_parent"
                     android:layout_height="0.5dp"
                     android:background="#5AC7C5" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
-
-                    <TextView
-                        android:id="@+id/txt_related"
-                        android:layout_width="fill_parent"
-                        android:layout_height="35dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="相关阅读" />
-
-                    <TextView
-                        android:layout_width="0.5dp"
-                        android:layout_height="20dp"
-                        android:background="#47AAA8" />
-
-                    <TextView
-                        android:layout_width="0.5dp"
-                        android:layout_height="20dp"
-                        android:background="#5AC7C5" />
-
-                    <TextView
-                        android:id="@+id/txt_comment"
-                        android:layout_width="fill_parent"
-                        android:layout_height="35dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="相关评论" />
-                </LinearLayout>
 
                 <TextView
                     android:layout_width="fill_parent"

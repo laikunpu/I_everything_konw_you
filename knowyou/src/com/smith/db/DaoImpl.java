@@ -64,14 +64,14 @@ public class DaoImpl implements IDao {
 
 		try {
 			StringBuffer sql = new StringBuffer("INSERT INTO " + DBHelper.TABLE_BEAN_MODULE + " ("
-					+ DBHelper.MODULE_NAME + "," + DBHelper.MODULE_NUM + "," + DBHelper.ADURL + ","
+					+ DBHelper.MODULE_NAME + "," + DBHelper.MODULE_NUM + "," + DBHelper.URL + ","
 					+ DBHelper.ISMOREDATA + "," + DBHelper.DATANUM + "," + DBHelper.DATANUMMAX + ","
 					+ DBHelper.MOREDATA_ACTION + ")");
 
 			sql.append(" values(?,?,?,?,?,?,?)");
 			mdb.execSQL(
 					sql.toString(),
-					new String[] { module.getModule_name() + "", module.getModule_num() + "", module.getAdUrl(),
+					new String[] { module.getModule_name() + "", module.getModule_num() + "", module.getUrl(),
 							module.isMoreData() + "", module.getDataNum() + "", module.getDataNumMax() + "",
 							module.getMoreData_action() });
 			for (int i = 0; i < module.getCommons().size(); i++) {
@@ -92,19 +92,18 @@ public class DaoImpl implements IDao {
 		if (exist(common.getName(), DBHelper.TABLE_BEAN_COMMON, DBHelper.COMMON_NAME)) {
 			return false;
 		}
-		System.out.println("add_common  module_name="+module_name);
 		try {
 			StringBuffer sql = new StringBuffer("INSERT INTO " + DBHelper.TABLE_BEAN_COMMON + " ("
 					+ DBHelper.MODULE_NAME + "," + DBHelper.COMMON_NAME + "," + DBHelper.COMMON_TYPE + ","
 					+ DBHelper.COMMON_DETAIL_ACTION + "," + DBHelper.COMMON_SUMMARY + "," + DBHelper.COMMON_COVER_URL + ","
-					+ DBHelper.COMMON_DETAIL_URL+ "," +DBHelper.COMMON_DOWNLOAD_URL+ "," +DBHelper.COMMON_SIZE + ")");
+					+ DBHelper.COMMON_UPDATE_TITLE+ "," +DBHelper.COMMON_UPDATE_TIME+ "," +DBHelper.COMMON_DETAIL_URL+")");
 
 			sql.append(" values(?,?,?,?,?,?,?,?,?)");
 			mdb.execSQL(
 					sql.toString(),
 					new String[] { module_name , common.getName(), common.getType()+"",
 						common.getDetail_action() , common.getSummary() , common.getCover_url() ,
-						common.getDetail_url(),common.getDownload_url(),common.getSize() });
+						common.getUpdate_title(),common.getUpdate_time(),common.getDetail_url() });
 
 			return true;
 		} catch (Exception e) {
@@ -148,7 +147,7 @@ public class DaoImpl implements IDao {
 
 				module.setModule_name(cursor.getString(cursor.getColumnIndex(DBHelper.MODULE_NAME)));
 				module.setModule_num(Integer.parseInt(cursor.getString(cursor.getColumnIndex(DBHelper.MODULE_NUM))));
-				module.setAdUrl(cursor.getString(cursor.getColumnIndex(DBHelper.ADURL)));
+				module.setUrl(cursor.getString(cursor.getColumnIndex(DBHelper.URL)));
 				module.setMoreData(Boolean.parseBoolean(cursor.getString(cursor.getColumnIndex(DBHelper.ISMOREDATA))));
 				module.setDataNum(Integer.parseInt(cursor.getString(cursor.getColumnIndex(DBHelper.DATANUM))));
 				module.setDataNumMax(Integer.parseInt(cursor.getString(cursor.getColumnIndex(DBHelper.DATANUMMAX))));
@@ -187,9 +186,9 @@ public class DaoImpl implements IDao {
 				common.setDetail_action(mCursor.getString(mCursor.getColumnIndex(DBHelper.COMMON_DETAIL_ACTION)));
 				common.setSummary(mCursor.getString(mCursor.getColumnIndex(DBHelper.COMMON_SUMMARY)));
 				common.setCover_url(mCursor.getString(mCursor.getColumnIndex(DBHelper.COMMON_COVER_URL)));
+				common.setUpdate_title(mCursor.getString(mCursor.getColumnIndex(DBHelper.COMMON_UPDATE_TITLE)));
+				common.setUpdate_time(mCursor.getString(mCursor.getColumnIndex(DBHelper.COMMON_UPDATE_TIME)));
 				common.setDetail_url(mCursor.getString(mCursor.getColumnIndex(DBHelper.COMMON_DETAIL_URL)));
-				common.setDownload_url(mCursor.getString(mCursor.getColumnIndex(DBHelper.COMMON_DOWNLOAD_URL)));
-				common.setSize(mCursor.getString(mCursor.getColumnIndex(DBHelper.COMMON_SIZE)));
 				commons.add(common);
 			}
 
