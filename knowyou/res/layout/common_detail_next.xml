@@ -24,8 +24,8 @@
     <RelativeLayout
         android:id="@+id/rly_FootRefreshTip"
         android:layout_width="fill_parent"
-        android:layout_alignBottom="@id/pull_refresh_list"
         android:layout_height="50dp"
+        android:layout_alignBottom="@id/pull_refresh_list"
         android:background="#000000"
         android:gravity="center_vertical"
         android:orientation="horizontal"
@@ -45,8 +45,37 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:textColor="#FFFFFF"
-            android:text="正在加载..." />
+            android:text="正在加载..."
+            android:textColor="#FFFFFF" />
     </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:alpha="0.8"
+        android:background="#000000"
+        android:orientation="horizontal"
+        android:padding="5dp" >
+
+        <TextView
+            android:id="@+id/txt_page"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginLeft="10dp"
+            android:text="1/16"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/txt_chapter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="10dp"
+            android:text="第一话"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
 
 </RelativeLayout>

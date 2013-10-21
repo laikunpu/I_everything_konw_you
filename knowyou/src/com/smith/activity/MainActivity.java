@@ -30,6 +30,7 @@ public class MainActivity extends MainBaseActivity implements SlidingCallback {
 	private long exitTime = 0;
 	
 	private MidFragment midFragment;
+	private RightListFragment rightListFragment;
 	private FrameLayout content_frame;
 
 	private ImageView img_search;
@@ -49,13 +50,14 @@ public class MainActivity extends MainBaseActivity implements SlidingCallback {
 		getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 
 		midFragment = new MidFragment();
+		rightListFragment=new RightListFragment();
 
 		setContentView(R.layout.content_frame);
 		getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, midFragment).commit();
 
 		getSlidingMenu().setSecondaryMenu(R.layout.menu_frame_two);
 		getSlidingMenu().setSecondaryShadowDrawable(R.drawable.shadowright);
-		getSupportFragmentManager().beginTransaction().replace(R.id.menu_frame_two, new SampleListFragment("right"))
+		getSupportFragmentManager().beginTransaction().replace(R.id.menu_frame_two, rightListFragment)
 				.commit();
 
 		mFrag.setSlidingCallback(this);

@@ -30,6 +30,7 @@ import android.content.pm.ActivityInfo;
 import android.net.http.SslError;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.MeasureSpec;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -39,7 +40,10 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -58,6 +62,8 @@ public class CommonDetailNextActivity extends SherlockFragmentActivity {
 	private int loadImageResult = 0;
 	private boolean isFootRefreshing = false;
 	private Animation rotateAnimation = null;
+	private TextView txt_page;
+	private TextView txt_chapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +86,9 @@ public class CommonDetailNextActivity extends SherlockFragmentActivity {
 		pullToRefreshListView = (PullToRefreshListView) findViewById(R.id.pull_refresh_list);
 		rly_FootRefreshTip = (RelativeLayout) findViewById(R.id.rly_FootRefreshTip);
 		img_update = (ImageView) findViewById(R.id.img_update);
+
+		txt_page = (TextView) findViewById(R.id.txt_page);
+		txt_chapter = (TextView) findViewById(R.id.txt_chapter);
 	}
 
 	private void initData() {
@@ -95,6 +104,24 @@ public class CommonDetailNextActivity extends SherlockFragmentActivity {
 		pullToRefreshListView.setAdapter(commonDetailNextAdapter);
 		pullToRefreshListView.setMode(Mode.DISABLED);
 		rotateAnimation = AnimationUtils.loadAnimation(CommonDetailNextActivity.this, R.anim.rotate_anim);
+
+		
+		txt_chapter.setText(getIntent().getStringExtra("chapterName"));
+		pullToRefreshListView.setOnScrollListener(new OnScrollListener() {
+
+			@Override
+			public void onScrollStateChanged(AbsListView view, int scrollState) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+				// TODO Auto-generated method stub
+				txt_page.setText((firstVisibleItem + 1) + "/" + (pages.size() + 1));
+			}
+		});
+
 	}
 
 	private void initOnClickListener() {

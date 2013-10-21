@@ -59,6 +59,7 @@ public class CommonDetailActivity extends BaseActivity {
 
 	private int currentData = 0;
 	private int line;
+	private String chapterName;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -157,12 +158,14 @@ public class CommonDetailActivity extends BaseActivity {
 			case R.id.btn_content:
 				currentData = Integer.parseInt(v.getTag().toString());
 				KyApplication.getApplication().content = data.getContents().get(currentData);
+				chapterName=data.getContents().get(currentData).getContet_name();
 				new AsyncDataLoader(callback).execute();
 				break;
 			case R.id.btn_online:
 				switch (data.getOnline().getOnlineType()) {
 				case 1:
 					KyApplication.getApplication().content = data.getContents().get(0);
+					chapterName=data.getContents().get(0).getContet_name();
 					new AsyncDataLoader(callback).execute();
 					break;
 				}
@@ -280,6 +283,7 @@ public class CommonDetailActivity extends BaseActivity {
 								&& common_page_Res.getBean_common_pages().size() > 0) {
 							KyApplication.getApplication().common_page_Res = common_page_Res;
 							Intent intent = new Intent(CommonDetailActivity.this, CommonDetailNextActivity.class);
+							intent.putExtra("chapterName", chapterName);
 							startActivity(intent);
 						} else {
 							ToastUtils.showToast(CommonDetailActivity.this, "服务器已经在收集该内容,请稍后尝试!");
