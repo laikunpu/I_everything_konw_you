@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">我一切懂你</string>
+    <string name="app_name">漫画人生</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="pull_to_refresh_pull_label">下拉刷新</string>
@@ -10,10 +10,13 @@
     <string name="pull_to_refresh_footer_release_label">松开后加载</string>
     <string name="pull_to_refresh_footer_pull_label">上拉加载更多</string>
     <string name="pull_to_refresh_footer_refreshing_label">加载中\u2026</string>
-    
     <string name="network_status_toast">无法连接网络!</string>
     <string name="service_status_toast">无法连接服务器,请再尝试!</string>
     <string name="request_null_toast">服务器无数据返回!</string>
     <string name="request_long_toast">服务器已经在收集该内容,请稍后尝试!</string>
     <string name="left_and_right">Left and Right</string>
+    <string name="about_us">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;漫画人生是一款旨在分享漫画、不以营利性为目的的软件。</string>
+    <string name="disclaimer">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;本软件所有漫画均来自网友分享和上传，以便漫画爱好者研究漫画技巧和构图方式，禁止任何形式的下载！若喜欢，请支持购买正版！本软件的漫画版权归原漫画作者及发行商所有。如有侵犯到您的权益，请联系我们，确认之后立即删除。本软件不负任何相关责任！</string>
+    <string name="communication">电子邮箱:manhualife@sina.com</string>
+
 </resources>

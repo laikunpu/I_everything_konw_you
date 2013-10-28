@@ -12,8 +12,8 @@
         android:name="com.smith.activity.KyApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name" 
-        android:theme="@style/ExampleTheme">
+        android:label="@string/app_name"
+        android:theme="@style/ExampleTheme" >
         <activity
             android:name=".SplashActivity"
             android:label="@string/app_name" >
@@ -30,13 +30,25 @@
             android:name=".CommonDetailActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".AboutUsActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".CommonDetailNextActivity"
             android:screenOrientation="landscape" />
+
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="526d22f856240bec1b0bc983" >
+        </meta-data>
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="one" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
 </manifest>

@@ -9,21 +9,15 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
 import com.smith.http.webservice.entity.Bean_common;
 import com.smith.http.webservice.entity.Bean_common_detail;
 import com.smith.http.webservice.entity.Bean_common_detail_content;
 import com.smith.http.webservice.entity.Bean_common_detail_online;
 import com.smith.http.webservice.entity.Bean_common_page;
-import com.smith.http.webservice.entity.Bean_common_page_Res;
-import com.smith.http.webservice.entity.Bean_common_search;
 import com.smith.http.webservice.entity.Bean_common_socketToHttp;
-import com.smith.http.webservice.entity.Bean_commonshowlist;
-import com.smith.http.webservice.entity.Bean_commonshowlist_Res;
 import com.smith.http.webservice.entity.Bean_module;
 import com.smith.http.webservice.entity.Bean_socket_requestProperty;
 import com.smith.http.webservice.entity.Selenium_info;
-import com.smith.http.webservice.global.TN_Constant;
 import com.smith.http.webservice.util.TNUrl;
 import com.smith.http.webservice.util.TNUtil;
 
@@ -32,7 +26,7 @@ public class CommonService {
 	public Bean_module getMedule(String url, String module_name, int module_num) {
 		Bean_module module = null;
 		try {
-			Document doc = TNUtil.loadUrl(url, null, TN_Constant.HTML_LEVEL_ONE);
+			Document doc = TNUtil.loadUrlForLevelOne(url);
 			List<Bean_common> commons = getCommons(url, 1);
 			String max = doc.select("div.result-count").first().select("strong").get(1).text();
 			int dataNumMax = Integer.parseInt(max);
@@ -57,7 +51,7 @@ public class CommonService {
 			String midUrl = "_p" + num;
 			String postUrl = url.substring(url.lastIndexOf("."), url.length());
 			url = preUrl + midUrl + postUrl;
-			Document doc = TNUtil.loadUrl(url, null, TN_Constant.HTML_LEVEL_ONE);
+			Document doc = TNUtil.loadUrlForLevelOne(url);
 			commons = new ArrayList<Bean_common>();
 			String name; // 动漫名字
 			int type; // 动漫类型 0：漫画 1：动画
@@ -98,7 +92,7 @@ public class CommonService {
 		Bean_common_detail detail = null;
 		try {
 			Document doc = null;
-			doc = TNUtil.loadUrl(url, null, TN_Constant.HTML_LEVEL_TWO);
+			doc = TNUtil.loadUrlForLevelTwo(url);
 
 			int type = 0;
 			String cover_url;
@@ -161,46 +155,115 @@ public class CommonService {
 		List<Bean_common_page> common_pages = null;
 		try {
 			if (TNUtil.urltable.size() > 1000) {
+				try {
+					Thread.sleep(5000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				System.err.println("收集列表已大于1000           列表大小：" + TNUtil.urltable.size());
 				return null;
 			}
 			if (null != TNUtil.urltable.get(url)) {
+				try {
+					Thread.sleep(5000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				System.err.println("列表大小：" + TNUtil.urltable.size());
 				System.err.println("正在收集：" + url);
+
 				return null;
 			}
 			isCollect = true;
 			TNUtil.urltable.put(url, url);
 			Document doc = null;
-			doc = TNUtil.loadUrl(url, null, TN_Constant.HTML_LEVEL_THREE);
+			doc = TNUtil.loadUrlForLevelThree(url);
 			int maximum = doc.select("#pageSelect").select("option").size();
 			common_pages = new ArrayList<Bean_common_page>();
 
-			String page_img_url = "";
+			String originUrl = doc.select("#mangaFile").first().attr("src");
 
-			for (int i = 1; i < maximum + 1; i++) {
+			String preUrl = originUrl.substring(0, originUrl.lastIndexOf("/") + 1);
+			String midUrl = originUrl.substring(originUrl.lastIndexOf("/") + 1, originUrl.lastIndexOf("."));
+			String postUrl = originUrl.substring(originUrl.lastIndexOf("."));
+			if (midUrl.length() == 1) {
+				for (int i = 1; i < maximum; i++) {
+					String page_url = url + "?p=" + i;
+					midUrl = i + "";
+					String page_img_url = preUrl + midUrl + postUrl;
+					collectPage(common_pages, maximum, page_img_url, page_url);
+				}
+			} else if (midUrl.length() == 3) {
+				for (int i = 1; i < maximum; i++) {
+					String page_url = url + "?p=" + i;
+					midUrl = i + "";
+					while (midUrl.length() < 3) {
+						midUrl = "0" + midUrl;
+					}
+					String page_img_url = preUrl + midUrl + postUrl;
+					collectPage(common_pages, maximum, page_img_url, page_url);
+				}
+			} else if (midUrl.length() == 6) {
+				for (int i = 1; i < maximum; i++) {
+					String page_url = url + "?p=" + i;
+					String midUrlOne = (i - 1) + "";
+					String midUrlTwo = i + "";
+					while (midUrlOne.length() < 3) {
+						midUrlOne = "0" + midUrlOne;
+					}
+					while (midUrlTwo.length() < 3) {
+						midUrlTwo = "0" + midUrlTwo;
+					}
+					midUrl = midUrlOne + midUrlTwo;
+					String page_img_url = preUrl + midUrl + postUrl;
+					collectPage(common_pages, maximum, page_img_url, page_url);
+				}
+			} else {
+				if (midUrl.length() > 6) {
+					String midUrlNoCut = midUrl.substring(0, midUrl.length() - 6);
+					String midUrlCut = midUrl.substring(midUrl.length() - 6, midUrl.length());
+					int cut = -1;
+					try {
+						cut = Integer.parseInt(midUrlCut);
+					} catch (Exception e) {
+					}
+					if (cut >= 0 && cut < 10) {
+						for (int i = 1; i < maximum; i++) {
+							String page_url = url + "?p=" + i;
+							String midUrlOne = (i - 1) + "";
+							String midUrlTwo = i + "";
+							while (midUrlOne.length() < 3) {
+								midUrlOne = "0" + midUrlOne;
+							}
+							while (midUrlTwo.length() < 3) {
+								midUrlTwo = "0" + midUrlTwo;
+							}
+							midUrlCut = midUrlOne + midUrlTwo;
+							midUrl = midUrlNoCut + midUrlCut;
+							String page_img_url = preUrl + midUrl + postUrl;
 
-				String name = "";
-				String page_url = url + "?p=" + i;
-				String action = "";
+							collectPage(common_pages, maximum, page_img_url, page_url);
+						}
+					} else {
 
-				Document docForPage = TNUtil.loadUrl(page_url, new Selenium_info(true, "mangaFile"),
-						TN_Constant.HTML_LEVEL_THREE);
+						for (int i = 1; i < maximum + 1; i++) {
 
-				page_img_url = docForPage.select("#mangaFile").first().attr("src");
+							String page_url = url + "?p=" + i;
+							String page_img_url = TNUtil.loadUrlForLevelThreeForPage(page_url, new Selenium_info(true,
+									"mangaFile"));
 
-				System.out.println("page_url=" + page_url);
-				System.out.println("page_img_url=" + page_img_url);
+							collectPage(common_pages, maximum, page_img_url, page_url);
 
-				Bean_socket_requestProperty property = new Bean_socket_requestProperty("Referer", page_url);
-				List<Bean_socket_requestProperty> properties = new ArrayList<Bean_socket_requestProperty>();
-				properties.add(property);
-				Bean_common_socketToHttp socketToHttp = new Bean_common_socketToHttp(true, properties);
-				Bean_common_page common_page = new Bean_common_page(page_url, maximum, name, action, socketToHttp,
-						page_img_url);
-				common_pages.add(common_page);
+						}
+					}
+				} else {
+					System.err.println("未知收集错误的漫画     url：" + url);
+				}
 
 			}
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -213,6 +276,15 @@ public class CommonService {
 		}
 
 		return common_pages;
+	}
+
+	private void collectPage(List<Bean_common_page> common_pages, int maximum, String page_img_url, String page_url) {
+		Bean_socket_requestProperty property = new Bean_socket_requestProperty("Referer", page_url);
+		List<Bean_socket_requestProperty> properties = new ArrayList<Bean_socket_requestProperty>();
+		properties.add(property);
+		Bean_common_socketToHttp socketToHttp = new Bean_common_socketToHttp(true, properties);
+		Bean_common_page common_page = new Bean_common_page(page_url, maximum, "", "", socketToHttp, page_img_url);
+		common_pages.add(common_page);
 	}
 
 	public List<Bean_common> getSearch(String words) {

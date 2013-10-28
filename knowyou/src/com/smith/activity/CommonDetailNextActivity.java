@@ -24,6 +24,7 @@ import com.smith.entity.Bean_common_page;
 import com.smith.entity.Bean_common_page_Res;
 import com.smith.inter.DataCallback;
 import com.smith.util.AsyncDataLoader;
+import com.umeng.analytics.MobclickAgent;
 
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
@@ -170,5 +171,18 @@ public class CommonDetailNextActivity extends SherlockFragmentActivity {
 			System.out.println("result");
 		}
 	};
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		MobclickAgent.onResume(this);
+	}
+
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		MobclickAgent.onPause(this);
+	}
 
 }

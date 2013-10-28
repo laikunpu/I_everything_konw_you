@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
- <com.handmark.pulltorefresh.library.PullToRefreshListView
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/pull_refresh_list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -18,8 +18,28 @@
         android:headerDividersEnabled="false"
         android:smoothScrollbar="true" />
 
-  
-      <RelativeLayout
+    <LinearLayout
+        android:id="@+id/lly_tryAgain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="获取数据失败，请重试！" />
+
+        <Button
+            android:id="@+id/btn_tryAgain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="重新获取" />
+    </LinearLayout>
+
+    <RelativeLayout
         android:id="@+id/rly_FootRefreshTip"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
@@ -46,4 +66,5 @@
             android:text="正在加载..."
             android:textColor="#FFFFFF" />
     </RelativeLayout>
+
 </RelativeLayout>

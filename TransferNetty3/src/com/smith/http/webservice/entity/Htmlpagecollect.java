@@ -1,20 +1,17 @@
 package com.smith.http.webservice.entity;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.Table;
 @Entity
-@Table(name = "htmllevelone")
-public class HtmlLevelOne {
+@Table(name = "htmlpagecollect")
+public class Htmlpagecollect {
 	private int id;
 	private String name;
-	private byte[] content;
+	private String imageurl;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,21 +34,20 @@ public class HtmlLevelOne {
 	}
 
 
-	@Lob
-	@Basic(fetch = FetchType.LAZY)
-	public byte[] getContent() {
-		return content;
+	@Column
+	public String getImageurl() {
+		return imageurl;
 	}
 
-	public void setContent(byte[] content) {
-		this.content = content;
+	public void setImageurl(String imageurl) {
+		this.imageurl = imageurl;
 	}
 
-	public HtmlLevelOne(String name, byte[] content) {
+	public Htmlpagecollect(String name, String imageurl) {
 		this.name = name;
-		this.content = content;
+		this.imageurl = imageurl;
 	}
 
-	public HtmlLevelOne() {
+	public Htmlpagecollect() {
 	}
 }

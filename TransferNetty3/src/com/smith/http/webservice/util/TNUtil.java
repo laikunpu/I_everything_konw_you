@@ -27,17 +27,16 @@ import com.google.gson.Gson;
 import com.smith.http.webservice.entity.HtmlLevelOne;
 import com.smith.http.webservice.entity.HtmlLevelThree;
 import com.smith.http.webservice.entity.HtmlLevelTwo;
+import com.smith.http.webservice.entity.Htmlpagecollect;
 import com.smith.http.webservice.entity.Selenium_info;
 import com.smith.http.webservice.inter.IDao;
 
 public class TNUtil {
-//	public static final Gson gson = new Gson();
+	// public static final Gson gson = new Gson();
 
-	
-	
 	public static IDao dao;;
 	static String charset = "utf-8";
-	public static Hashtable<String, String> urltable=new Hashtable<String, String>();
+	public static Hashtable<String, String> urltable = new Hashtable<String, String>();
 
 	public static String fileToContent(String path) {
 		InputStreamReader reader = null;
@@ -109,47 +108,102 @@ public class TNUtil {
 		return false;
 	}
 
-	// public static String htmlToPath(String htmlname) {
-	// String path = htmlname.replaceAll("/", "-");
-	// path = path.replaceAll("[.]", "=");
-	// path = path.replace(":", ";");
-	// return path;
-	//
+	// public static Document loadUrl(final String url, final Selenium_info
+	// selenium_info, final int level)
+	// throws IOException {
+	// final Document doc;
+	// // String htnl_cache = fileToContent(TN_Constant.NORMAL_HTML_CACHE +
+	// // TNUtil.htmlToPath(url) + ".html");
+	// String htnl_cache = null;
+	// switch (level) {
+	// case 1:
+	// HtmlLevelOne htmlLevelOne = (HtmlLevelOne) dao.findT(url,
+	// HtmlLevelOne.class);
+	// if (null != htmlLevelOne) {
+	// htnl_cache = new String(htmlLevelOne.getContent(), charset);
+	// }
+	// break;
+	// case 2:
+	// HtmlLevelTwo htmlLevelTwo = (HtmlLevelTwo) dao.findT(url,
+	// HtmlLevelTwo.class);
+	// if (null != htmlLevelTwo) {
+	// htnl_cache = new String(htmlLevelTwo.getContent(), charset);
+	// }
+	// break;
+	// case 3:
+	// HtmlLevelThree htmlLevelThree = (HtmlLevelThree) dao.findT(url,
+	// HtmlLevelThree.class);
+	// if (null != htmlLevelThree) {
+	// htnl_cache = new String(htmlLevelThree.getContent(), charset);
+	// }
+	// break;
 	// }
 	//
-	// public static String pathToHtml(String pathname) {
-	// String html = pathname.replaceAll("[-]", "/");
-	// html = html.replaceAll("[=]", ".");
-	// html = html.replaceAll("[;]", ":");
-	// return html;
+	// if (null != htnl_cache) {
+	// doc = Jsoup.parse(htnl_cache);
+	// System.out.println(url + "  从本地读取!!!");
+	// } else {
 	//
+	// if (null != selenium_info && selenium_info.isUseSelenium()) {
+	// WebDriver driver = new FirefoxDriver();
+	// // 设置10秒
+	// driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+	// driver.get(url);
+	// driver.findElement(By.id(selenium_info.getTag())).click();
+	// String normal_html = driver.getPageSource();
+	// doc = Jsoup.parse(normal_html);
+	// driver.quit();
+	//
+	// } else {
+	// doc = Jsoup.connect(url).get();
+	// }
+	// new Thread(new Runnable() {
+	//
+	// @Override
+	// public void run() {
+	// // TODO Auto-generated method stub
+	// // writeToFile(TN_Constant.NORMAL_HTML_CACHE,
+	// // TNUtil.htmlToPath(url) + ".html", doc.toString());
+	// try {
+	//
+	// switch (level) {
+	// case 1:
+	// if (dao.findT(url, HtmlLevelOne.class) == null) {
+	// dao.addT(new HtmlLevelOne(url, 1,
+	// doc.toString().trim().getBytes(charset)));
+	// }
+	// break;
+	// case 2:
+	// if (dao.findT(url, HtmlLevelTwo.class) == null) {
+	// dao.addT(new HtmlLevelTwo(url, 1,
+	// doc.toString().trim().getBytes(charset)));
+	// }
+	// break;
+	// case 3:
+	// if (dao.findT(url, HtmlLevelThree.class) == null) {
+	// dao.addT(new HtmlLevelThree(url, 1,
+	// doc.toString().trim().getBytes(charset)));
+	// }
+	// break;
+	// }
+	//
+	// } catch (Exception e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// }
+	// }
+	// }).start();
+	// System.out.println(url + "  从网上抓取!!!");
+	// }
+	// return doc;
 	// }
 
-	public static Document loadUrl(final String url, final Selenium_info selenium_info, final int level)
-			throws IOException {
+	public static Document loadUrlForLevelOne(final String url) throws IOException {
 		final Document doc;
-		// String htnl_cache = fileToContent(TN_Constant.NORMAL_HTML_CACHE +
-		// TNUtil.htmlToPath(url) + ".html");
 		String htnl_cache = null;
-		switch (level) {
-		case 1:
-			HtmlLevelOne htmlLevelOne = (HtmlLevelOne) dao.findT(url, HtmlLevelOne.class);
-			if (null != htmlLevelOne) {
-				htnl_cache = new String(htmlLevelOne.getContent(), charset);
-			}
-			break;
-		case 2:
-			HtmlLevelTwo htmlLevelTwo = (HtmlLevelTwo) dao.findT(url, HtmlLevelTwo.class);
-			if (null != htmlLevelTwo) {
-				htnl_cache = new String(htmlLevelTwo.getContent(), charset);
-			}
-			break;
-		case 3:
-			HtmlLevelThree htmlLevelThree = (HtmlLevelThree) dao.findT(url, HtmlLevelThree.class);
-			if (null != htmlLevelThree) {
-				htnl_cache = new String(htmlLevelThree.getContent(), charset);
-			}
-			break;
+		HtmlLevelOne htmlLevelOne = (HtmlLevelOne) dao.findT(url, HtmlLevelOne.class);
+		if (null != htmlLevelOne) {
+			htnl_cache = new String(htmlLevelOne.getContent(), charset);
 		}
 
 		if (null != htnl_cache) {
@@ -157,55 +211,119 @@ public class TNUtil {
 			System.out.println(url + "  从本地读取!!!");
 		} else {
 
-			if (null != selenium_info && selenium_info.isUseSelenium()) {
-				WebDriver driver = new FirefoxDriver();
-				// 设置10秒
-				driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-				driver.get(url);
-				driver.findElement(By.id(selenium_info.getTag())).click();
-				String normal_html = driver.getPageSource();
-				doc = Jsoup.parse(normal_html);
-				driver.quit();
+			doc = Jsoup.connect(url).get();
+			try {
 
-			} else {
-				doc = Jsoup.connect(url).get();
-			}
-			new Thread(new Runnable() {
-
-				@Override
-				public void run() {
-					// TODO Auto-generated method stub
-					// writeToFile(TN_Constant.NORMAL_HTML_CACHE,
-					// TNUtil.htmlToPath(url) + ".html", doc.toString());
-					try {
-
-						switch (level) {
-						case 1:
-							if (dao.findT(url, HtmlLevelOne.class) == null) {
-								dao.addT(new HtmlLevelOne(url, 1, doc.toString().trim().getBytes(charset)));
-							}
-							break;
-						case 2:
-							if (dao.findT(url, HtmlLevelTwo.class) == null) {
-								dao.addT(new HtmlLevelTwo(url, 1, doc.toString().trim().getBytes(charset)));
-							}
-							break;
-						case 3:
-							if (dao.findT(url, HtmlLevelThree.class) == null) {
-								dao.addT(new HtmlLevelThree(url, 1, doc.toString().trim().getBytes(charset)));
-							}
-							break;
-						}
-
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+				if (dao.findT(url, HtmlLevelOne.class) == null) {
+					dao.addT(new HtmlLevelOne(url, doc.toString().trim().getBytes(charset)));
 				}
-			}).start();
+
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			System.out.println(url + "  从网上抓取!!!");
 		}
 		return doc;
+	}
+
+	public static Document loadUrlForLevelTwo(final String url) throws IOException {
+		final Document doc;
+		String htnl_cache = null;
+		HtmlLevelTwo htmlLevelTwo = (HtmlLevelTwo) dao.findT(url, HtmlLevelTwo.class);
+		if (null != htmlLevelTwo) {
+			htnl_cache = new String(htmlLevelTwo.getContent(), charset);
+		}
+
+		if (null != htnl_cache) {
+			doc = Jsoup.parse(htnl_cache);
+			System.out.println(url + "  从本地读取!!!");
+		} else {
+
+			doc = Jsoup.connect(url).get();
+			try {
+
+				if (dao.findT(url, HtmlLevelTwo.class) == null) {
+					dao.addT(new HtmlLevelTwo(url, doc.toString().trim().getBytes(charset)));
+				}
+
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println(url + "  从网上抓取!!!");
+		}
+		return doc;
+	}
+
+	public static Document loadUrlForLevelThree(final String url) throws IOException {
+		final Document doc;
+		// String htnl_cache = fileToContent(TN_Constant.NORMAL_HTML_CACHE +
+		// TNUtil.htmlToPath(url) + ".html");
+		String htnl_cache = null;
+		HtmlLevelThree htmlLevelThree = (HtmlLevelThree) dao.findT(url, HtmlLevelThree.class);
+		if (null != htmlLevelThree) {
+			htnl_cache = new String(htmlLevelThree.getContent(), charset);
+		}
+
+		if (null != htnl_cache) {
+			doc = Jsoup.parse(htnl_cache);
+			System.out.println(url + "  从本地读取!!!");
+		} else {
+			WebDriver driver = new FirefoxDriver();
+			// 设置10秒
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			driver.get(url);
+			driver.findElement(By.id("mangaFile")).click();
+			String normal_html = driver.getPageSource();
+			doc = Jsoup.parse(normal_html);
+			driver.quit();
+			try {
+
+				if (dao.findT(url, HtmlLevelThree.class) == null) {
+					dao.addT(new HtmlLevelThree(url, doc.toString().trim().getBytes(charset)));
+				}
+
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println(url + "  从网上抓取!!!");
+		}
+		return doc;
+	}
+
+	public static String loadUrlForLevelThreeForPage(final String url, final Selenium_info selenium_info)
+			throws IOException {
+		final Document doc;
+		String imageurl = null;
+		Htmlpagecollect htmlpagecollect = (Htmlpagecollect) dao.findT(url, Htmlpagecollect.class);
+		if (null != htmlpagecollect && null != htmlpagecollect.getImageurl() && !"".equals(htmlpagecollect.getImageurl())) {
+			imageurl = htmlpagecollect.getImageurl();
+			System.out.println(url + "  从本地读取!!!");
+		} else {
+			WebDriver driver = new FirefoxDriver();
+			// 设置10秒
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			driver.get(url);
+			driver.findElement(By.id(selenium_info.getTag())).click();
+			String normal_html = driver.getPageSource();
+			doc = Jsoup.parse(normal_html);
+			imageurl = doc.select("#mangaFile").first().attr("src");
+			driver.quit();
+			try {
+
+				if (dao.findT(url, Htmlpagecollect.class) == null) {
+					dao.addT(new Htmlpagecollect(url, imageurl));
+				}
+
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println(url + "  从网上抓取!!!");
+		}
+		return imageurl;
 	}
 
 	/**

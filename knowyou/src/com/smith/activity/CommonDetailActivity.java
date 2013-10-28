@@ -17,6 +17,7 @@ import com.smith.util.KyUtil;
 import com.smith.util.ProgressStatus;
 import com.smith.util.ServiceApi;
 import com.smith.util.ToastUtils;
+import com.umeng.analytics.MobclickAgent;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -158,14 +159,14 @@ public class CommonDetailActivity extends BaseActivity {
 			case R.id.btn_content:
 				currentData = Integer.parseInt(v.getTag().toString());
 				KyApplication.getApplication().content = data.getContents().get(currentData);
-				chapterName=data.getContents().get(currentData).getContet_name();
+				chapterName = data.getContents().get(currentData).getContet_name();
 				new AsyncDataLoader(callback).execute();
 				break;
 			case R.id.btn_online:
 				switch (data.getOnline().getOnlineType()) {
 				case 1:
 					KyApplication.getApplication().content = data.getContents().get(0);
-					chapterName=data.getContents().get(0).getContet_name();
+					chapterName = data.getContents().get(0).getContet_name();
 					new AsyncDataLoader(callback).execute();
 					break;
 				}
@@ -210,7 +211,7 @@ public class CommonDetailActivity extends BaseActivity {
 		@Override
 		public void onPrepare() {
 			// TODO Auto-generated method stub
-			times = 1;
+			times = 3;
 			preStatus = new ProgressStatus();
 			KyUtil.addLoadingWin(CommonDetailActivity.this, view_parent, preStatus);
 		}
@@ -300,5 +301,19 @@ public class CommonDetailActivity extends BaseActivity {
 
 		}
 	};
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		MobclickAgent.onResume(this);
+	}
+
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		MobclickAgent.onPause(this);
+	}
 
 }

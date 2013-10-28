@@ -9,13 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
-
 @Entity
 @Table(name = "htmllevelthree")
 public class HtmlLevelThree {
 	private int id;
 	private String name;
-	private int weight;
 	private byte[] content;
 
 	@Id
@@ -38,14 +36,6 @@ public class HtmlLevelThree {
 		this.name = name;
 	}
 
-	@Column
-	public int getWeight() {
-		return weight;
-	}
-
-	public void setWeight(int weight) {
-		this.weight = weight;
-	}
 
 	@Lob
 	@Basic(fetch = FetchType.LAZY)
@@ -57,9 +47,9 @@ public class HtmlLevelThree {
 		this.content = content;
 	}
 
-	public HtmlLevelThree(String name, int weight, byte[] content) {
+
+	public HtmlLevelThree(String name,  byte[] content) {
 		this.name = name;
-		this.weight = weight;
 		this.content = content;
 	}
 

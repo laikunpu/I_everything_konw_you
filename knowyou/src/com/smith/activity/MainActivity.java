@@ -1,6 +1,5 @@
 package com.smith.activity;
 
-
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -24,11 +23,12 @@ import com.smith.util.KyUtil;
 import com.smith.util.ProgressStatus;
 import com.smith.util.ServiceApi;
 import com.smith.util.ToastUtils;
+import com.umeng.analytics.MobclickAgent;
 
 public class MainActivity extends MainBaseActivity implements SlidingCallback {
-	
+
 	private long exitTime = 0;
-	
+
 	private MidFragment midFragment;
 	private RightListFragment rightListFragment;
 	private FrameLayout content_frame;
@@ -38,7 +38,6 @@ public class MainActivity extends MainBaseActivity implements SlidingCallback {
 	private Button btn_home;
 	private Bean_common_Res common_Res;
 
-	
 	public MainActivity() {
 		super(R.string.left_and_right);
 	}
@@ -50,17 +49,17 @@ public class MainActivity extends MainBaseActivity implements SlidingCallback {
 		getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 
 		midFragment = new MidFragment();
-		rightListFragment=new RightListFragment();
+		midFragment.leftDataCallback=leftListFragment;
+		rightListFragment = new RightListFragment();
 
 		setContentView(R.layout.content_frame);
 		getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, midFragment).commit();
 
 		getSlidingMenu().setSecondaryMenu(R.layout.menu_frame_two);
 		getSlidingMenu().setSecondaryShadowDrawable(R.drawable.shadowright);
-		getSupportFragmentManager().beginTransaction().replace(R.id.menu_frame_two, rightListFragment)
-				.commit();
+		getSupportFragmentManager().beginTransaction().replace(R.id.menu_frame_two, rightListFragment).commit();
 
-		mFrag.setSlidingCallback(this);
+		leftListFragment.setSlidingCallback(this);
 
 		getSupportActionBar().setCustomView(R.layout.search);
 		getSupportActionBar().setDisplayShowCustomEnabled(true);
@@ -101,14 +100,14 @@ public class MainActivity extends MainBaseActivity implements SlidingCallback {
 			switch (v.getId()) {
 			case R.id.img_search:
 				if (etx_search.isShown()) {
-	
+
 					((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(
 							MainActivity.this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 					if (!etx_search.getText().toString().trim().equals("")) {
 						new AsyncDataLoader(callback).execute();
 					}
 					etx_search.setVisibility(View.INVISIBLE);
-					
+
 				} else {
 					etx_search.setVisibility(View.VISIBLE);
 					etx_search.requestFocus();
@@ -214,7 +213,6 @@ public class MainActivity extends MainBaseActivity implements SlidingCallback {
 
 		}
 	};
-	
 
 	@Override
 	public void SlidingToggle(int postion) {
@@ -226,28 +224,40 @@ public class MainActivity extends MainBaseActivity implements SlidingCallback {
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		// TODO Auto-generated method stub
-		 if (keyCode == KeyEvent.KEYCODE_BACK) {
-	            exit();
-	            return false;
-	        }
-	        return super.onKeyDown(keyCode, event);
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			exit();
+			return false;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
-	
-	 public void exit() {
-	        if ((System.currentTimeMillis() - exitTime) > 2000) {
-	            ToastUtils.showToast(this, "再按一次退出程序!");
-	            exitTime = System.currentTimeMillis();
-	        } else {
-	            finish();
-	            System.exit(0);
-	        }
-	    }
-	
+
+	public void exit() {
+		if ((System.currentTimeMillis() - exitTime) > 2000) {
+			ToastUtils.showToast(this, "再按一次退出程序!");
+			exitTime = System.currentTimeMillis();
+		} else {
+			finish();
+			System.exit(0);
+		}
+	}
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		MobclickAgent.onResume(this);
+	}
+
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		MobclickAgent.onPause(this);
+	}
+
 }
-
-
 
 interface SlidingCallback {
 	public void SlidingToggle(int postion);
-	
+
 }

@@ -10,6 +10,7 @@ import com.smith.inter.DataCallback;
 import com.smith.util.KyHttpClient;
 import com.smith.util.ServiceApi;
 import com.smith.util.ThreadDataLoader;
+import com.umeng.analytics.MobclickAgent;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -23,15 +24,14 @@ public class SplashActivity extends Activity {
 	private IDao dao;
 	private KyApplication application;
 
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		
+
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
-		
+
 		setContentView(R.layout.splash);
 		initData();
 		new ThreadDataLoader(new Handler(), mCallback).excute();
@@ -67,10 +67,10 @@ public class SplashActivity extends Activity {
 			try {
 				Bean_module_Res module_Res = KyApplication.getApplication().gson.fromJson(
 						KyHttpClient.get(ServiceApi.MODULE), Bean_module_Res.class);
-				KyApplication.getApplication().module_Res=module_Res;
+				KyApplication.getApplication().module_Res = module_Res;
 				modules = module_Res.getModules();
 				if (null != modules) {
-					application.modules=modules;
+					application.modules = modules;
 					dao.delete_table(DBHelper.TABLE_BEAN_MODULE);
 					dao.delete_table(DBHelper.TABLE_BEAN_COMMON);
 					for (int i = 0; i < modules.size(); i++) {
@@ -81,7 +81,7 @@ public class SplashActivity extends Activity {
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				
+
 			} finally {
 				if (System.currentTimeMillis() - startTime < 3000) {
 					try {
@@ -97,14 +97,28 @@ public class SplashActivity extends Activity {
 		@Override
 		public void onFinish() {
 			// TODO Auto-generated method stub
-			if (null == application.modules||application.modules.size()==0) {
-				application.modules=dao.get_modules();
-				
+			if (null == application.modules || application.modules.size() == 0) {
+				application.modules = dao.get_modules();
+
 			}
 			Intent intent = new Intent(SplashActivity.this, MainActivity.class);
 			startActivity(intent);
 			finish();
 		}
 	};
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		MobclickAgent.onResume(this);
+	}
+
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		MobclickAgent.onPause(this);
+	}
 
 }

@@ -59,7 +59,6 @@ public class RightAdapter extends BaseAdapter {
 		
 		viewHolder.txt_rightItem.setText(data);
 		viewHolder.txt_rightItem.setTag(position);
-		viewHolder.txt_rightItem.setOnClickListener(onClickListener);
 		return convertView;
 	}
 
