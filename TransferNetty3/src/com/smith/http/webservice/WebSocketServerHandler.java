@@ -131,7 +131,7 @@ public class WebSocketServerHandler extends SimpleChannelUpstreamHandler {
 			return;
 		}
 
-		ChannelBuffer content = ChannelBuffers.copiedBuffer(TNUtil.fileToContent(TN_Constant.HTMLPATH + "error.html"),
+		ChannelBuffer content = ChannelBuffers.copiedBuffer( "error",
 				CharsetUtil.UTF_8);
 
 		sendHttpResponsePre(ctx, req, content, "text/html");
